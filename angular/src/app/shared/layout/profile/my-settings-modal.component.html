@@ -1,0 +1,111 @@
+<div bsModal #mySettingsModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #mySettingsModalForm="ngForm" (ngSubmit)="save()">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <span>{{l("MySettings")}}</span>
+                    </h5>
+                    <button type="button" class="close" [attr.aria-label]="l('Close')" (click)="close()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" *ngIf="user">
+                    <tabset class="tab-container tabbable-line">
+                        <tab heading="{{l('Profile')}}" customClass="m-tabs__item">
+                            <div class="form-group">
+                                <label for="Name">{{l("Name")}} *</label>
+                                <input id="Name" #nameInput="ngModel" class="form-control" type="text" name="Name" [(ngModel)]="user.name" required maxlength="32">
+                                <validation-messages [formCtrl]="nameInput"></validation-messages>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Surname">{{l("Surname")}} *</label>
+                                <input id="Surname" #surnameInput="ngModel" type="text" name="Surname" class="form-control" [(ngModel)]="user.surname" required maxlength="32">
+                                <validation-messages [formCtrl]="surnameInput"></validation-messages>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="EmailAddress">{{l("EmailAddress")}} *</label>
+                                <input id="EmailAddress" #emailAddressInput="ngModel" type="email" name="EmailAddress" class="form-control" [(ngModel)]="user.emailAddress" required email maxlength="256">
+                                <validation-messages [formCtrl]="emailAddressInput" [errorDefs]="[{email: l('InvalidEmailAddress')}]"></validation-messages>
+                            </div>
+                            <div *ngIf="smsEnabled && !isPhoneNumberEmpty">
+                                <div class="form-group">
+                                    <label>{{l("PhoneNumber")}}</label>
+                                    <div class="input-group">
+                                        <input type="text" name="PhoneNumber" class="form-control" [(ngModel)]="user.phoneNumber" maxlength="24">
+
+                                        <span *ngIf="!isPhoneNumberConfirmed" id="SpanSmsVerificationUnverified" class="input-group-btn">
+                                            <button id="btnSmsVerification" (click)="smsVerify()" class="btn btn-primary" type="button" tooltip="{{l('YourPhoneNumberIsNotVerified')}}"><i class="fa fa-warning"></i>{{l('Verify')}}</button>
+                                        </span>
+
+                                        <div *ngIf="!isPhoneNumberConfirmed" class="input-group-append" id="SpanSmsVerificationVerified" style="display: none;">
+                                            <span class="input-group-text" tooltip="{{l('YourPhoneNumberIsVerified')}}">
+                                                <i class="la la-check m--font-success" [attr.aria-label]="l('Verified')"></i>
+                                            </span>
+                                        </div>
+
+                                        <div *ngIf="isPhoneNumberConfirmed" class="input-group-append">
+                                            <span class="input-group-text" tooltip="{{l('YourPhoneNumberIsVerified')}}">
+                                                <i class="la la-check m--font-success" [attr.aria-label]="l('Verified')"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="!smsEnabled || isPhoneNumberEmpty">
+                                <div class="form-group">
+                                    <label for="PhoneNumber">{{l("PhoneNumber")}}</label>
+                                    <input id="PhoneNumber" type="text" name="PhoneNumber" class="form-control" [(ngModel)]="user.phoneNumber" maxlength="24">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="UserName">{{l("UserName")}} *</label>
+                                <input id="UserName" #userNameInput="ngModel" type="text" [disabled]="!canChangeUserName" class="form-control" [(ngModel)]="user.userName" name="UserName" required maxlength="32">
+                                <span class="m-form__help" *ngIf="!canChangeUserName">{{l("CanNotChangeAdminUserName")}}</span>
+                                <validation-messages [formCtrl]="userNameInput"></validation-messages>
+                            </div>
+
+                            <div class="form-group" *ngIf="showTimezoneSelection">
+                                <label for="Timezone">{{l("Timezone")}}</label>
+                                <timezone-combo id="Timezone" [(selectedTimeZone)]="user.timezone" defaultTimezoneScope="{{defaultTimezoneScope}}"></timezone-combo>
+                            </div>
+                        </tab>
+                        <tab heading="{{l('TwoFactorLogin')}}" customClass="m-tabs__item">
+                            <div>
+                                <h4>
+                                    Google Authenticator
+                                </h4>
+
+                                <div [hidden]="!isGoogleAuthenticatorEnabled">
+                                    <div>
+                                        {{l("ScanQrCodeWithYourMobileApp")}}
+                                    </div>
+                                    <div class="text-center">
+                                        <img [src]="user.qrCodeSetupImageUrl" />
+                                    </div>
+                                    <small>
+                                        {{l("GoogleAuthenticatorReferrerLink")}}: <a href="https://support.google.com/accounts/answer/1066447" target="_blank" rel="noopener noreferrer">Google Authenticator</a>
+                                    </small>
+                                </div>
+
+                                <div [hidden]="isGoogleAuthenticatorEnabled">
+                                    <button type="button" class="btn blue" (click)="updateQrCodeSetupImageUrl()">{{l("Enable")}}</button>
+                                </div>
+
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="close()" [disabled]="saving">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!mySettingsModalForm.form.valid || saving"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<smsVerificationModal #smsVerificationModal (modalSave)="changePhoneNumberToVerified()"></smsVerificationModal>

@@ -1,0 +1,28 @@
+﻿@using Abp.Extensions
+@using GSoft.AbpZeroTemplate.Web.Areas.AppAreaName.Models.Common.Modals
+@using GSoft.AbpZeroTemplate.Web.Areas.AppAreaName.Models.Languages
+@model EditTextModalViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(@L("EditText")))
+
+<div class="modal-body">
+    <form name="EditLanguageTextForm" role="form" novalidate class="form-validation">
+
+        <input type="hidden" name="SourceName" value="@Model.SourceName" />
+        <input type="hidden" name="LanguageName" value="@Model.TargetLanguage.Name" />
+        <input type="hidden" name="Key" value="@Model.Key" />
+
+        <div class="form-group">
+            <label for="BaseLanguageDisplayName"><i class="@Model.BaseLanguage.Icon"></i> @Model.BaseLanguage.DisplayName </label>
+            <textarea id="BaseLanguageDisplayName" readonly class="form-control edited" rows="4">@Model.BaseText</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="TargetLanguageDisplayName"><i class="@Model.TargetLanguage.Icon"></i> @Model.TargetLanguage.DisplayName </label>
+            <textarea id="TargetLanguageDisplayName" name="Value" auto-focus class="form-control @(Model.TargetText.IsNullOrEmpty() ? "" : "edited")" rows="4">@Model.TargetText</textarea>
+        </div>
+
+    </form>
+</div>
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

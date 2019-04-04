@@ -1,0 +1,38 @@
+﻿@using GSoft.AbpZeroTemplate.Web.Areas.AppAreaName.Models.AuditLogs
+@model EntityChangeDetailModalViewModel
+
+<div class="modal-header">
+    <h4 class="modal-title">
+        <span>@L("Detail") - @L(Model.EntityTypeFullName)</span> <br />
+        <small>@Html.Raw(L("CreatedAtByUser", Model.ChangeTime, Model.UserName))</small>
+    </h4>
+</div>
+<div class="modal-body">
+    <table id="EntityPropertyChangesTable" class="display table table-striped table-bordered table-hover dt-responsive">
+        <thead>
+            <tr>
+                <th>@L("Property")</th>
+                <th>@L("OriginalValue")</th>
+                <th>@L("NewValue")</th>
+            </tr>
+            @foreach (var propertyChange in Model.EntityPropertyChanges)
+            {
+                <tr>
+                    <td><strong>@propertyChange.PropertyName</strong></td>
+                    @if (Type.GetType(propertyChange.PropertyTypeFullName) == typeof(DateTime))
+                    {
+                        <td>@(string.IsNullOrEmpty(propertyChange.OriginalValue) ? "" : DateTimeOffset.Parse(propertyChange.OriginalValue.Replace("\"","")).ToString("g"))</td>
+                        <td>@(string.IsNullOrEmpty(propertyChange.NewValue) ? "" : DateTimeOffset.Parse(propertyChange.NewValue.Replace("\"", "")).ToString("g"))</td>
+                        continue;
+                    }
+
+                    <td>@(propertyChange.OriginalValue == "null" ? "" : propertyChange.OriginalValue)</td>
+                    <td>@(propertyChange.NewValue == "null" ? "" : propertyChange.NewValue)</td>
+                </tr>
+            }
+        </thead>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">@L("Close")</button>
+</div>

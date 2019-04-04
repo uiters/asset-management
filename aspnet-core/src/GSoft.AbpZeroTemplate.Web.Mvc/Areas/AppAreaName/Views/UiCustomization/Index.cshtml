@@ -1,0 +1,248 @@
+﻿@using GSoft.AbpZeroTemplate.Web.Areas.AppAreaName.Startup
+@model GSoft.AbpZeroTemplate.Web.Areas.AppAreaName.Models.UiCustomization.UiCustomizationViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Common.UiCustomization;
+}
+@section Scripts
+    {
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/UiCustomization/Index.js" asp-append-version="true"></script>
+}
+
+<div class="m-subheader ">
+    <div class="row align-items-center">
+        <div class="mr-auto col-sm-12 col-md-6">
+            <h3 class="m-subheader__title m-subheader__title--separator">
+                <span>@L("VisualSettings")</span>
+            </h3>
+            <span class="m-section__sub">
+                @L("UiCustomizationHeaderInfo")
+            </span>
+        </div>
+        <div class="col-sm-12 col-md-6 text-right">
+            @if (Model.HasUiCustomizationPagePermission)
+            {
+                <button id="SaveDefaultSettingsButton" class="btn btn-primary"><i class="fa fa-floppy-o"></i> @L("SaveAsSystemDefault")</button>
+            }
+            else
+            {
+                <button id="SaveSettingsButton" class="btn btn-primary"><i class="fa fa-floppy-o"></i> @L("Save")</button>
+                <button id="UseSystemDefaultSettings" class="btn btn-metal"> @L("UseSystemDefaults")</button>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="m-content">
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__body">
+            <div id="SettingsTabPanel">
+                <ul class="nav nav-tabs m-tabs-line" role="tablist">
+                    <li class="nav-item m-tabs__item">
+                        <a href="#Layout" class="nav-link m-tabs__link active" data-toggle="tab" role="tab">
+                            @L("UiCustomization_Layout")
+                        </a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a href="#Header" class="nav-link m-tabs__link" data-toggle="tab" role="tab">
+                            @L("UiCustomization_Header")
+                        </a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a href="#Menu" class="nav-link m-tabs__link" data-toggle="tab" role="tab">
+                            @L("UiCustomization_Menu")
+                        </a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a href="#Footer" class="nav-link m-tabs__link" data-toggle="tab" role="tab">
+                            @L("UiCustomization_Footer")
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="Layout" class="tab-pane active">
+                        <form id="LayoutSettingsForm">
+                            <div class="m-radio-list m--margin-bottom-20">
+                                <label>@L("UiCustomization_Theme")</label>
+                                <label class="m-radio" for="Theme_Default">
+                                    <input id="Theme_Default" name="Theme" @(Model.Settings.Layout.Theme == "default" ? "checked=\"checked\"" : "") type="radio" value="default">
+                                    @L("Default")
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--state-info" for="Theme_Blue">
+                                    <input id="Theme_Blue" name="Theme" @(Model.Settings.Layout.Theme == "blue" ? "checked=\"checked\"" : "") type="radio" value="blue">
+                                    @L("Blue")
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--state-success" for="Theme_Green">
+                                    <input id="Theme_Green" name="Theme" @(Model.Settings.Layout.Theme == "green" ? "checked=\"checked\"" : "") type="radio" value="green">
+                                    @L("Green")
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--state-danger" for="Theme_Pink">
+                                    <input id="Theme_Pink" name="Theme" @(Model.Settings.Layout.Theme == "pink" ? "checked=\"checked\"" : "") type="radio" value="pink">
+                                    @L("Pink")
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--state-warning" for="Theme_Yellow">
+                                    <input id="Theme_Yellow" name="Theme" @(Model.Settings.Layout.Theme == "yellow" ? "checked=\"checked\"" : "") type="radio" value="yellow">
+                                    @L("Yellow")
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div class="form-group m-form__group">
+                                <label for="LayoutType">@L("UiCustomization_LayoutType")</label>
+                                @Html.DropDownList("LayoutType", new SelectList(new List<SelectListItem>
+                                {
+                                    new SelectListItem {Text = L("UiCustomization_Fluid"), Value = "fluid"},
+                                    new SelectListItem {Text = L("UiCustomization_Boxed"), Value = "boxed"}
+                                }, "Value", "Text", Model.Settings.Layout.LayoutType), new {@class = "form-control", id = "LayoutType"})
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label for="ContentSkin">@L("UiCustomization_ContentSkin")</label>
+                                @Html.DropDownList("ContentSkin", new SelectList(new List<SelectListItem>
+                                {
+                                    new SelectListItem {Text = L("UiCustomization_LightGrey"), Value = "light2"},
+                                    new SelectListItem {Text = L("UiCustomization_White"), Value = "light"}
+                                }, "Value", "Text", Model.Settings.Layout.ContentSkin), new {@class = "form-control", id = "ContentSkin"})
+                            </div>
+                        </form>
+                    </div>
+                    <div id="Header" class="tab-pane">
+                        <form id="HeaderSettingsForm">
+                            <h5 class="margin-bottom-20">@L("UiCustomization_Desktop")</h5>
+                            <div class="form-group m-form__group">
+                                <label class="m-checkbox col-lg-12">
+                                    <input type="checkbox" name="DesktopFixedHeader" value="true" @(Model.Settings.Header.DesktopFixedHeader ? "checked=\"checked\"" : "")>
+                                    @L("UiCustomization_DesktopFixedHeader")
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label for="DesktopMinimizeMode">@L("UiCustomization_DesktopMinimizeMode")</label>
+                                @Html.DropDownList("DesktopMinimizeMode", new SelectList(new List<SelectListItem>
+                                    {
+                                        new SelectListItem {Text = L("UiCustomization_None"), Value = ""},
+                                        new SelectListItem {Text = L("UiCustomization_Hide"), Value = "hide"}
+                                    }, "Value", "Text", Model.Settings.Header.DesktopMinimizeMode), new { @class = "form-control", id = "DesktopMinimizeMode" })
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label for="HeaderSkin">@L("UiCustomization_HeaderSkin")</label>
+                                @Html.DropDownList("HeaderSkin", new SelectList(new List<SelectListItem>
+                                    {
+                                        new SelectListItem {Text = L("UiCustomization_Light"), Value = "light"},
+                                        new SelectListItem {Text = L("UiCustomization_Dark"), Value = "dark"}
+                                    }, "Value", "Text", Model.Settings.Header.HeaderSkin), new { @class = "form-control", id = "HeaderSkin" })
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label class="m-checkbox col-lg-12">
+                                    <input type="checkbox" name="DisplaySubmenuArrowDesktop" value="true" @(Model.Settings.Header.DisplaySubmenuArrowDesktop ? "checked=\"checked\"" : "")>
+                                    @L("UiCustomization_DisplaySubmenuArrowDesktop")
+                                    <span></span>
+                                </label>
+                            </div>
+                            <h5 class="margin-bottom-20">@L("UiCustomization_Mobile")</h5>
+                            <div class="form-group m-form__group">
+                                <label class="m-checkbox col-lg-12">
+                                    <input type="checkbox" name="MobileFixedHeader" value="true" @(Model.Settings.Header.MobileFixedHeader ? "checked=\"checked\"" : "")>
+                                    @L("UiCustomization_MobileFixedHeader")
+                                    <span></span>
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="Menu" class="tab-pane">
+                        <form id="MenuSettingsForm">
+                            <div class="form-group m-form__group">
+                                <label for="Position">@L("UiCustomization_MenuPosition")</label>
+                                @Html.DropDownList("Position", new SelectList(new List<SelectListItem>
+                                    {
+                                        new SelectListItem {Text = L("UiCustomization_Left"), Value = "left"},
+                                        new SelectListItem {Text = L("UiCustomization_Top"), Value = "top"}
+                                    }, "Value", "Text", Model.Settings.Menu.Position), new { @class = "form-control", id = "Position" })
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label for="AsideSkin">@L("UiCustomization_MenuSkin")</label>
+                                @Html.DropDownList("AsideSkin", new SelectList(new List<SelectListItem>
+                                    {
+                                        new SelectListItem {Text = L("UiCustomization_Light"), Value = "light"},
+                                        new SelectListItem {Text = L("UiCustomization_Dark"), Value = "dark"}
+                                    }, "Value", "Text", Model.Settings.Menu.AsideSkin), new { @class = "form-control", id = "AsideSkin" })
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label class="m-checkbox col-lg-12">
+                                    <input type="checkbox" name="FixedAside" value="true" @(Model.Settings.Menu.FixedAside ? "checked=\"checked\"" : "")>
+                                    @L("UiCustomization_FixedMenu")
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label class="m-checkbox col-lg-12">
+                                    <input type="checkbox" name="AllowAsideMinimizing" value="true" @(Model.Settings.Menu.AllowAsideMinimizing ? "checked=\"checked\"" : "")>
+                                    @L("UiCustomization_AllowAsideMinimizing")
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label class="m-checkbox col-lg-12">
+                                    <input type="checkbox" name="DefaultMinimizedAside" value="true" @(Model.Settings.Menu.DefaultMinimizedAside ? "checked=\"checked\"" : "")>
+                                    @L("UiCustomization_DefaultMinimizedAside")
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label class="m-checkbox col-lg-12">
+                                    <input type="checkbox" name="AllowAsideHiding" value="true" @(Model.Settings.Menu.AllowAsideHiding ? "checked=\"checked\"" : "")>
+                                    @L("UiCustomization_AllowAsideHiding")
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label for="UiCustomization_DefaultHiddenAside" class="m-checkbox col-lg-12">
+                                    <input id="UiCustomization_DefaultHiddenAside" type="checkbox" name="DefaultHiddenAside" value="true" @(Model.Settings.Menu.DefaultHiddenAside ? "checked=\"checked\"" : "")>
+                                    @L("UiCustomization_DefaultHiddenAside")
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label for="SubmenuToggle">@L("UiCustomization_SubmenuToggle")</label>
+                                @Html.DropDownList("SubmenuToggle", new SelectList(new List<SelectListItem>
+                                    {
+                                        new SelectListItem {Text = L("UiCustomization_Dropdown"), Value = "dropdown"},
+                                        new SelectListItem {Text = L("UiCustomization_Accordion"), Value = "accordion"}
+                                    }, "Value", "Text", Model.Settings.Menu.SubmenuToggle), new { @class = "form-control", id = "SubmenuToggle" })
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label for="DropdownSubmenuSkin">@L("UiCustomization_DropdownSubmenuSkin")</label>
+                                @Html.DropDownList("DropdownSubmenuSkin", new SelectList(new List<SelectListItem>
+                                    {
+                                        new SelectListItem {Text = L("UiCustomization_Inherit"), Value = "inherit"},
+                                        new SelectListItem {Text = L("UiCustomization_Light"), Value = "light"},
+                                        new SelectListItem {Text = L("UiCustomization_Dark"), Value = "dark"}
+                                    }, "Value", "Text", Model.Settings.Menu.DropdownSubmenuSkin), new { @class = "form-control", id = "DropdownSubmenuSkin" })
+                            </div>
+                            <div class="form-group m-form__group">
+                                <label class="m-checkbox col-lg-12">
+                                    <input type="checkbox" name="DropdownSubmenuArrow" value="true" @(Model.Settings.Menu.DropdownSubmenuArrow ? "checked=\"checked\"" : "")>
+                                    @L("UiCustomization_DropdownSubmenuArrow")
+                                    <span></span>
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="Footer" class="tab-pane">
+                        <form id="FooterSettingsForm">
+                            <div class="form-group m-form__group">
+                                <label class="m-checkbox col-lg-12">
+                                    <input type="checkbox" name="FixedFooter" value="true" @(Model.Settings.Footer.FixedFooter ? "checked=\"checked\"" : "")>
+                                    @L("UiCustomization_FixedFooter")
+                                    <span></span>
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

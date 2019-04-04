@@ -1,0 +1,5 @@
+﻿@using GSoft.AbpZeroTemplate.Web.Areas.AppAreaName.Models.Common
+@model IFeatureEditViewModel
+<div class="feature-tree">
+    @Html.Partial("~/Areas/AppAreaName/Views/Common/_FeaturesTreeItem.cshtml", new FeatureTreeItemModel(Model, null))
+</div>

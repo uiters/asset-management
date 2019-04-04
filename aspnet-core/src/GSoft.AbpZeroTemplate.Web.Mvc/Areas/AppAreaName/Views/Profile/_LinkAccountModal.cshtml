@@ -1,0 +1,23 @@
+﻿@using GSoft.AbpZeroTemplate.Web.Areas.AppAreaName.Models.Common.Modals
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("LinkNewAccount")))
+
+<div class="modal-body">
+    <form name="LinkAccountModalForm" role="form" novalidate class="form-validation">
+        <div class="form-group">
+            <label for="TenancyName">@L("TenancyName")</label>
+            <input id="TenancyName" type="text" name="TenancyName" class="form-control" value="@(ViewBag.TenancyName ?? "")" maxlength="@GSoft.AbpZeroTemplate.MultiTenancy.Tenant.MaxTenancyNameLength">
+        </div>
+
+        <div class="form-group">
+            <label for="UsernameOrEmailAddress">@L("UserName")</label>
+            <input id="UsernameOrEmailAddress" class="form-control" type="text" name="UsernameOrEmailAddress" required maxlength="@GSoft.AbpZeroTemplate.Authorization.Users.User.MaxEmailAddressLength">
+        </div>
+
+        <div class="form-group">
+            <label for="Password">@L("Password")</label>
+            <input id="Password" type="password" name="Password"  autocomplete="off" class="form-control" required maxlength="@GSoft.AbpZeroTemplate.Authorization.Users.User.MaxPasswordLength">
+        </div>
+    </form>
+</div>
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

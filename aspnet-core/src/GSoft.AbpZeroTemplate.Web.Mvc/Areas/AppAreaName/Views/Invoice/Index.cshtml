@@ -1,0 +1,86 @@
+﻿@using GSoft.AbpZeroTemplate.Web.Areas.AppAreaName.Models.Accounting
+@model InvoiceViewModel
+
+<div class="m-content">
+    <div class="m-portlet">
+        <div class="m-portlet__body m-portlet__body--no-padding">
+
+            <div class="m-invoice-1">
+                <div class="m-invoice__wrapper">
+                    <div class="m-invoice__head" style="background-image: url(@(ApplicationPath)Common/Images/bg-6.jpg);">
+                        <div class="m-invoice__container m-invoice__container--centered">
+                            <div class="m-invoice__logo">
+                                <a href="#">
+                                    <h1>@L("Invoice")</h1>
+                                </a>
+                                <a href="#">
+                                    <img src="@(ApplicationPath)Common/Images/logo.png">
+                                </a>
+                            </div>
+                            <span class="m-invoice__desc">
+                                @Model.Invoice.HostLegalName
+                                @foreach (var line in Model.Invoice.HostAddress)
+                                {
+                                    <br />@line
+                                }
+                            </span>
+                            <div class="m-invoice__items">
+                                <div class="m-invoice__item">
+                                    <span class="m-invoice__subtitle">@L("Date")</span>
+                                    <span class="m-invoice__text">@Model.Invoice.InvoiceDate.ToString("yyyy-MM-dd")</span>
+                                </div>
+                                <div class="m-invoice__item">
+                                    <span class="m-invoice__subtitle">@L("Invoice")</span>
+                                    <span class="m-invoice__text">#@Model.Invoice.InvoiceNo</span>
+                                </div>
+                                <div class="m-invoice__item">
+                                    <span class="m-invoice__subtitle">@L("InvoiceTo")</span>
+                                    <span class="m-invoice__text">
+                                        @Model.Invoice.TenantLegalName
+                                        @foreach (var line in Model.Invoice.TenantAddress)
+                                        {
+                                            <br />@line
+                                        }
+                                        <br />@L("Tax/VatNo"): @Model.Invoice.TenantTaxNo
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-invoice__body m-invoice__body--centered">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px;">#</th>
+                                        <th>@L("Edition")</th>
+                                        <th style="width: 100px;">@L("Amount")</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>@Model.Invoice.EditionDisplayName </td>
+                                        <td>$@Model.Invoice.Amount </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="m-invoice__footer">
+                        <div class="m-invoice__container m-invoice__container--centered">
+                            <div class="m-invoice__content">
+                                <button type="button" class="btn btn-primary d-print-none print-btn" onclick="javascript:window.print();">@L("Print")</button>
+                            </div>
+                            <div class="m-invoice__content">
+                                <span>@L("Total")</span>
+                                <span class="m-invoice__price">$@Model.Invoice.Amount.ToString("N2")</span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

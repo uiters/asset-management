@@ -1,0 +1,18 @@
+﻿@using Abp.Organizations
+@using GSoft.AbpZeroTemplate.Web.Areas.AppAreaName.Models.Common.Modals
+@using GSoft.AbpZeroTemplate.Web.Areas.AppAreaName.Models.OrganizationUnits
+@model EditOrganizationUnitModalViewModel
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Edit") + ": " + Model.DisplayName))
+
+<div class="modal-body">
+    <form name="OrganizationUnitForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <div class="form-group">
+            <label for="DisplayName">@L("Name")</label>
+            <input id="DisplayName" class="form-control edited" type="text" name="DisplayName" value="@Model.DisplayName" required maxlength="@OrganizationUnit.MaxDisplayNameLength">
+        </div>
+    </form>
+</div>
+
+@Html.Partial("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

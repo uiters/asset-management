@@ -1,0 +1,62 @@
+﻿@using Abp.Collections.Extensions
+@using GSoft.AbpZeroTemplate.Web.Areas.AppAreaName.Views.Shared.Components.AppAreaNameSideBar
+@model UserMenuItemViewModel
+
+<li class="m-menu__item m-menu__item--submenu @(Model.MenuItem.IsMenuActive(Model.CurrentPageName) ? "m-menu__item--active" : "") @(Model.MenuItem.IsMenuActive(Model.CurrentPageName) && Model.MenuItem.Items.Count > 0 ? "m-menu__item--expanded m-menu__item--open" : "")" 
+    aria-haspopup="true" 
+    @(Model.RootLevel ? "" : " role=none")
+    data-menu-submenu-toggle="hover">
+    @if (Model.MenuItem.Items.IsNullOrEmpty())
+    {
+        if (string.IsNullOrEmpty(Model.MenuItem.Target))
+        {
+            Model.MenuItem.Target = "_self";
+        }
+        <a href="@Model.MenuItem.CalculateUrl(ApplicationPath)" class="m-menu__link" target="@Model.MenuItem.Target"
+           role="menuitem"
+           aria-haspopup="true"
+           aria-expanded="false"
+           tabindex="@(Model.MenuItemIndex==0 ? "0" : "-1")">
+            <i class="m-menu__link-icon @Model.MenuItem.Icon"></i>
+            <span class="m-menu__link-text">
+                <span class="title">@Model.MenuItem.DisplayName</span>
+            </span>
+        </a>
+    }
+    else
+    {
+        <a href="#" class="m-menu__link m-menu__toggle"
+           role="menuitem"
+           aria-haspopup="true"
+           aria-expanded="false"
+           tabindex="@(Model.MenuItemIndex==0 ? "0" : "-1")">
+            <i class="m-menu__link-icon @Model.MenuItem.Icon"></i>
+            <span class="m-menu__link-text">
+                <span class="title">@Model.MenuItem.DisplayName</span>
+            </span>
+            <i class="m-menu__ver-arrow la la-angle-right"></i>
+        </a>
+        <nav class="m-menu__submenu" aria-label="@Model.MenuItem.DisplayName">
+            <span class="m-menu__arrow"></span>
+            <ul class="m-menu__subnav"
+                role="menu"
+                aria-label="@Model.MenuItem.DisplayName">
+                @for (var i = 0; i < Model.MenuItem.Items.Count; i++)
+                {
+                    var childMenuItem = Model.MenuItem.Items[i];
+                    if (!childMenuItem.IsVisible)
+                    {
+                        continue;
+                    }
+                    @Html.Partial("Components/AppAreaNameMenu/_UserMenuItem", new UserMenuItemViewModel
+                       {
+                           MenuItem = childMenuItem,
+                           MenuItemIndex = i,
+                           CurrentPageName = Model.CurrentPageName,
+                           RootLevel = false
+                       })
+                }
+            </ul>
+        </nav>
+    }
+</li>

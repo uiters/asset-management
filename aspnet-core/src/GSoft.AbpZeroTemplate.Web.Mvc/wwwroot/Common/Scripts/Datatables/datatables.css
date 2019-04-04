@@ -1,0 +1,115 @@
+﻿.dataTables_wrapper .dataTables_info {
+    line-height: 30px;
+    padding-top: 0 !important;
+    display: inline-block;
+    float: none;
+    margin-left: 1px;
+}
+
+.dataTables_wrapper .dataTables_length {
+    display: inline-block;
+    float: none;
+    margin-left: 5px;
+    padding-left: 5px;
+}
+
+    .dataTables_wrapper .dataTables_length label {
+        margin-bottom: 0;
+    }
+
+.dataTable {
+    width: 100% !important;
+    cellspacing: 0 !important;
+}
+
+/*Metronic v5*/
+.dataTables_wrapper {
+    width: 100%;
+}
+
+    .dataTables_wrapper table {
+        width: 100%;
+        border: none;
+    }
+
+        .dataTables_wrapper table thead {
+            font-size: 14px;
+            font-family: Poppins;
+            font-weight: 300;
+            line-height: 21px;
+            vertical-align: middle;
+        }
+
+            .dataTables_wrapper table thead tr {
+                vertical-align: middle;
+            }
+
+        .dataTables_wrapper table tbody tr td {
+            border-top: none !important;
+        }
+
+    /*Pagination*/
+    .dataTables_wrapper div.bottom div.dataTables_paginate ul li {
+        padding: 0;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+        .dataTables_wrapper div.bottom div.dataTables_paginate ul li a {
+            cursor: pointer;
+            display: inline-block;
+            height: 2.25rem;
+            width: 2.25rem;
+            vertical-align: middle;
+            padding: 0;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            border-radius: 50%;
+            text-align: center;
+            position: relative;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
+            -ms-justify-content: center;
+            justify-content: center;
+            -webkit-align-items: center;
+            -moz-align-items: center;
+            -ms-align-items: center;
+            align-items: center;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 1rem;
+            line-height: 1rem;
+            font-weight: 400;
+        }
+
+        .dataTables_wrapper div.bottom div.dataTables_paginate ul li a {
+            text-decoration: none;
+        }
+
+table.dataTable {
+    border-collapse: collapse !important;
+}
+
+    table.dataTable ul.dropdown-menu li a {
+        cursor: pointer !important;
+    }
+
+    table.dataTable tbody tr td {
+        vertical-align: middle;
+    }
+
+    table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before,
+    table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
+        top: 15px !important;
+    }
+
+    table.dataTable tbody td.control.responsive {
+        min-width: 10px !important;
+    }

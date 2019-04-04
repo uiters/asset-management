@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props"></Import>
+ 
+  <PropertyGroup>
+    <TargetFrameworks>net461;netcoreapp2.1</TargetFrameworks>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <RootNamespace>GSoft.AbpZeroTemplate</RootNamespace>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+  </PropertyGroup>
+ 
+  <ItemGroup>
+    <Compile Remove="Migrations\20180907015541_FixGwebsite.cs" />
+    <Compile Remove="Migrations\20180907072254_Added_Slide_Entity_For_Training.cs" />
+    <Compile Remove="Migrations\20180911025043_AddEntity.cs" />
+    <Compile Remove="Migrations\20190323114143_AddDemoModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Transactions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GSoft.AbpZeroTemplate.Core\GSoft.AbpZeroTemplate.Core.csproj" />
+    <ProjectReference Include="..\GWebsite.AbpZeroTemplate.Core\GWebsite.AbpZeroTemplate.Core.csproj" />
+    <ProjectReference Include="..\GWebsite.AbpZeroTemplate.EntityFrameworkCore\GWebsite.AbpZeroTemplate.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,124 @@
+﻿@using Abp.UI.Inputs
+@using GSoft.AbpZeroTemplate.Editions
+@using GSoft.AbpZeroTemplate.MultiTenancy.Payments.Dto
+@model GSoft.AbpZeroTemplate.Web.Models.TenantRegistration.EditionsSelectViewModel
+@{
+    ViewBag.DisableTenantChange = true;
+    Layout = "_Layout";
+    var isSetted = false;
+    var editionIcons = new string[] { "flaticon-open-box", "flaticon-rocket", "flaticon-gift", "flaticon-confetti", "flaticon-puzzle", "flaticon-app", "flaticon-coins", "flaticon-piggy-bank", "flaticon-bag", "flaticon-lifebuoy", "flaticon-technology-1", "flaticon-cogwheel-1", "flaticon-infinity", "flaticon-interface-5", "flaticon-squares-3", "flaticon-interface-6", "flaticon-mark", "flaticon-business", "flaticon-interface-7", "flaticon-list-2", "flaticon-bell", "flaticon-technology", "flaticon-squares-2", "flaticon-notes", "flaticon-profile", "flaticon-layers", "flaticon-interface-4", "flaticon-signs", "flaticon-menu-1", "flaticon-symbol" };
+}
+@section Styles
+    {
+    <link href="~/view-resources/Views/TenantRegistration/SelectEdition.css" rel="stylesheet" />
+}
+<div class="m-pricing-table-1 m-pricing-table-1--fixed">
+    <div class="m-portlet">
+        <div class="m-portlet__body">
+            <div class="m-pricing-table-1__items row row-centered">
+                @{ var i = 0;}
+                @foreach (var editionWithFeatures in Model.EditionsWithFeatures)
+                {
+                    var edition = editionWithFeatures.Edition;
+
+                    <div class="m-pricing-table-1__item col-lg-3 col-centered">
+
+                        <div class="m-pricing-table-1__visual">
+                            <div class="m-pricing-table-1__hexagon1"></div>
+                            <div class="m-pricing-table-1__hexagon2"></div>
+                            <span class="m-pricing-table-1__icon m--font-brand">
+                                <i class="fa @editionIcons[i]"></i>
+                            </span>
+                        </div>
+
+                        <span class="m-pricing-table-1__price">
+                            @edition.DisplayName
+                        </span>
+                        <h2 class="m-pricing-table-1__subtitle">
+                            @if (!edition.AnnualPrice.HasValue && !edition.MonthlyPrice.HasValue)
+                            {
+
+                                <text>@L("Free")</text>
+
+                            }
+                            else
+                            {
+                                <text><span class="m-pricing-table-1__label">$</span> @edition.MonthlyPrice?.ToString("N2") @L("PerMonth") / </text>
+                                <text><span class="m-pricing-table-1__label">$</span> @edition.AnnualPrice?.ToString("N2") @L("PerYear")</text>
+                            }
+                        </h2>
+                        <span class="m-pricing-table-1__description">
+                            @foreach (var feature in Model.AllFeatures)
+                            {
+                                var featureValue = editionWithFeatures.FeatureValues.FirstOrDefault(f => f.Name == feature.Name);
+                                if (feature.InputType.GetType() == typeof(CheckboxInputType))
+                                {
+                                    if (featureValue.Value == "true")
+                                    {
+                                        <i class="la la-check m--font-success"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="la la-times m--font-metal"></i>
+                                    }
+                                    <text> @feature.DisplayName</text>
+                                }
+                                else
+                                {
+                                    <i class="la la-check m--font-success"></i><text> @feature.DisplayName : @Html.Raw(featureValue.Value)</text>
+                                }
+                                <br/>
+                            }
+                        </span>
+                        <div class="m-pricing-table-1__btn">
+                            @if (AbpSession.UserId.HasValue)
+                            {
+                                if (!isSetted)
+                                {
+                                    if (edition.Id == Model.TenantEditionId)
+                                    {
+                                        isSetted = true;
+                                    }
+
+                                    <a class="btn btn-warning m-btn m-btn--custom m-btn--pill m-btn--wide m-btn--uppercase m-btn--bolder m-btn--sm disabled" href="#" disabled="disabled">
+                                        @L("Upgrade")
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-warning m-btn m-btn--custom m-btn--pill m-btn--wide m-btn--uppercase m-btn--bolder m-btn--sm" href="@Url.Action("Upgrade", "Payment", new {upgradeEditionId = edition.Id, editionPaymentType = EditionPaymentType.Upgrade})">
+                                        @L("Upgrade")
+                                    </a>
+                                }
+                            }
+                            else
+                            {
+                                if (!edition.MonthlyPrice.HasValue && !edition.AnnualPrice.HasValue)
+                                {
+                                    <a class="btn btn-success m-btn m-btn--custom m-btn--pill m-btn--wide m-btn--uppercase m-btn--bolder m-btn--sm" href="@Url.Action("Register", "TenantRegistration", new {editionId = edition.Id, subscriptionStartType = SubscriptionStartType.Free})">
+                                        @L("Start")
+                                    </a>
+                                }
+                                else
+                                {
+                                    if (edition.TrialDayCount.HasValue)
+                                    {
+                                        <a class="btn btn-warning m-btn m-btn--custom m-btn--pill m-btn--wide m-btn--uppercase m-btn--bolder m-btn--sm" href="@Url.Action("Register", "TenantRegistration", new {editionId = edition.Id, subscriptionStartType = SubscriptionStartType.Trial})">
+                                            @L("FreeTrial")
+                                        </a>
+                                    }
+
+                                    <a class="btn btn-primary m-btn m-btn--custom m-btn--pill m-btn--wide m-btn--uppercase m-btn--bolder m-btn--sm" href="@Url.Action("Buy", "Payment", new {editionId = edition.Id, editionPaymentType = EditionPaymentType.NewRegistration, subscriptionStartType = (int) SubscriptionStartType.Paid})">
+                                        @L("BuyNow")
+                                    </a>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    i++;
+                }
+            </div>
+        </div>
+    </div>
+</div>

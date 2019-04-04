@@ -1,0 +1,101 @@
+@media (min-width: 993px) {
+    .m-aside-menu--skin-light {
+        background-color: transparent !important;
+    }
+
+    .m-aside-menu--skin-dark {
+        background-color: transparent !important;
+
+        .m-container {
+            background: #263331 !important;
+        }
+    }
+}
+
+span.m-menu__arrow.m-menu__arrow--adjust {
+    color: #fff;
+}
+
+body.m-aside-left--skin-dark {
+    .m-topbar__nav {
+        li.m-nav__item.m-topbar__user-profile {
+            ul {
+                li {
+                    a {
+                        span {
+                            color: #6F7D7A !important;
+
+                            &:hover {
+                                color: #6ACAB6 !important;
+                            }
+                        }
+
+                        i.fa-angle-down {
+                            color: #6F7D7A !important;
+
+                            &:hover {
+                                color: #6ACAB6 !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+body.m-aside-left--skin-light {
+    li.m-menu__item.m-menu__item--active {
+        background-color: #ECFDF9 !important;
+
+        i.m-menu__link-icon, i.m-menu__hor-arrow {
+            color: #6ACAB6 !important;
+        }
+
+        span.m-menu__link-text {
+            span.title {
+                color: #6ACAB6 !important;
+            }
+        }
+
+        li.m-menu__item--submenu:not(.m-menu__item--active) {
+            i.m-menu__link-icon, i.m-menu__hor-arrow {
+                color: #667B76 !important;
+            }
+
+            span.m-menu__link-text {
+                span.title {
+                    color: #667B76 !important;
+                }
+            }
+        }
+    }
+}
+
+ul.m-menu__subnav {
+    li.m-menu__item.m-menu__item--submenu {
+        i.m-menu__link-icon {
+            color: #667B76 !important;
+        }
+
+        span.m-menu__link-text {
+            span.title {
+                color: #667B76 !important;
+            }
+        }
+
+        &.m-menu__item--active {
+            i.m-menu__link-icon, i.m-menu__hor-arrow {
+                color: #6ACAB6 !important;
+            }
+
+            span.m-menu__link-text {
+                span.title {
+                    color: #6ACAB6 !important;
+                }
+            }
+        }
+    }
+}
+
+/* Modify Base Styles For Header Menu */
