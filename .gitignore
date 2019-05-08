@@ -8,6 +8,8 @@ Logs/
 # Generated files
 project.lock.json
 .vs/
+*/.vs
+*/.vscode
 
 # mstest test results
 TestResults
@@ -131,3 +133,5 @@ src/GSoft.AbpZeroTemplate.Web.Public/wwwroot/Common/_Bundles
 src/GSoft.AbpZeroTemplate.Web.Public/wwwroot/view-resources/Views/_Bundles
 src/GSoft.AbpZeroTemplate.Web.Public/wwwroot/view-resources/**/*.min.*
 src/GSoft.AbpZeroTemplate.Web.Public/wwwroot/Common/**/*.min.*
+
+*/App_Data/Logs/*
