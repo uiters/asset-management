@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Abp.Domain.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace GWebsite.AbpZeroTemplate.Application.Share.Assets.Dto
 {
-    public class AssetDtoInput
+    public class AssetInput : Entity<int>
     {
         [Required]
         public string AssetCode { get; set; }

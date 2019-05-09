@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Abp.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace GWebsite.AbpZeroTemplate.Application.Share.GroupAssets.Dto
 {
-    public class GroupAssetInput
+    public class GroupAssetInput : Entity<int>
     {
         [Required]
         public string GroupAssetCode { get; set; }

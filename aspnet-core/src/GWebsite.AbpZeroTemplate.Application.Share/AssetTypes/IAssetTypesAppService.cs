@@ -1,9 +1,9 @@
 ﻿using Abp.Application.Services.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.AssetTypes.Dto;
 
-namespace GWebsite.AbpZeroTemplate.Application.Share.Assets
+namespace GWebsite.AbpZeroTemplate.Application.Share.AssetTypes
 {
-    public interface IAssetTypesService
+    public interface IAssetTypesAppService
     {
         AssetTypeDto CreateAssetType(AssetTypeInput input);
         AssetTypeDto UpdateAssetType(AssetTypeInput input);
@@ -14,6 +14,6 @@ namespace GWebsite.AbpZeroTemplate.Application.Share.Assets
 
         PagedResultDto<AssetTypeDto> GetAssetTypesByFilter(AssetTypeFilter input);
         ListResultDto<AssetTypeDto> GetAssetTypes();
-        AssetTypeCombobox GetAssetTypeCombobox();
+        AssetTypeCombobox GetAssetTypeCombobox(int? id);
     }
 }

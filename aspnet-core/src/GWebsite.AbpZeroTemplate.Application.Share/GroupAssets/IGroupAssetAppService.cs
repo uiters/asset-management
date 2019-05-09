@@ -12,8 +12,8 @@ namespace GWebsite.AbpZeroTemplate.Application.Share.GroupAssets
         GroupAssetDto GetGroupAssetForEdit(int id);
         GroupAssetDto GroupAssetByCode(string code);
 
-        PagedResultDto<GroupAssetDto> GetGroupAssetsByFilter(GroupAssetInput input);
+        PagedResultDto<GroupAssetDto> GetGroupAssetsByFilter(GroupAssetFilter input);
         ListResultDto<GroupAssetDto> GetGroupAssets();
-        GroupAssetCombobox GetGroupAssetCombobox();
+        GroupAssetCombobox GetGroupAssetCombobox(int? id);
     }
 }

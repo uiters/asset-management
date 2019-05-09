@@ -5,8 +5,8 @@ namespace GWebsite.AbpZeroTemplate.Application.Share.Assets
 {
     public interface IAssetAppService
     {
-        AssetDto CreateAsset(AssetDtoInput input);
-        AssetDto UpdateAsset(AssetDtoInput input);
+        AssetDto CreateAsset(AssetInput input);
+        AssetDto UpdateAsset(AssetInput input);
         void DeleteAsset(int id);
 
         AssetDto GetAssetForEdit(int id);

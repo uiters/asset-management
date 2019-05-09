@@ -5,7 +5,7 @@ namespace GWebsite.AbpZeroTemplate.Application.Share.AssetTypes.Dto
 {
     public class AssetTypeCombobox
     {
-        public AssetTypeDto AssetType { get; set; }
+        //public AssetTypeDto AssetType { get; set; }
         public List<ComboboxItemDto> AssetTypes { get; set; }
 
         public AssetTypeCombobox()
