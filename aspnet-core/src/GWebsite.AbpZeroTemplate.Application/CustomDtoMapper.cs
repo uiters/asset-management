@@ -30,9 +30,9 @@ namespace GWebsite.AbpZeroTemplate.Applications
 
             // Depreciation
             configuration.CreateMap<Depreciation, DepreciationDto>();
-            configuration.CreateMap<DepreciationInput, Depreciation>();
-            configuration.CreateMap<Depreciation, DepreciationInput>();
-            configuration.CreateMap<Depreciation, DepreciationForViewDto>();
+            configuration.CreateMap<Depreciation, DepreciationListDto>();
+            configuration.CreateMap<CreateDepreciationInput, Depreciation>();
+            configuration.CreateMap<UpdateDepreciationInput, Depreciation>();
         }
     }
 }

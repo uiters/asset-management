@@ -4,6 +4,7 @@ namespace GWebsite.AbpZeroTemplate.Core.Models
 {
     public class Depreciation : Entity<int>, ISoftDelete
     {
+        public string Name { get; set; }
         public string DepreciationCode { get; set; }
         public string AssetCode { get; set; }
         public DateTime DayBeginCalculateDepreciation { get; set; }
@@ -12,5 +13,7 @@ namespace GWebsite.AbpZeroTemplate.Core.Models
         public float DepreciationRateByYear { get; set; }
         public float RemainingValue { get; set; }
         public bool IsDeleted { get; set; }
+        public int? ParentId { get; set; }
+        public bool Status { get; set; }
     }
 }

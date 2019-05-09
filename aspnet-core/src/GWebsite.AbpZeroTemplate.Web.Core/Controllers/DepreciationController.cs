@@ -2,47 +2,66 @@
 using GWebsite.AbpZeroTemplate.Application.Share.Depreciations;
 using GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace GWebsite.AbpZeroTemplate.Application.Controllers
 {
     [Route("api/[controller]/[action]")]
     public class DepreciationController : GWebsiteControllerBase
     {
-        private readonly IDepreciationAppService depreciationAppService;
+        private readonly IDepreciationAppService _DepreciationAppService;
 
-        public DepreciationController(IDepreciationAppService depreciationAppService)
+        public DepreciationController(IDepreciationAppService DepreciationAppService)
         {
-            this.depreciationAppService = depreciationAppService;
+            _DepreciationAppService = DepreciationAppService;
         }
 
         [HttpGet]
-        public PagedResultDto<DepreciationDto> GetDepreciationsByFilter(DepreciationFilter depreciationFilter)
+        public string GetTest()
         {
-            return depreciationAppService.GetDepreciations(depreciationFilter);
+            return "Test";
         }
 
         [HttpGet]
-        public DepreciationInput GetDepreciationForEdit(int id)
+        public async Task<ListResultDto<DepreciationDto>> GetDepreciations()
         {
-            return depreciationAppService.GetDepreciationForEdit(id);
+            return await _DepreciationAppService.GetDepreciationsAsync();
+        }
+
+        [HttpGet]
+        public async Task<PagedResultDto<DepreciationListDto>> GetDepreciationsByFilter(string name, string sorting, int skipCount = 0, int maxResultCount = 1)
+        {
+            return await _DepreciationAppService.GetDepreciationsAsync(new GetDepreciationInput() { Name = name, Sorting = sorting, SkipCount = skipCount, MaxResultCount = maxResultCount });
+        }
+
+        [HttpGet]
+        public string DemoWebApi()
+        {
+            return "Abcdezz";
+        }
+
+        [HttpGet]
+        public async Task<GetDepreciationOutput> GetDepreciationForEdit(int id)
+        {
+            return await _DepreciationAppService.GetDepreciationForEditAsync(new NullableIdDto() { Id = id });
         }
 
         [HttpPost]
-        public void CreateOrEditDepreciation([FromBody] DepreciationInput input)
+        public async Task<DepreciationDto> CreateDepreciation([FromBody] CreateDepreciationInput input)
         {
-            depreciationAppService.CreateOrEditDepreciation(input);
+            return await _DepreciationAppService.CreateDepreciationAsync(input);
+        }
+
+        [HttpPut]
+        public async Task<DepreciationDto> UpdateDepreciation([FromBody] UpdateDepreciationInput input)
+        {
+            return await _DepreciationAppService.UpdateDepreciationAsync(input);
         }
 
         [HttpDelete("{id}")]
-        public void DeleteDepreciation(int id)
+        public async Task DeleteDepreciation(int id)
         {
-            depreciationAppService.DeleteDepreciation(id);
-        }
-
-        [HttpGet]
-        public DepreciationForViewDto GetDepreciationForView(int id)
-        {
-            return depreciationAppService.GetDepreciationForView(id);
+            await _DepreciationAppService.DeleteDepreciationAsync(new EntityDto<int>() { Id = id });
         }
     }
 }

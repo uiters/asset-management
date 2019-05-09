@@ -1,14 +1,14 @@
-﻿using Abp.Domain.Entities;
-using GWebsite.AbpZeroTemplate.Core.Models;
-using System;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto
 {
-    /// <summary>
-    /// <model cref="Depreciation"></model>
-    /// </summary>
-    public class DepreciationInput : Entity<int>
+    public class UpdateDepreciationInput
     {
+        [Range(1, int.MaxValue)]
+        public int Id { get; set; }
+        [Required]
+        public string Name { get; set; }
         public string DepreciationCode { get; set; }
         public string AssetCode { get; set; }
         public DateTime DayBeginCalculateDepreciation { get; set; }
@@ -17,5 +17,7 @@ namespace GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto
         public float DepreciationRateByYear { get; set; }
         public float RemainingValue { get; set; }
         public bool IsDeleted { get; set; }
+        public int? ParentId { get; set; }
+        public bool Status { get; set; }
     }
 }

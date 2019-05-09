@@ -1675,7 +1675,13 @@ namespace GSoft.AbpZeroTemplate.Migrations
 
                     b.Property<bool>("IsDeleted");
 
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("ParentId");
+
                     b.Property<float>("RemainingValue");
+
+                    b.Property<bool>("Status");
 
                     b.HasKey("Id");
 
