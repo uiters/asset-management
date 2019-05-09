@@ -1,8 +1,8 @@
 ﻿using Abp.Domain.Entities;
 
-namespace GWebsite.AbpZeroTemplate.Core.Models
+namespace GWebsite.AbpZeroTemplate.Application.Share.AssetTypes.Dto
 {
-    public class AssetType : FullAuditModel
+    public class AssetTypeDto : Entity<int>
     {
         public string AssetTypeCode { get; set; }
         public string AssetTypeName { get; set; }

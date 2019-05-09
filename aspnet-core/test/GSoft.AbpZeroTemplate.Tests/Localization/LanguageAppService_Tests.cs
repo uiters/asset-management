@@ -1,13 +1,13 @@
-﻿using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using Abp;
+﻿using Abp;
 using Abp.Application.Services.Dto;
 using Abp.Localization;
 using GSoft.AbpZeroTemplate.Localization;
 using GSoft.AbpZeroTemplate.Localization.Dto;
 using GSoft.AbpZeroTemplate.Migrations.Seed.Host;
 using Shouldly;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace GSoft.AbpZeroTemplate.Tests.Localization
@@ -36,7 +36,7 @@ namespace GSoft.AbpZeroTemplate.Tests.Localization
         public async Task Test_GetLanguages()
         {
             //Act
-            var output = await _languageAppService.GetLanguages();
+            GetLanguagesOutput output = await _languageAppService.GetLanguages();
 
             //Assert
             output.Items.Count.ShouldBe(DefaultLanguagesCreator.InitialLanguages.Count);
@@ -46,7 +46,7 @@ namespace GSoft.AbpZeroTemplate.Tests.Localization
         public async Task Create_Language()
         {
             //Act
-            var output = await _languageAppService.GetLanguageForEdit(new NullableIdDto(null));
+            GetLanguageForEditOutput output = await _languageAppService.GetLanguageForEdit(new NullableIdDto(null));
 
             //Assert
             output.Language.Id.ShouldBeNull();
@@ -54,11 +54,11 @@ namespace GSoft.AbpZeroTemplate.Tests.Localization
             output.Flags.Count.ShouldBeGreaterThan(0);
 
             //Arrange
-            var currentLanguages = await _languageManager.GetLanguagesAsync(AbpSession.TenantId);
-            var nonRegisteredLanguages = output.LanguageNames.Where(l => currentLanguages.All(cl => cl.Name != l.Value)).ToList();
+            System.Collections.Generic.IReadOnlyList<ApplicationLanguage> currentLanguages = await _languageManager.GetLanguagesAsync(AbpSession.TenantId);
+            System.Collections.Generic.List<ComboboxItemDto> nonRegisteredLanguages = output.LanguageNames.Where(l => currentLanguages.All(cl => cl.Name != l.Value)).ToList();
 
             //Act
-            var newLanguageName = nonRegisteredLanguages[RandomHelper.GetRandom(nonRegisteredLanguages.Count)].Value;
+            string newLanguageName = nonRegisteredLanguages[RandomHelper.GetRandom(nonRegisteredLanguages.Count)].Value;
             await _languageAppService.CreateOrUpdateLanguage(
                 new CreateOrUpdateLanguageInput
                 {
@@ -78,8 +78,8 @@ namespace GSoft.AbpZeroTemplate.Tests.Localization
         public async Task Delete_Language()
         {
             //Arrange
-            var currentLanguages = await _languageManager.GetLanguagesAsync(AbpSession.TenantId);
-            var randomLanguage = RandomHelper.GetRandomOf(currentLanguages.ToArray());
+            System.Collections.Generic.IReadOnlyList<ApplicationLanguage> currentLanguages = await _languageManager.GetLanguagesAsync(AbpSession.TenantId);
+            ApplicationLanguage randomLanguage = RandomHelper.GetRandomOf(currentLanguages.ToArray());
 
             //Act
             await _languageAppService.DeleteLanguage(new EntityDto(randomLanguage.Id));
@@ -93,8 +93,8 @@ namespace GSoft.AbpZeroTemplate.Tests.Localization
         public async Task SetDefaultLanguage()
         {
             //Arrange
-            var currentLanguages = await _languageManager.GetLanguagesAsync(AbpSession.TenantId);
-            var randomLanguage = RandomHelper.GetRandomOf(currentLanguages.ToArray());
+            System.Collections.Generic.IReadOnlyList<ApplicationLanguage> currentLanguages = await _languageManager.GetLanguagesAsync(AbpSession.TenantId);
+            ApplicationLanguage randomLanguage = RandomHelper.GetRandomOf(currentLanguages.ToArray());
 
             //Act
             await _languageAppService.SetDefaultLanguage(
@@ -104,7 +104,7 @@ namespace GSoft.AbpZeroTemplate.Tests.Localization
                 });
 
             //Assert
-            var defaultLanguage = await _languageManager.GetDefaultLanguageOrNullAsync(AbpSession.TenantId);
+            ApplicationLanguage defaultLanguage = await _languageManager.GetDefaultLanguageOrNullAsync(AbpSession.TenantId);
 
             randomLanguage.ShouldBe(defaultLanguage);
         }
@@ -121,7 +121,7 @@ namespace GSoft.AbpZeroTemplate.Tests.Localization
                     Value = "save-new-value"
                 });
 
-            var newValue = Resolve<ILocalizationManager>()
+            string newValue = Resolve<ILocalizationManager>()
                 .GetString(
                     AbpZeroTemplateConsts.LocalizationSourceName,
                     "Save",
@@ -135,12 +135,12 @@ namespace GSoft.AbpZeroTemplate.Tests.Localization
         public async Task SetLanguageIsDisabled()
         {
             //Arrange
-            var currentEnabledLanguages =
+            System.Collections.Generic.IEnumerable<ApplicationLanguage> currentEnabledLanguages =
                 (await _languageManager.GetLanguagesAsync(AbpSession.TenantId)).Where(l => !l.IsDisabled);
-            var randomEnabledLanguage = RandomHelper.GetRandomOf(currentEnabledLanguages.ToArray());
-            
+            ApplicationLanguage randomEnabledLanguage = RandomHelper.GetRandomOf(currentEnabledLanguages.ToArray());
+
             //Act
-            var output = await _languageAppService.GetLanguageForEdit(new NullableIdDto(null));
+            GetLanguageForEditOutput output = await _languageAppService.GetLanguageForEdit(new NullableIdDto(null));
 
             //Act
             await _languageAppService.CreateOrUpdateLanguage(
@@ -156,7 +156,7 @@ namespace GSoft.AbpZeroTemplate.Tests.Localization
                 });
 
             //Assert
-            var currentLanguages = await _languageManager.GetLanguagesAsync(AbpSession.TenantId);
+            System.Collections.Generic.IReadOnlyList<ApplicationLanguage> currentLanguages = await _languageManager.GetLanguagesAsync(AbpSession.TenantId);
             currentLanguages.FirstOrDefault(l => l.Name == randomEnabledLanguage.Name).IsDisabled.ShouldBeTrue();
         }
     }

@@ -24,6 +24,8 @@
     <Compile Remove="Migrations\20190509084033_Add_SoftDelete.cs" />
     <Compile Remove="Migrations\20190509084033_Add_SoftDelete.Designer.cs" />
     <Compile Remove="Migrations\20190509130627_Depreciations.cs" />
+    <Compile Remove="Migrations\20190509164047_Update_Depreciations.cs" />
+    <Compile Remove="Migrations\20190509164047_Update_Depreciations.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
