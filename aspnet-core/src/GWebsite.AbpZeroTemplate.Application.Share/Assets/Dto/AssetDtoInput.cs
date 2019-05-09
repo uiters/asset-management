@@ -1,17 +1,29 @@
-﻿using Abp.Domain.Entities;
-using System;
-namespace GWebsite.AbpZeroTemplate.Core.Models
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace GWebsite.AbpZeroTemplate.Application.Share.Assets.Dto
 {
-    public class Asset : FullAuditModel
+    public class AssetDtoInput
     {
+        [Required]
         public string AssetCode { get; set; }
+        [Required]
         public string AssetName { get; set; }
         public string SeriCode { get; set; }
+
+        [Required]
+        [Range(0, int.MaxValue)]
         public int OriginalPrice { get; set; }
+
+        [Required]
         public DateTime DayImport { get; set; }
+
+        [Required]
         public string GroupAssetCode { get; set; }
         public string Provider { get; set; }
         public DateTime WarrantyPeriod { get; set; }
+
+        [Range(0, int.MaxValue)]
         public int DepreciationMonths { get; set; }
         public float DepreciationRateByYear { get; set; }
     }

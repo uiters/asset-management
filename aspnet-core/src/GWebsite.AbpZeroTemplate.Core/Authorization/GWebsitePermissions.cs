@@ -24,5 +24,21 @@
         public const string Pages_Administration_Customer_Edit = "Pages.Administration.Customer.Edit";
         public const string Pages_Administration_Customer_Delete = "Pages.Administration.Customer.Delete";
 
+        public const string Pages_Administration_Asset = "Pages.Administration.Asset";
+        public const string Pages_Administration_Asset_Create = "Pages.Administration.Asset.Create";
+        public const string Pages_Administration_Asset_Edit = "Pages.Administration.Asset.Edit";
+        public const string Pages_Administration_Asset_Delete = "Pages.Administration.Asset.Delete";
+
+
+        public const string Pages_Administration_AssetType = "Pages.Administration.AssetType";
+        public const string Pages_Administration_AssetType_Create = "Pages.Administration.AssetType.Create";
+        public const string Pages_Administration_AssetType_Edit = "Pages.Administration.AssetType.Edit";
+        public const string Pages_Administration_AssetType_Delete = "Pages.Administration.AssetType.Delete";
+
+        public const string Pages_Administration_GroupAsset = "Pages.Administration.GroupAsset";
+        public const string Pages_Administration_GroupAsset_Create = "Pages.Administration.GroupAsset.Create";
+        public const string Pages_Administration_GroupAsset_Edit = "Pages.Administration.GroupAsset.Edit";
+        public const string Pages_Administration_GroupAsset_Delete = "Pages.Administration.GroupAsset.Delete";
+
     }
 }
