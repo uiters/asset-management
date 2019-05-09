@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Abp.Domain.Entities;
+﻿using Abp.Domain.Entities;
+using System;
 namespace GWebsite.AbpZeroTemplate.Core.Models
 {
-    public class Asset : Entity<int>
+    public class Asset : Entity<int>, ISoftDelete
     {
         public string AssetCode { get; set; }
         public string AssetName { get; set; }
@@ -18,5 +14,6 @@ namespace GWebsite.AbpZeroTemplate.Core.Models
         public DateTime WarrantyPeriod { get; set; }
         public int DepreciationMonths { get; set; }
         public float DepreciationRateByYear { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
