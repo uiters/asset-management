@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GSoft.AbpZeroTemplate.Migrations
 {
     [DbContext(typeof(AbpZeroTemplateDbContext))]
-    [Migration("20190509033211_Depreciations")]
+    [Migration("20190509145541_Depreciations")]
     partial class Depreciations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1553,6 +1553,56 @@ namespace GSoft.AbpZeroTemplate.Migrations
                     b.ToTable("AppUserRoles");
                 });
 
+            modelBuilder.Entity("GWebsite.AbpZeroTemplate.Core.Models.Asset", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AssetCode");
+
+                    b.Property<string>("AssetName");
+
+                    b.Property<DateTime>("DayImport");
+
+                    b.Property<int>("DepreciationMonths");
+
+                    b.Property<float>("DepreciationRateByYear");
+
+                    b.Property<string>("GroupAssetCode");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<int>("OriginalPrice");
+
+                    b.Property<string>("Provider");
+
+                    b.Property<string>("SeriCode");
+
+                    b.Property<DateTime>("WarrantyPeriod");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Assets");
+                });
+
+            modelBuilder.Entity("GWebsite.AbpZeroTemplate.Core.Models.AssetType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AssetTypeCode");
+
+                    b.Property<string>("AssetTypeName");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AssetTypes");
+                });
+
             modelBuilder.Entity("GWebsite.AbpZeroTemplate.Core.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -1625,7 +1675,15 @@ namespace GSoft.AbpZeroTemplate.Migrations
 
                     b.Property<float>("DepreciationRateByYear");
 
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("ParentId");
+
                     b.Property<float>("RemainingValue");
+
+                    b.Property<bool>("Status");
 
                     b.HasKey("Id");
 
@@ -1663,6 +1721,41 @@ namespace GSoft.AbpZeroTemplate.Migrations
                     b.HasIndex("ParentId");
 
                     b.ToTable("Functions");
+                });
+
+            modelBuilder.Entity("GWebsite.AbpZeroTemplate.Core.Models.GroupAsset", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AssetAcount");
+
+                    b.Property<string>("AssetTypeCode");
+
+                    b.Property<string>("CostsAccount");
+
+                    b.Property<string>("DepreciationAccount");
+
+                    b.Property<int>("DepreciationMonths");
+
+                    b.Property<float>("DepreciationRateByYear");
+
+                    b.Property<string>("GroupAssetCode");
+
+                    b.Property<string>("GroupAssetName");
+
+                    b.Property<string>("IncomeAccount");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LiquidationCostAccount");
+
+                    b.Property<string>("ParentGroupAssetCode");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GroupAssets");
                 });
 
             modelBuilder.Entity("GWebsite.AbpZeroTemplate.Core.Models.MenuClient", b =>
@@ -1748,7 +1841,7 @@ namespace GSoft.AbpZeroTemplate.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Permission");
+                    b.ToTable("GPermissions");
                 });
 
             modelBuilder.Entity("GSoft.AbpZeroTemplate.Editions.SubscribableEdition", b =>

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Abp.Domain.Entities;
+﻿using Abp.Domain.Entities;
 namespace GWebsite.AbpZeroTemplate.Core.Models
 {
-    public class GroupAsset : Entity<int>
+    public class GroupAsset : Entity<int>, ISoftDelete
     {
         public string GroupAssetCode { get; set; }
         public string GroupAssetName { get; set; }
@@ -19,5 +14,6 @@ namespace GWebsite.AbpZeroTemplate.Core.Models
         public string CostsAccount { get; set; }
         public string IncomeAccount { get; set; }
         public string LiquidationCostAccount { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
