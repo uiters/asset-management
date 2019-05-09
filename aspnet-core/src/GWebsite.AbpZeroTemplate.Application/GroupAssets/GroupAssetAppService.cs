@@ -105,7 +105,7 @@ namespace GWebsite.AbpZeroTemplate.Web.Core.GroupAssets
             return new PagedResultDto<GroupAssetDto>(totalCount, items);
         }
 
-        public GroupAssetDto GroupAssetByCode(string code)
+        public GroupAssetDto GetGroupAssetByCode(string code)
         {
             GroupAsset groupAsset = groupAssetRepository.GetAll()
                 .Where(item => string.Equals(item.AssetTypeCode, code, System.StringComparison.OrdinalIgnoreCase))

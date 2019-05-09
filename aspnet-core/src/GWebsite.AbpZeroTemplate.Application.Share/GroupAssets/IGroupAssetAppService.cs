@@ -10,7 +10,7 @@ namespace GWebsite.AbpZeroTemplate.Application.Share.GroupAssets
         void DeleteGroupAsset(int id);
 
         GroupAssetDto GetGroupAssetForEdit(int id);
-        GroupAssetDto GroupAssetByCode(string code);
+        GroupAssetDto GetGroupAssetByCode(string code);
 
         PagedResultDto<GroupAssetDto> GetGroupAssetsByFilter(GroupAssetFilter input);
         ListResultDto<GroupAssetDto> GetGroupAssets();

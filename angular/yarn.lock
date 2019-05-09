@@ -449,6 +449,11 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular-select2@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/angular-select2/-/angular-select2-1.5.3.tgz#983cda3366648c4976ee8ed01cf1cb0030ab9044"
+  integrity sha512-4TJAKzZjEXeUvmWrUHVMOfUYsv61SWPd9IUY+9O9npGxAeNSGe8LQvpRCivjYObHNR8Nyf7XaHA/wC8hU66OEA==
+
 angular2-counto@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/angular2-counto/-/angular2-counto-1.2.5.tgz#fb43dc0300513cd9a7f996437e68265a84c0f036"

@@ -3,7 +3,7 @@ using GWebsite.AbpZeroTemplate.Application.Share.AssetTypes.Dto;
 
 namespace GWebsite.AbpZeroTemplate.Application.Share.AssetTypes
 {
-    public interface IAssetTypesAppService
+    public interface IAssetTypeAppService
     {
         AssetTypeDto CreateAssetType(AssetTypeInput input);
         AssetTypeDto UpdateAssetType(AssetTypeInput input);
