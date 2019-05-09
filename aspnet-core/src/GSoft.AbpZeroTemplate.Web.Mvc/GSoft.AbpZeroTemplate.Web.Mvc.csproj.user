@@ -3,5 +3,9 @@
   <PropertyGroup>
     <ToolsVersionPromptShown>2.8</ToolsVersionPromptShown>
     <ShowAllFiles>true</ShowAllFiles>
+    <ActiveDebugProfile>GSoft.AbpZeroTemplate.Web</ActiveDebugProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

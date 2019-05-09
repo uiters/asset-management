@@ -8,6 +8,7 @@ using GSoft.AbpZeroTemplate.MultiTenancy;
 using GSoft.AbpZeroTemplate.MultiTenancy.Accounting;
 using GSoft.AbpZeroTemplate.MultiTenancy.Payments;
 using GSoft.AbpZeroTemplate.Storage;
+using GWebsite.AbpZeroTemplate.Core.Models;
 using GWebsite.AbpZeroTemplate.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,7 +32,7 @@ namespace GSoft.AbpZeroTemplate.EntityFrameworkCore
 
         public virtual DbSet<PersistedGrantEntity> PersistedGrants { get; set; }
 
-
+        //public virtual DbSet<Asset> Assets { get; set; }
         public AbpZeroTemplateDbContext(DbContextOptions<AbpZeroTemplateDbContext> options)
             : base(options)
         {

@@ -16,6 +16,9 @@
     <Compile Remove="Migrations\20180907072254_Added_Slide_Entity_For_Training.cs" />
     <Compile Remove="Migrations\20180911025043_AddEntity.cs" />
     <Compile Remove="Migrations\20190323114143_AddDemoModel.cs" />
+    <Compile Remove="Migrations\20190508170823_Depreciations.cs" />
+    <Compile Remove="Migrations\20190508175903_Depreciations.cs" />
+    <Compile Remove="Migrations\20190509024523_Depreciations.cs" />
   </ItemGroup>
 
   <ItemGroup>
