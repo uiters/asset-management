@@ -1,8 +1,9 @@
 ﻿using Abp.Domain.Entities;
 using System;
-namespace GWebsite.AbpZeroTemplate.Core.Models
+
+namespace GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto
 {
-    public class Depreciation : Entity<int>, ISoftDelete
+    public class DepreciationDto : Entity<int>
     {
         public string Name { get; set; }
         public string DepreciationCode { get; set; }
