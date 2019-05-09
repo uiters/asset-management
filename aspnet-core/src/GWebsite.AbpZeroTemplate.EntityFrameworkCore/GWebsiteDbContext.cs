@@ -24,6 +24,10 @@ namespace GWebsite.AbpZeroTemplate.EntityFrameworkCore
         public virtual DbSet<MenuClient> MenuClients { get; set; }
         public virtual DbSet<DemoModel> DemoModels { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Depreciation> Depreciations { get; set; }
+        public virtual DbSet<Asset> Assets { get; set; }
+        public virtual DbSet<AssetType> AssetTypes { get; set; }
+        public virtual DbSet<GroupAsset> GroupAssets { get; set; }
         /// <summary>
         /// GPermissions dùng cho bên Gwebsite
         /// </summary>
@@ -45,7 +49,7 @@ namespace GWebsite.AbpZeroTemplate.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+           
             modelBuilder.Entity<Announcement>(entity =>
             {
                 //entity.HasIndex(e => e.UserId)

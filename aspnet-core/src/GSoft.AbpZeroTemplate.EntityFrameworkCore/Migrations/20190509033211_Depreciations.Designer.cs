@@ -4,14 +4,16 @@ using GSoft.AbpZeroTemplate.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GSoft.AbpZeroTemplate.Migrations
 {
     [DbContext(typeof(AbpZeroTemplateDbContext))]
-    partial class AbpZeroTemplateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190509033211_Depreciations")]
+    partial class Depreciations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1551,52 +1553,6 @@ namespace GSoft.AbpZeroTemplate.Migrations
                     b.ToTable("AppUserRoles");
                 });
 
-            modelBuilder.Entity("GWebsite.AbpZeroTemplate.Core.Models.Asset", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AssetCode");
-
-                    b.Property<string>("AssetName");
-
-                    b.Property<DateTime>("DayImport");
-
-                    b.Property<int>("DepreciationMonths");
-
-                    b.Property<float>("DepreciationRateByYear");
-
-                    b.Property<string>("GroupAssetCode");
-
-                    b.Property<int>("OriginalPrice");
-
-                    b.Property<string>("Provider");
-
-                    b.Property<string>("SeriCode");
-
-                    b.Property<DateTime>("WarrantyPeriod");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Assets");
-                });
-
-            modelBuilder.Entity("GWebsite.AbpZeroTemplate.Core.Models.AssetType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AssetTypeCode");
-
-                    b.Property<string>("AssetTypeName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AssetTypes");
-                });
-
             modelBuilder.Entity("GWebsite.AbpZeroTemplate.Core.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -1707,39 +1663,6 @@ namespace GSoft.AbpZeroTemplate.Migrations
                     b.HasIndex("ParentId");
 
                     b.ToTable("Functions");
-                });
-
-            modelBuilder.Entity("GWebsite.AbpZeroTemplate.Core.Models.GroupAsset", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AssetAcount");
-
-                    b.Property<string>("AssetTypeCode");
-
-                    b.Property<string>("CostsAccount");
-
-                    b.Property<string>("DepreciationAccount");
-
-                    b.Property<int>("DepreciationMonths");
-
-                    b.Property<float>("DepreciationRateByYear");
-
-                    b.Property<string>("GroupAssetCode");
-
-                    b.Property<string>("GroupAssetName");
-
-                    b.Property<string>("IncomeAccount");
-
-                    b.Property<string>("LiquidationCostAccount");
-
-                    b.Property<string>("ParentGroupAssetCode");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GroupAssets");
                 });
 
             modelBuilder.Entity("GWebsite.AbpZeroTemplate.Core.Models.MenuClient", b =>
