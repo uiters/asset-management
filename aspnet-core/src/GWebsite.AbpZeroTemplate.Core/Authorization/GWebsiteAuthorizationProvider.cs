@@ -46,6 +46,11 @@ namespace GWebsite.AbpZeroTemplate.Core.Authorization
             customer.CreateChildPermission(GWebsitePermissions.Pages_Administration_Customer_Edit, L("EditingCustomer"));
             customer.CreateChildPermission(GWebsitePermissions.Pages_Administration_Customer_Delete, L("DeletingCustomer"));
 
+            var depreciation = gwebsite.CreateChildPermission(GWebsitePermissions.Pages_Administration_Depreciation, L("Depreciation"));
+            depreciation.CreateChildPermission(GWebsitePermissions.Pages_Administration_Depreciation_Create, L("CreatingNewDepreciation"));
+            depreciation.CreateChildPermission(GWebsitePermissions.Pages_Administration_Depreciation_Edit, L("EditingDepreciation"));
+            depreciation.CreateChildPermission(GWebsitePermissions.Pages_Administration_Depreciation_Delete, L("DeletingDepreciation"));
+
         }
 
         private static ILocalizableString L(string name)
