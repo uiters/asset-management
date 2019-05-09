@@ -1,8 +1,9 @@
 ﻿using Abp.Domain.Entities;
 using System;
-namespace GWebsite.AbpZeroTemplate.Core.Models
+
+namespace GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto
 {
-    public class Depreciation : FullAuditModel
+    public class DepreciationListDto : Entity<int>
     {
         public string Name { get; set; }
         public string DepreciationCode { get; set; }
@@ -12,7 +13,10 @@ namespace GWebsite.AbpZeroTemplate.Core.Models
         public float DepreciatedValue { get; set; }
         public float DepreciationRateByYear { get; set; }
         public float RemainingValue { get; set; }
+        public bool IsDeleted { get; set; }
         public int? ParentId { get; set; }
         public bool Status { get; set; }
+
+        
     }
 }

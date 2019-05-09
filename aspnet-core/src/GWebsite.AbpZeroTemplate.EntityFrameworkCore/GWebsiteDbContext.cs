@@ -49,7 +49,7 @@ namespace GWebsite.AbpZeroTemplate.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-           
+
             modelBuilder.Entity<Announcement>(entity =>
             {
                 //entity.HasIndex(e => e.UserId)

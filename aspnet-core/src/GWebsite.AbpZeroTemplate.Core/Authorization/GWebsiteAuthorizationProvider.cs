@@ -60,6 +60,12 @@ namespace GWebsite.AbpZeroTemplate.Core.Authorization
             groupAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_GroupAsset_Create, L("CreatingNewGroupAsset"));
             groupAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_GroupAsset_Edit, L("EditingGroupAsset"));
             groupAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_GroupAsset_Delete, L("DeletingGroupAsset"));
+
+            Permission depreciation = gwebsite.CreateChildPermission(GWebsitePermissions.Pages_Administration_Depreciation, L("Depreciation"));
+            depreciation.CreateChildPermission(GWebsitePermissions.Pages_Administration_Depreciation_Create, L("CreatingNewDepreciation"));
+            depreciation.CreateChildPermission(GWebsitePermissions.Pages_Administration_Depreciation_Edit, L("EditingDepreciation"));
+            depreciation.CreateChildPermission(GWebsitePermissions.Pages_Administration_Depreciation_Delete, L("DeletingDepreciation"));
+
         }
 
         private static ILocalizableString L(string name)

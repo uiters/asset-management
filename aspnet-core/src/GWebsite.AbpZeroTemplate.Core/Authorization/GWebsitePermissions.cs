@@ -9,6 +9,11 @@
         public const string Pages = "Pages";
         public const string Pages_Administration_GWebsite = "Pages.Administration.GWebsite";
 
+        public const string Pages_Administration_Depreciation = "Pages.Administration.Depreciaiton";
+        public const string Pages_Administration_Depreciation_Create = "Pages.Administration.Depreciation.Create";
+        public const string Pages_Administration_Depreciation_Edit = "Pages.Administration.Depreciation.Edit";
+        public const string Pages_Administration_Depreciation_Delete = "Pages.Administration.Depreciation.Delete";
+
         public const string Pages_Administration_MenuClient = "Pages.Administration.MenuClient";
         public const string Pages_Administration_MenuClient_Create = "Pages.Administration.MenuClient.Create";
         public const string Pages_Administration_MenuClient_Edit = "Pages.Administration.MenuClient.Edit";

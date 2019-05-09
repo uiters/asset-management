@@ -37,7 +37,7 @@ namespace GSoft.AbpZeroTemplate.EntityFrameworkCore
                     uow.Complete();
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }

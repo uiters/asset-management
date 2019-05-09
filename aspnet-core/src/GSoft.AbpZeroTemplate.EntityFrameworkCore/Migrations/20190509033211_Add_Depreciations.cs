@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GSoft.AbpZeroTemplate.Migrations
 {
-    public partial class Depreciations : Migration
+    public partial class Add_Depreciations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {         
