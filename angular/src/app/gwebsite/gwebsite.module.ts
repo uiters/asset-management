@@ -11,7 +11,13 @@ import { AutoCompleteModule, EditorModule, FileUploadModule as PrimeNgFileUpload
 import { TableModule } from 'primeng/table';
 import { GWebsiteRoutingModule } from './gwebsite-routing.module';
 
-import { MenuClientComponent, CreateOrEditMenuClientModalComponent } from './index';
+import { 
+    MenuClientComponent,
+    CreateOrEditMenuClientModalComponent,
+    AssetGroupComponent,
+    CreateOrEditAssetGroupModalComponent,
+    // ViewAssetGroupModalComponent
+} from './index';
 import { DemoModelComponent } from './demo-model/demo-model.component';
 import { CreateOrEditDemoModelModalComponent } from './demo-model/create-or-edit-demo-model-modal.component';
 import { DemoModelServiceProxy } from '@shared/service-proxies/service-proxies';
@@ -42,6 +48,7 @@ import { CreateOrEditCustomerModalComponent } from './customer/create-or-edit-cu
         MenuClientComponent, CreateOrEditMenuClientModalComponent,
         DemoModelComponent, CreateOrEditDemoModelModalComponent, ViewDemoModelModalComponent,
         CustomerComponent, CreateOrEditCustomerModalComponent, ViewCustomerModalComponent,
+        AssetGroupComponent, CreateOrEditAssetGroupModalComponent,
     ],
     providers: [
         DemoModelServiceProxy,
