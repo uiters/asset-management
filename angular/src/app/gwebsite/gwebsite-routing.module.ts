@@ -39,8 +39,8 @@ import { AssetGroupComponent } from './asset-group/asset-group.component';
                 path: '',
                 children: [
                     {
-                        path: 'app-asset-group', component: AssetGroupComponent,
-                        data: { permission: 'Pages.Administration.AssetGroup' }
+                        path: 'asset-group', component: AssetGroupComponent,
+                        data: { permission: 'Pages.Administration.GroupAsset' }
                     },
                 ]
             }

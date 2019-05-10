@@ -1,13 +1,16 @@
-import { ComboboxItemDto } from '@shared/service-proxies/service-proxies';
+import { ComboboxItemDto } from "@shared/service-proxies/service-proxies";
+import { AssetTypeDto } from "@app/gwebsite/asset-type/dto/asset-type.dto";
 
 export class AssetGroupDto {
     id: number;
-    groupAssetCode : string;
+    index?: number;
+    groupAssetCode: string;
     groupAssetName: string;
     parentGroupAssetCode: string;
     depreciationMonths: number;
     depreciationRateByYear: number;
-    assetTypeCode : string;
+    assetTypeCode: string;
+    assetType: AssetTypeDto | undefined;
     assetAcount: string;
     depreciationAccount: string;
     costsAccount: string;

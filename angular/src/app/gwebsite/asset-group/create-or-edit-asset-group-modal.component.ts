@@ -7,7 +7,7 @@ import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
 import { ComboboxItemDto } from '@shared/service-proxies/service-proxies';
 
 @Component({
-  selector: 'app-create-or-edit-asset-group-modal',
+  selector: 'createOrEditAssetGroupModal',
   templateUrl: './create-or-edit-asset-group-modal.component.html'
 })
 export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
@@ -34,9 +34,8 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
     show(assetGroupId?: number | null | undefined): void {
         this.active = true;
 
-        this._apiService.getForEdit('api/AssetGroup/GetAssetGroupForEdit', assetGroupId).subscribe(result => {
-            this.assetGroup = result.assetGroup;
-            this.assetGroups = result.assetGroups;
+        this._apiService.getForEdit('api/GroupAsset/GetGroupAssetForEdit', assetGroupId).subscribe(result => {
+            this.assetGroup = result;
             this.modal.show();
             setTimeout(() => {
                     $(this.assetGroupCombobox.nativeElement).selectpicker('refresh');
@@ -55,7 +54,7 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
     }
 
     insertAssetGroup() {
-        this._apiService.post('api/AssetGroup/CreateAssetGroup', this.assetGroup)
+        this._apiService.post('api/GroupAsset/CreateGroupAsset', this.assetGroup)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));
@@ -65,7 +64,7 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
     }
 
     updateAssetGroup() {
-        this._apiService.put('api/AssetGroup/UpdateAssetGroup', this.assetGroup)
+        this._apiService.put('api/GroupAsset/UpdateGroupAsset', this.assetGroup)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));

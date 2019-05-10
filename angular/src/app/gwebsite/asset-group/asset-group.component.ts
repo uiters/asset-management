@@ -8,9 +8,10 @@ import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
 import { CreateOrEditAssetGroupModalComponent } from './create-or-edit-asset-group-modal.component';
 import { WebApiServiceProxy, IFilter } from '@shared/service-proxies/webapi.service';
+import { AssetTypeDto } from '../asset-type/dto/asset-type.dto';
+import { AssetGroupDto } from './dto/asset-group.dto';
 
 @Component({
-  selector: 'app-asset-group',
   templateUrl: './asset-group.component.html',
   animations: [appModuleAnimation()]
 })
@@ -48,15 +49,30 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
 
         this.primengTableHelper.showLoadingIndicator();
 
-        this._apiService.get('api/AssetGroup/GetAssetGroupsByFilter',
+        this._apiService.get('api/GroupAsset/GetAssetsByFilter',
             [{ fieldName: 'Name', value: this.filterText }],
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event),
-        ).subscribe(result => {
+        ).subscribe(async result => {
             this.primengTableHelper.totalRecordsCount = result.totalCount;
+            await this.setAssetType(result.items);
             this.primengTableHelper.records = result.items;
             this.primengTableHelper.hideLoadingIndicator();
+        });
+    }
+
+    setAssetType(assetGroups: AssetGroupDto[]): void {
+        this._apiService.get('api/AssetType/GetAssetTypes'
+        ).subscribe(result => {
+            assetGroups.map((assetGroup, index) => {
+                assetGroup.index = index + 1;
+                for (let assetType of result.items) {
+                    if (assetType.assetTypeCode === assetGroup.assetTypeCode) {
+                        return assetGroup.assetType = { ...assetType };
+                    }
+                }
+            });
         });
     }
 
@@ -97,8 +113,7 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
         } else { this.reloadPage(); }
     }
 
-    //hàm show view create MenuClient
-    createMenuClient() {
+    createAssetGroup() {
         this.createOrEditModal.show();
     }
 }
