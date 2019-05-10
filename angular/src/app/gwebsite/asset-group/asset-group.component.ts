@@ -68,7 +68,7 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
             assetGroups.map((assetGroup, index) => {
                 assetGroup.index = index + 1;
                 for (let assetType of result.items) {
-                    if (assetType.assetTypeCode === assetGroup.assetTypeCode) {
+                    if (assetType.id.toString() === assetGroup.assetTypeCode) {
                         return assetGroup.assetType = { ...assetType };
                     }
                 }

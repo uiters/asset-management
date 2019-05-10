@@ -4,7 +4,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { finalize } from 'rxjs/operators';
 import { AssetGroupDto } from '@app/gwebsite/asset-group/dto/asset-group.dto';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
-import { ComboboxItemDto } from '@shared/service-proxies/service-proxies';
+import { ComboboxItemDto, GroupAssetServiceProxy, AssetServiceProxy, AssetTypeServiceProxy } from '@shared/service-proxies/service-proxies';
 
 @Component({
   selector: 'createOrEditAssetGroupModal',
@@ -13,7 +13,8 @@ import { ComboboxItemDto } from '@shared/service-proxies/service-proxies';
 export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal') modal: ModalDirective;
-    @ViewChild('assetGroupCombobox') assetGroupCombobox: ElementRef;
+    @ViewChild('assetGroupsCombobox') assetGroupsCombobox: ElementRef;
+    @ViewChild('assetTypesCombobox') assetTypesCombobox: ElementRef;
     @ViewChild('iconCombobox') iconCombobox: ElementRef;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
@@ -23,10 +24,11 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
 
     assetGroup: AssetGroupDto = new AssetGroupDto();
     assetGroups: ComboboxItemDto[] = [];
+    assetTypes: ComboboxItemDto[] = [];
 
     constructor(
         injector: Injector,
-        private _apiService: WebApiServiceProxy
+        private _apiService: WebApiServiceProxy,
     ) {
         super(injector);
     }
@@ -34,11 +36,15 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
     show(assetGroupId?: number | null | undefined): void {
         this.active = true;
 
+        this.getAssetGroups();
+        this.getAssetTypes();
+
         this._apiService.getForEdit('api/GroupAsset/GetGroupAssetForEdit', assetGroupId).subscribe(result => {
             this.assetGroup = result;
             this.modal.show();
             setTimeout(() => {
-                    $(this.assetGroupCombobox.nativeElement).selectpicker('refresh');
+                    $(this.assetGroupsCombobox.nativeElement).selectpicker('refresh');
+                    $(this.assetTypesCombobox.nativeElement).selectpicker('refresh');
             }, 0);
         });
     }
@@ -71,6 +77,26 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
                 this.close();
                 this.modalSave.emit(null);
             });
+    }
+
+    getAssetGroups() {
+        this._apiService.getForEdit('api/GroupAsset/GetGroupAssetCombobox', 1
+        ).subscribe(result => {
+            this.assetGroups = result.groupAssets;
+            setTimeout(() => {
+                $(this.assetGroupsCombobox.nativeElement).selectpicker('refresh');
+        }, 0);
+        });
+    }
+
+    getAssetTypes() {
+        this._apiService.getForEdit('api/AssetType/GetAssetTypeCombobox', 1
+        ).subscribe(result => {
+            this.assetTypes = result.assetTypes;
+            setTimeout(() => {
+                $(this.assetTypesCombobox.nativeElement).selectpicker('refresh');
+        }, 0);
+        });
     }
 
     close(): void {

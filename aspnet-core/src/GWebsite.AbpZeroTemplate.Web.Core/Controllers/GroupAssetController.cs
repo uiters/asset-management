@@ -31,7 +31,7 @@ namespace GWebsite.AbpZeroTemplate.Application.Controllers
         public GroupAssetDto GetGroupAssetForEdit(int id) => appService.GetGroupAssetForEdit(id);
 
         [HttpGet]
-        public GroupAssetCombobox GetAssetTypeCombobox(int? id) => appService.GetGroupAssetCombobox(id);
+        public GroupAssetCombobox GetGroupAssetCombobox(int? id) => appService.GetGroupAssetCombobox(id);
         #endregion
 
         #region POST
