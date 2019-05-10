@@ -3,7 +3,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as _ from 'lodash';
-import { NgModule } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
@@ -68,8 +67,8 @@ export class MenuClientComponent extends AppComponentBase implements AfterViewIn
         /**
          * Sử dụng _apiService để call các api của backend
          */
-        this._apiService.get('/api/Depreciation/GetDepreciationsByFilter',
-            [{ fieldName: 'Name', value: this.filterText }],
+        this._apiService.get('api/Depreciation/GetDepreciationsByFilter',
+            [{ fieldName: 'name', value: this.filterText }],
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event),

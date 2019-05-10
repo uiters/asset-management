@@ -17,8 +17,8 @@ export class AppNavigationService {
             new AppMenuItem('Tenants', 'Pages.Tenants', 'flaticon-list-3', '/app/admin/tenants'),
             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
             new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
-                new AppMenuItem('MenuClient', 'Pages.Administration.MenuClient', 'flaticon-menu-1', '/app/gwebsite/menu-client'),
-                new AppMenuItem('Depreciation', 'Pages.Administration.Depreciation', 'flaticon-menu-1', '/app/gwebsite/depreciation'),
+                //new AppMenuItem('MenuClient', 'Pages.Administration.MenuClient', 'flaticon-menu-1', '/app/gwebsite/menu-client'),
+                new AppMenuItem('Depreciation', '', 'flaticon-menu-1', '/app/gwebsite/depreciation'),
                 new AppMenuItem('Customer', 'Pages.Administration.Customer', 'flaticon-menu-1', '/app/gwebsite/customer')
             ]),
             new AppMenuItem('Systems', '', 'flaticon-layers', '', [

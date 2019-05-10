@@ -26,7 +26,7 @@ export class CreateOrEditMenuClientModalComponent extends AppComponentBase {
 
     menuClient: MenuClientDto = new MenuClientDto();
     menuClients: ComboboxItemDto[] = [];
-
+    
     constructor(
         injector: Injector,
         private _apiService: WebApiServiceProxy
@@ -37,7 +37,7 @@ export class CreateOrEditMenuClientModalComponent extends AppComponentBase {
     show(menuClientId?: number | null | undefined): void {
         this.active = true;
 
-        this._apiService.getForEdit('/api/Depreciation/GetDepreciationForEdit', menuClientId).subscribe(result => {
+        this._apiService.getForEdit('api/Depreciation/GetDepreciationForEdit', menuClientId).subscribe(result => {
             this.menuClient = result.menuClient;
             this.menuClients = result.menuClients;
             this.modal.show();
@@ -58,7 +58,7 @@ export class CreateOrEditMenuClientModalComponent extends AppComponentBase {
     }
 
     insertMenuClient() {
-        this._apiService.post('/api/Depreciation/CreateDepreciation', this.menuClient)
+        this._apiService.post('api/Depreciation/CreateDepreciation', this.menuClient)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));
@@ -68,7 +68,7 @@ export class CreateOrEditMenuClientModalComponent extends AppComponentBase {
     }
 
     updateMenuClient() {
-        this._apiService.put('/api/Depreciation/UpdateDepreciation', this.menuClient)
+        this._apiService.put('api/Depreciation/UpdateDepreciation', this.menuClient)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));

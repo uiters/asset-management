@@ -8,21 +8,13 @@ import { CustomerComponent } from './customer/customer.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
-            {
-                path: '',
-                children: [
-                    {
-                        path: 'menu-client', component: MenuClientComponent,
-                        data: { permission: 'Pages.Administration.MenuClient' }
-                    },
-                ]
-            },
+        
             {
                 path: '',
                 children: [
                     {
                         path: 'depreciation', component: DepreciationComponent,
-                        data: { permission: 'Pages.Administration.Depreciation' }
+                        //data: { permission: 'Pages.Administration.Depreciation' }
                     },
                 ]
             },
