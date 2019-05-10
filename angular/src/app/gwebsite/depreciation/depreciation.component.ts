@@ -3,15 +3,15 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as _ from 'lodash';
-
+import { NgModule } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { CreateOrEditMenuClientModalComponent } from './create-or-edit-menu-client-modal.component';
+import { CreateOrEditMenuClientModalComponent } from './create-or-edit-depreciation-modal.component';
 import { WebApiServiceProxy, IFilter } from '@shared/service-proxies/webapi.service';
 
 @Component({
-    templateUrl: './menu-client.component.html',
+    templateUrl: './depreciation.component.html',
     animations: [appModuleAnimation()]
 })
 export class MenuClientComponent extends AppComponentBase implements AfterViewInit, OnInit {
@@ -68,7 +68,7 @@ export class MenuClientComponent extends AppComponentBase implements AfterViewIn
         /**
          * Sử dụng _apiService để call các api của backend
          */
-        this._apiService.get('api/MenuClient/GetMenuClientsByFilter',
+        this._apiService.get('/api/Depreciation/GetDepreciationsByFilter',
             [{ fieldName: 'Name', value: this.filterText }],
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
@@ -95,7 +95,7 @@ export class MenuClientComponent extends AppComponentBase implements AfterViewIn
 
     applyFilters(): void {
         //truyền params lên url thông qua router
-        this._router.navigate(['app/gwebsite/menu-client', {
+        this._router.navigate(['app/gwebsite/depreciaiton', {
             filterText: this.filterText
         }]);
 
