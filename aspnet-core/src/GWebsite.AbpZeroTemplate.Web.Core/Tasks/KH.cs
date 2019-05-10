@@ -36,6 +36,7 @@ namespace QuartzWithCore.Tasks
             string queryString = "select * from Assets";
             var map = new Dictionary<int, int>();
             var mapprice = new Dictionary<int, int>();
+            var month = new Dictionary<int, int>();
             using (SqlConnection connection = new SqlConnection(connString))
             using (SqlCommand command = connection.CreateCommand())
             {
@@ -47,11 +48,34 @@ namespace QuartzWithCore.Tasks
                 {
                     while (reader.Read())
                     {
-                        int id = int.Parse(reader["Id"].ToString());
-                        int month = int.Parse(reader["MonthDepreciation"].ToString());
+                        int id = int.Parse(reader["AssetCode"].ToString());
+                        //int month = int.Parse(reader["MonthDepreciation"].ToString());
                         int originalprice = int.Parse(reader["OriginalPrice"].ToString());
-                        map.Add(id, month);
+                       // map.Add(id, month);
                         mapprice.Add(id, originalprice);
+                    }
+                }
+            }
+            string queryString1 = "Select * From Depreciations Where DAY(DayBeginCalculateDepreciation" + DateTime.Now.Day.ToString(); ;
+            
+            using (SqlConnection connection = new SqlConnection(connString))
+            using (SqlCommand command = connection.CreateCommand())
+            {
+                command.CommandText = queryString1;
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int id = int.Parse(reader["AssetCode"].ToString());
+                        int depreciatedvalue = int.Parse(reader["DepreciatedValue"].ToString());
+                        int depreciationmonth = int.Parse(reader["DepreciationMonths"].ToString());
+                        //int originalprice = int.Parse(reader["OriginalPrice"].ToString());
+                        //map.Add(id, month);
+                        map.Add(id, depreciatedvalue);
+                        month.Add(id, depreciationmonth);
                     }
                 }
             }
@@ -59,11 +83,11 @@ namespace QuartzWithCore.Tasks
             {
                 try
                 {
-                    
+                        AssetDto assets = new AssetDto();
                         using (SqlConnection connection = new SqlConnection(connString))
                         using (SqlCommand command = connection.CreateCommand())
                         {
-                            AssetDto assets = new AssetDto();
+                            
                             foreach (KeyValuePair<int, int> assetprice in mapprice)
                             {
                                 if(asset.Key==assetprice.Key)
@@ -72,16 +96,28 @@ namespace QuartzWithCore.Tasks
                                     break;
                                 }
                             }
-                            assets.MonthDepreciation = asset.Value;
-                            command.CommandText = "UPDATE Depreciations SET RemainingValue = " + calculateDepreciation(assets.OriginalPrice, assets.MonthDepreciation).ToString() + " WHERE AssetId = " + asset.Key.ToString() + " AND DAY(DayBeginCalculateDepreciation) = "+DateTime.Now.Day.ToString();
+                        foreach (KeyValuePair<int, int> assetmonth in month)
+                        {
+                            if (asset.Key == assetmonth.Key)
+                            {
+                                assets.DepreciationMonths = assetmonth.Value;
+                                break;
+                            }
+                        }
+
+                        //assets.MonthDepreciation = asset.Value;
+                        int depreciatedvalue = asset.Value + calculateDepreciation(assets.OriginalPrice, assets.MonthDepreciation);
+                        float remainingvalue = assets.OriginalPrice - depreciatedvalue;
+                        command.CommandText = "UPDATE Depreciations SET DepreciatedValue = " + depreciatedvalue.ToString() +", RemainingValue = "+ remainingvalue.ToString() + " WHERE AssetCode = " + asset.Key.ToString();
+                        //command.CommandText = "Select * From Depreciations Where DAY(DayBeginCalculateDepreciation) = " + DateTime.Now.Day.ToString();
                             Console.WriteLine(command.CommandText);
                             connection.Open();
                             using (SqlDataReader reader = command.ExecuteReader())
                             {
                                 while (reader.Read())
                                 {
-
-
+                                    
+                                    
                                 }
                             }
                         }
