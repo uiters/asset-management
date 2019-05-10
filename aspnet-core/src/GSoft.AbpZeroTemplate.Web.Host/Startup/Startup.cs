@@ -12,6 +12,7 @@ using GSoft.AbpZeroTemplate.Identity;
 using GSoft.AbpZeroTemplate.Web.Chat.SignalR;
 using GSoft.AbpZeroTemplate.Web.IdentityServer;
 using Hangfire;
+using Quartz;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using ILoggerFactory = Microsoft.Extensions.Logging.ILoggerFactory;
+using System.Collections.Specialized;
+using Quartz.Impl;
 
 namespace GSoft.AbpZeroTemplate.Web.Startup
 {
@@ -50,7 +53,7 @@ namespace GSoft.AbpZeroTemplate.Web.Startup
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
 
             services.AddSignalR(options => { options.EnableDetailedErrors = true; });
-
+            services.AddSingleton(provider => GetScheduler());
             //Configure CORS for angular2 UI
             services.AddCors(options =>
             {
@@ -92,7 +95,7 @@ namespace GSoft.AbpZeroTemplate.Web.Startup
                 //Authorize button's behaviour is handled in wwwroot/swagger/ui/index.html
                 options.AddSecurityDefinition("Bearer", new BasicAuthScheme());
             });
-
+            //services.AddHangfire(configuration => { configuration.UseSqlServerStorage("Server=DESKTOP-OAVL1J3; Database=gwebsite3; Trusted_Connection=True;"); });
             //Recaptcha
             services.AddRecaptcha(new RecaptchaOptions
             {
@@ -125,7 +128,7 @@ namespace GSoft.AbpZeroTemplate.Web.Startup
             {
                 options.UseAbpRequestLocalization = false; //used below: UseAbpRequestLocalization
             });
-
+            //app.UseHangfireServer();
             app.UseCors(DefaultCorsPolicyName); //Enable CORS!
 
             app.UseAuthentication();
@@ -181,6 +184,20 @@ namespace GSoft.AbpZeroTemplate.Web.Startup
                 options.IndexStream = () => Assembly.GetExecutingAssembly()
                     .GetManifestResourceStream("GSoft.AbpZeroTemplate.Web.wwwroot.swagger.ui.index.html");
             }); //URL: /swagger
+        }
+        private IScheduler GetScheduler()
+        {
+            var properties = new NameValueCollection
+            {
+                ["quartz.scheduler.instanceName"] = "QuartzWithCore",
+                ["quartz.threadPool.type"] = "Quartz.Simpl.SimpleThreadPool, Quartz",
+                ["quartz.threadPool.threadCount"] = "3",
+                ["quartz.jobStore.type"] = "Quartz.Simpl.RAMJobStore, Quartz",
+            };
+            var schedulerFactory = new StdSchedulerFactory();
+            var scheduler = schedulerFactory.GetScheduler().Result;
+            scheduler.Start();
+            return scheduler;
         }
     }
 }
