@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { MenuClientComponent } from '@app/gwebsite/menu-client/menu-client.component';
 import { DemoModelComponent } from './demo-model/demo-model.component';
 import { CustomerComponent } from './customer/customer.component';
+import { AssetGroupComponent } from './asset-group/asset-group.component';
 import { AssetComponent } from './asset/asset/asset.component';
 
 @NgModule({
@@ -41,6 +42,15 @@ import { AssetComponent } from './asset/asset/asset.component';
                     {
                         path: 'asset', component: AssetComponent,
                         data: { permission: 'Pages.Administration.Asset' }
+                    },
+                ]
+            },
+            {
+                path: '',
+                children: [
+                    {
+                        path: 'asset-group', component: AssetGroupComponent,
+                        data: { permission: 'Pages.Administration.GroupAsset' }
                     },
                 ]
             }

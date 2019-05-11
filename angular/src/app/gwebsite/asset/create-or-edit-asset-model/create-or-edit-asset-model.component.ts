@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter, Injector } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { AssetServiceProxy, AssetInput, ComboboxItemDto, GroupAssetServiceProxy } from '@shared/service-proxies/service-proxies';
+import { AssetServiceProxy, AssetInput, ComboboxItemDto, GroupAssetServiceProxy, DepreciationDto } from '@shared/service-proxies/service-proxies';
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
@@ -82,6 +82,22 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
               this.notify.info(this.l('SavedSuccessfully'));
               this.close();
             });
+            let inputde = new DepreciationDto();
+            inputde.assetCode = input.assetCode;
+            inputde.dayBeginCalculateDepreciation = input.dayImport;
+            inputde.depreciatedValue = 0;
+            inputde.depreciationCode ="KH"+inputde.assetCode;
+            inputde.depreciationMonths = input.depreciationMonths;
+            inputde.depreciationRateByYear = input.depreciationRateByYear;
+            inputde.remainingValue =parseFloat(input.originalPrice.toString());
+            inputde.isDeleted = false;
+            inputde.name = "string";
+            this._appService.post('api/Depreciation/CreateDepreciation', inputde)
+            .pipe(finalize(() => this.saving = false))
+            .subscribe(result => {
+              this.notify.info(this.l('SavedSuccessfully'));
+              this.close();
+            });
         }
       })
 
@@ -112,7 +128,7 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
   }
 
   show(id?: number | null | undefined): void {
-
+    //this._groupAsset.getGroupAssets().subscribe(assets => console.log(assets));
     this._appService.getForEdit('api/GroupAsset/GetGroupAssetCombobox', id)
       .subscribe(
         groupAssetscombobox => {
