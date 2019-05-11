@@ -1,4 +1,4 @@
-import { CustomerServiceProxy } from './../../shared/service-proxies/service-proxies';
+import { CustomerServiceProxy, AssetServiceProxy, AssetTypeServiceProxy, GroupAssetServiceProxy } from './../../shared/service-proxies/service-proxies';
 import { ViewDemoModelModalComponent } from './demo-model/view-demo-model-modal.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -24,6 +24,8 @@ import { DemoModelServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CustomerComponent } from './customer/customer.component';
 import { ViewCustomerModalComponent } from './customer/view-customer-modal.component';
 import { CreateOrEditCustomerModalComponent } from './customer/create-or-edit-customer-modal.component';
+import { CreateOrEditAssetModelComponent } from './asset/create-or-edit-asset-model/create-or-edit-asset-model.component';
+import { AssetComponent } from './asset/asset/asset.component';
 
 @NgModule({
     imports: [
@@ -48,11 +50,15 @@ import { CreateOrEditCustomerModalComponent } from './customer/create-or-edit-cu
         MenuClientComponent, CreateOrEditMenuClientModalComponent,
         DemoModelComponent, CreateOrEditDemoModelModalComponent, ViewDemoModelModalComponent,
         CustomerComponent, CreateOrEditCustomerModalComponent, ViewCustomerModalComponent,
+        CreateOrEditAssetModelComponent, AssetComponent,
         AssetGroupComponent, CreateOrEditAssetGroupModalComponent,
     ],
     providers: [
         DemoModelServiceProxy,
-        CustomerServiceProxy
+        CustomerServiceProxy,
+        AssetServiceProxy,
+        AssetTypeServiceProxy,
+        GroupAssetServiceProxy
     ]
 })
 export class GWebsiteModule { }

@@ -73,7 +73,8 @@ export class CustomerComponent extends AppComponentBase implements AfterViewInit
     }
 
     reloadList(customerName, event?: LazyLoadEvent) {
-        this._customerService.getCustomersByFilter(customerName, this.primengTableHelper.getSorting(this.dataTable),
+        this._customerService.getCustomersByFilter(customerName,
+            this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event),
         ).subscribe(result => {

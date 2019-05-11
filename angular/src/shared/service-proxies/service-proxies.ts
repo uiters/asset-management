@@ -702,7 +702,7 @@ export class AssetServiceProxy {
      * @code (optional) 
      * @return Success
      */
-    getAssetByCode(code: string | null | undefined): Observable<AssetDto> {
+    getAssetByCode(code: string | null | undefined): Observable<ListResultDtoOfAssetDto> {
         let url_ = this.baseUrl + "/api/Asset/GetAssetByCode?";
         if (code !== undefined)
             url_ += "code=" + encodeURIComponent("" + code) + "&"; 
@@ -724,14 +724,14 @@ export class AssetServiceProxy {
                 try {
                     return this.processGetAssetByCode(<any>response_);
                 } catch (e) {
-                    return <Observable<AssetDto>><any>_observableThrow(e);
+                    return <Observable<ListResultDtoOfAssetDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<AssetDto>><any>_observableThrow(response_);
+                return <Observable<ListResultDtoOfAssetDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetAssetByCode(response: HttpResponseBase): Observable<AssetDto> {
+    protected processGetAssetByCode(response: HttpResponseBase): Observable<ListResultDtoOfAssetDto> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -742,7 +742,7 @@ export class AssetServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? AssetDto.fromJS(resultData200) : new AssetDto();
+            result200 = resultData200 ? ListResultDtoOfAssetDto.fromJS(resultData200) : new ListResultDtoOfAssetDto();
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -750,7 +750,7 @@ export class AssetServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<AssetDto>(<any>null);
+        return _observableOf<ListResultDtoOfAssetDto>(<any>null);
     }
 
     /**

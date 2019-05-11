@@ -23,7 +23,7 @@ namespace GWebsite.AbpZeroTemplate.Application.Controllers
         public PagedResultDto<AssetDto> GetAssetsByFilter(AssetFilter filter) => appService.GetAssetsByFilter(filter);
 
         [HttpGet]
-        public AssetDto GetAssetByCode(string code) => appService.GetAssetByCode(code);
+        public ListResultDto<AssetDto> GetAssetByCode(string code) => appService.GetAssetByCode(code);
 
         [HttpGet]
         public AssetDto GetAssetForEdit(int id) => appService.GetAssetForEdit(id);

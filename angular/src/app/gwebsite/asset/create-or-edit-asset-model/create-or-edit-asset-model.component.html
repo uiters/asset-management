@@ -1,0 +1,118 @@
+<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form #editForm="ngForm" novalidate (ngSubmit)="save()">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span *ngIf="asset.id">Cập nhật tài sản: {{asset.assetName}}</span>
+            <span *ngIf="!asset.id">Tạo mới tài sản</span>
+          </h4>
+          <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label>Ngày nhập *</label>
+            <input class="form-control" type="text" name="DayImport" [value]="asset.dayImport" required maxlength="64"
+              disabled>
+            <validation-messages [formCtrl]="dayImport"></validation-messages>
+          </div>
+
+          <div class="form-group">
+            <label>Loại tài sản *</label>
+            <select #assetTypeCombobox name="groupAssetCode" class="form-control" [attr.data-live-search]="true"
+              jq-plugin="selectpicker" required>
+              <option value="">{{emptyText}}</option>
+              <option *ngFor="let item of assetTypes" [value]="item.value">{{item.displayText}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Nhóm tài sản *</label>
+            <select #groupAssetCombobox name="groupAssetCode" class="form-control" [(ngModel)]="asset.groupAssetCode"
+              [attr.data-live-search]="true" jq-plugin="selectpicker" required
+              (change)='onSelectGroupAsset(groupAssetCombobox.value)'>
+              <option value="">{{emptyText}}</option>
+              <option *ngFor="let item of groupAssets" [value]="item.value">{{item.displayText}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Mã tài sản *</label>
+            <input #assetCode="ngModel" class="form-control" type="text" name="assetCode" [(ngModel)]="asset.assetCode"
+              required maxlength="64">
+            <validation-messages [formCtrl]="assetCode"></validation-messages>
+          </div>
+
+          <div class="form-group">
+            <label>Tên tài sản *</label>
+            <input #assetName="ngModel" class="form-control" type="text" name="assetName" [(ngModel)]="asset.assetName"
+              required maxlength="64">
+            <validation-messages [formCtrl]="assetName"></validation-messages>
+          </div>
+
+          <div class="form-group">
+            <label>Mã Seri *</label>
+            <input #seriCode="ngModel" class="form-control" type="text" name="SeriCode" [(ngModel)]="asset.seriCode"
+              required maxlength="64">
+            <validation-messages [formCtrl]="seriCode"></validation-messages>
+          </div>
+
+          <div class="form-group">
+            <label>Nguyên giá *</label>
+            <input #originalPrice="ngModel" class="form-control" type="text" name="originalPrice"
+              [(ngModel)]="asset.originalPrice" required maxlength="64">
+            <validation-messages [formCtrl]="originalPrice"></validation-messages>
+          </div>
+
+          <div class="form-group">
+            <label>Nhà cung cấp *</label>
+            <input #provider="ngModel" class="form-control" type="text" name="provider" [(ngModel)]="asset.provider"
+              required maxlength="64">
+            <validation-messages [formCtrl]="provider"></validation-messages>
+          </div>
+
+          <div class="form-group">
+            <label>{{l("Ngày bảo hành *")}}</label>
+            <input #warrantyPeriod="ngModel" class="form-control" [ngModel]="asset.warrantyPeriod | date:'yyyy-MM-dd'"
+              (ngModelChange)="asset.warrantyPeriod = $event" type="date" name="warrantyPeriod" required />
+            <validation-messages [formCtrl]="warrantyPeriod"></validation-messages>
+          </div>
+
+          <div class="form-group">
+            <label>Số tháng khấu hao *</label>
+            <input #depreciationMonths="ngModel" *ngIf="!hasValue" class="form-control" type="text"
+              (change)="onChangeDepreciationMonths(depreciationMonths.value)" name="depreciationMonths"
+              [(ngModel)]="asset.depreciationMonths" [value]="0" required maxlength="64">
+
+            <input *ngIf="hasValue" class="form-control" type="text" name="depreciationMonths"
+              [value]="asset.depreciationMonths" required maxlength="64" disabled>
+            <validation-messages [formCtrl]="depreciationMonths"></validation-messages>
+          </div>
+
+          <div class="form-group">
+            <label>Tỷ lệ khấu hao năm (%) *</label>
+            <input class="form-control" type="text" name="depreciationRateByYear" required maxlength="64" disabled
+              [value]="asset.depreciationRateByYear">
+            <validation-messages [formCtrl]="depreciationRateByYear"></validation-messages>
+          </div>
+
+        </div>
+        <!-- <div class="modal-footer">
+          <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+          <button type="submit" class="btn btn-primary" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i
+              class="fa fa-save"></i>
+            <span>{{l("Save")}}</span></button>
+        </div> -->
+        <div class="modal-footer">
+          <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid" [buttonBusy]="saving"
+            [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
