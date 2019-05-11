@@ -4,6 +4,7 @@ using GWebsite.AbpZeroTemplate.Application.Share.AssetTypes.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.Customers.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.DemoModels.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto;
+using GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.GroupAssets.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.MenuClients.Dto;
 using GWebsite.AbpZeroTemplate.Core.Models;
