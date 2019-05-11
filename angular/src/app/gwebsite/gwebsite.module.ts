@@ -19,11 +19,14 @@ import {
     // ViewAssetGroupModalComponent
 } from './index';
 import { DemoModelComponent } from './demo-model/demo-model.component';
+import { MenuClientComponent as DepreciationComponent } from './depreciation/depreciation.component';
+import { CreateOrEditMenuClientModalComponent as CreateOrEditDepreciationModalComponent } from'./depreciation/create-or-edit-depreciation-modal.component';
 import { CreateOrEditDemoModelModalComponent } from './demo-model/create-or-edit-demo-model-modal.component';
 import { DemoModelServiceProxy } from '@shared/service-proxies/service-proxies';
 import { CustomerComponent } from './customer/customer.component';
 import { ViewCustomerModalComponent } from './customer/view-customer-modal.component';
 import { CreateOrEditCustomerModalComponent } from './customer/create-or-edit-customer-modal.component';
+import { from } from 'rxjs';
 import { CreateOrEditAssetModelComponent } from './asset/create-or-edit-asset-model/create-or-edit-asset-model.component';
 import { AssetComponent } from './asset/asset/asset.component';
 
@@ -47,11 +50,12 @@ import { AssetComponent } from './asset/asset/asset.component';
         InputMaskModule
     ],
     declarations: [
-        MenuClientComponent, CreateOrEditMenuClientModalComponent,
+       // MenuClientComponent, CreateOrEditMenuClientModalComponent,
         DemoModelComponent, CreateOrEditDemoModelModalComponent, ViewDemoModelModalComponent,
         CustomerComponent, CreateOrEditCustomerModalComponent, ViewCustomerModalComponent,
         CreateOrEditAssetModelComponent, AssetComponent,
         AssetGroupComponent, CreateOrEditAssetGroupModalComponent,
+        DepreciationComponent, CreateOrEditDepreciationModalComponent,
     ],
     providers: [
         DemoModelServiceProxy,

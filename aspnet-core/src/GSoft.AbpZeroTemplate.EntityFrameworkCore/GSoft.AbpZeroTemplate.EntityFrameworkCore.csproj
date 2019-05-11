@@ -26,6 +26,10 @@
     <Compile Remove="Migrations\20190509130627_Depreciations.cs" />
     <Compile Remove="Migrations\20190509164047_Update_Depreciations.cs" />
     <Compile Remove="Migrations\20190509164047_Update_Depreciations.Designer.cs" />
+
+    <Compile Remove="Migrations\20190509130627_Depreciations.cs" />
+    <Compile Remove="Migrations\20190509144844_Depreciations.cs" />
+    <Compile Remove="Migrations\20190509145219_Depreciations.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -14,6 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Abp.AspNetZeroCore" Version="1.1.3" />
     <PackageReference Include="Abp.ZeroCore.IdentityServer4.EntityFrameworkCore" Version="3.7.2" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
