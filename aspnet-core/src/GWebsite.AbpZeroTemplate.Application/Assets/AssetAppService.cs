@@ -46,17 +46,21 @@ namespace GWebsite.AbpZeroTemplate.Web.Core.Assets
             }
         }
 
-        public AssetDto GetAssetByCode(string code)
+        public ListResultDto<AssetDto> GetAssetByCode(string code)
         {
+            code = code.ToLower();
             Asset asset = assetRepository.GetAll()
-                .Where(item => item.AssetCode == code)
+                .Where(item => item.AssetCode.ToLower() == code)
                 .SingleOrDefault();
-            if (asset is null)
+            //if (asset is null)
+            //{
+            //    return null;
+            //}
+            System.Collections.Generic.List<AssetDto> assets = new System.Collections.Generic.List<AssetDto>
             {
-                return null;
-            }
-
-            return ObjectMapper.Map<AssetDto>(asset);
+                ObjectMapper.Map<AssetDto>(asset)
+            };
+            return new ListResultDto<AssetDto>(assets);
         }
 
         public AssetDto GetAssetForEdit(int id)

@@ -45,6 +45,10 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
 
   save(): void {
     let input = this.asset;
+    if (input.depreciationRateByYear == undefined) {
+      this.notify.warn(this.l('Số tháng khấu hao không hợp lệ'));
+      return;
+    }
     this.saving = true;
     if (input.id)
       this.updateAsset(input);
@@ -63,13 +67,24 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
   }
 
   createAsset(input: AssetInput): void {
-    input.warrantyPeriod = input.dayImport;
-    this._appService.post('api/Asset/CreateAsset', input)
-      .pipe(finalize(() => this.saving = false))
-      .subscribe(result => {
-        this.notify.info(this.l('SavedSuccessfully'));
-        this.close();
-      });
+
+    input.warrantyPeriod = moment(input.warrantyPeriod);
+    this._appService.get('api/Asset/GetAssetByCode?code=' + input.assetCode)
+      .subscribe(asset => {
+        console.log(asset);
+        if (asset.items != null && asset.items[0]) {
+          this.notify.warn(this.l('Mã tài sản đã tồn tại'));
+          this.saving = false;
+        } else {
+          this._appService.post('api/Asset/CreateAsset', input)
+            .pipe(finalize(() => this.saving = false))
+            .subscribe(result => {
+              this.notify.info(this.l('SavedSuccessfully'));
+              this.close();
+            });
+        }
+      })
+
   }
 
   close(): void {
@@ -85,8 +100,7 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
         groupAsset => {
           if (groupAsset)
             this.hasValue = groupAsset.depreciationMonths != 0
-          if (this.hasValue)
-          {
+          if (this.hasValue) {
             this.asset.depreciationRateByYear = (1 / groupAsset.depreciationMonths) * 100;
             this.asset.depreciationMonths = groupAsset.depreciationMonths;
           }
@@ -129,5 +143,15 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
         });
     }
   }
-
+  onChangeDepreciationMonths(value: string | number): void {
+    console.log(value);
+    if (value != null && !isNaN(Number(value.toString()))) {
+      if (Number(value) <= 0)
+        this.asset.depreciationRateByYear = undefined;
+      else
+        this.asset.depreciationRateByYear = 1 / Number(value);
+    }else {
+      this.asset.depreciationRateByYear = undefined;
+    }
+  }
 }

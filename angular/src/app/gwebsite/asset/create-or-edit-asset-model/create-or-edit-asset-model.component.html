@@ -48,11 +48,11 @@
           </div>
 
           <div class="form-group">
-              <label>Tên tài sản *</label>
-              <input #assetName="ngModel" class="form-control" type="text" name="assetName" [(ngModel)]="asset.assetName"
-                required maxlength="64">
-              <validation-messages [formCtrl]="assetName"></validation-messages>
-            </div>
+            <label>Tên tài sản *</label>
+            <input #assetName="ngModel" class="form-control" type="text" name="assetName" [(ngModel)]="asset.assetName"
+              required maxlength="64">
+            <validation-messages [formCtrl]="assetName"></validation-messages>
+          </div>
 
           <div class="form-group">
             <label>Mã Seri *</label>
@@ -85,7 +85,8 @@
           <div class="form-group">
             <label>Số tháng khấu hao *</label>
             <input #depreciationMonths="ngModel" *ngIf="!hasValue" class="form-control" type="text"
-              name="depreciationMonths" [(ngModel)]="asset.depreciationMonths" [value]="0" required maxlength="64">
+              (change)="onChangeDepreciationMonths(depreciationMonths.value)" name="depreciationMonths"
+              [(ngModel)]="asset.depreciationMonths" [value]="0" required maxlength="64">
 
             <input *ngIf="hasValue" class="form-control" type="text" name="depreciationMonths"
               [value]="asset.depreciationMonths" required maxlength="64" disabled>

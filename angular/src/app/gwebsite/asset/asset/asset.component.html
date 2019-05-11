@@ -45,6 +45,10 @@
                             [responsive]="primengTableHelper.isResponsive">
                             <ng-template pTemplate="header">
                                 <tr>
+                                    <th pSortableColumn="id">
+                                        STT
+                                        <p-sortIcon field="id"></p-sortIcon>
+                                    </th>
                                     <th pSortableColumn="GroupAssetCode">
                                         Nhóm tài sản
                                         <p-sortIcon field="GroupAssetCode"></p-sortIcon>
@@ -70,6 +74,11 @@
                             </ng-template>
                             <ng-template pTemplate="body" let-record="$implicit">
                                 <tr>
+                                    <td>
+                                        <span class="ui-column-title">STT</span>
+                                        <span
+                                            title="{{record.id}}">{{truncateString(record.id)}}</span>
+                                    </td>
                                     <td>
                                         <span class="ui-column-title">Nhóm tài sản</span>
                                         <span
@@ -118,8 +127,7 @@
                         </div>
                         <div class="primeng-paging-container">
                             <p-paginator rows="{{primengTableHelper.defaultRecordsCountPerPage}}" #paginator
-                                (onPageChange)="getAssets($event)"
-                                [totalRecords]="primengTableHelper.totalRecordsCount"
+                                (onPageChange)="getAssets($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
                                 [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
                             </p-paginator>
                             <span class="total-records-count">
