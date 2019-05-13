@@ -131,3 +131,11 @@ src/GSoft.AbpZeroTemplate.Web.Public/wwwroot/Common/_Bundles
 src/GSoft.AbpZeroTemplate.Web.Public/wwwroot/view-resources/Views/_Bundles
 src/GSoft.AbpZeroTemplate.Web.Public/wwwroot/view-resources/**/*.min.*
 src/GSoft.AbpZeroTemplate.Web.Public/wwwroot/Common/**/*.min.*
+aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/view-resources/Areas/AppAreaName/Views/_Bundles/vendors.bundle.min.css
+aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/view-resources/Areas/AppAreaName/Views/_Bundles/vendors.bundle.css
+aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/view-resources/Areas/AppAreaName/Views/_Bundles/common-styles.min.css
+aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/view-resources/Areas/AppAreaName/Views/_Bundles/common-styles.css
+aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/view-resources/Areas/AppAreaName/Views/_Bundles/app-layout-libs.min.css
+aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/view-resources/Areas/AppAreaName/Views/_Bundles/app-layout-libs.css
+aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/Common/Styles/jstree.min.css
+aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/Common/Styles/core.min.css
