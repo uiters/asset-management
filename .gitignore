@@ -138,4 +138,3 @@ aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/view-resources/Areas/AppAr
 aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/view-resources/Areas/AppAreaName/Views/_Bundles/app-layout-libs.min.css
 aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/view-resources/Areas/AppAreaName/Views/_Bundles/app-layout-libs.css
 aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/Common/Styles/jstree.min.css
-aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/Common/Styles/core.min.css
