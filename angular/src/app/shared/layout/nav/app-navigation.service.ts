@@ -20,7 +20,7 @@ export class AppNavigationService {
                 //new AppMenuItem('MenuClient', 'Pages.Administration.MenuClient', 'flaticon-menu-1', '/app/gwebsite/menu-client'),
                 new AppMenuItem('Depreciation', '', 'flaticon-menu-1', '/app/gwebsite/depreciation'),
                 new AppMenuItem('Quản lý tài sản', 'Pages.Administration.Asset', 'flaticon-tabs', '/app/gwebsite/asset'),
-                new AppMenuItem('AssetGroup', 'Pages.Administration.GroupAsset', 'flaticon-menu-1', '/app/gwebsite/asset-group'),
+                new AppMenuItem('Quản lý nhóm tài sản', 'Pages.Administration.GroupAsset', 'flaticon-menu-1', '/app/gwebsite/asset-group'),
 
             ]),
             new AppMenuItem('Systems', '', 'flaticon-layers', '', [

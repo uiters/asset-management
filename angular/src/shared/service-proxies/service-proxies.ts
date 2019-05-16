@@ -14235,15 +14235,15 @@ export interface IGetDepreciationOutput {
 export class CreateDepreciationInput implements ICreateDepreciationInput {
     id!: number | undefined;
     name!: string;
-    alias!: string | undefined;
-    description!: string | undefined;
+    depreciationCode!: string | undefined;
+    assetCode!: string | undefined;
+    dayBeginCalculateDepreciation!: moment.Moment | undefined;
+    depreciationMonths!: number | undefined;
+    depreciatedValue!: number | undefined;
+    depreciationRateByYear!: number | undefined;
+    remainingValue!: number | undefined;
+    isDeleted!: boolean | undefined;
     parentId!: number | undefined;
-    displayOrder!: number | undefined;
-    homeOrder!: number | undefined;
-    image!: string | undefined;
-    homeFlag!: boolean | undefined;
-    metaKeyword!: string | undefined;
-    metaDescription!: string | undefined;
     status!: boolean | undefined;
 
     constructor(data?: ICreateDepreciationInput) {
@@ -14259,15 +14259,15 @@ export class CreateDepreciationInput implements ICreateDepreciationInput {
         if (data) {
             this.id = data["id"];
             this.name = data["name"];
-            this.alias = data["alias"];
-            this.description = data["description"];
+            this.depreciationCode = data["depreciationCode"];
+            this.assetCode = data["assetCode"];
+            this.dayBeginCalculateDepreciation = data["dayBeginCalculateDepreciation"] ? moment(data["dayBeginCalculateDepreciation"].toString()) : <any>undefined;
+            this.depreciationMonths = data["depreciationMonths"];
+            this.depreciatedValue = data["depreciatedValue"];
+            this.depreciationRateByYear = data["depreciationRateByYear"];
+            this.remainingValue = data["remainingValue"];
+            this.isDeleted = data["isDeleted"];
             this.parentId = data["parentId"];
-            this.displayOrder = data["displayOrder"];
-            this.homeOrder = data["homeOrder"];
-            this.image = data["image"];
-            this.homeFlag = data["homeFlag"];
-            this.metaKeyword = data["metaKeyword"];
-            this.metaDescription = data["metaDescription"];
             this.status = data["status"];
         }
     }
@@ -14283,15 +14283,15 @@ export class CreateDepreciationInput implements ICreateDepreciationInput {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
-        data["alias"] = this.alias;
-        data["description"] = this.description;
+        data["depreciationCode"] = this.depreciationCode;
+        data["assetCode"] = this.assetCode;
+        data["dayBeginCalculateDepreciation"] = this.dayBeginCalculateDepreciation ? this.dayBeginCalculateDepreciation.toISOString() : <any>undefined;
+        data["depreciationMonths"] = this.depreciationMonths;
+        data["depreciatedValue"] = this.depreciatedValue;
+        data["depreciationRateByYear"] = this.depreciationRateByYear;
+        data["remainingValue"] = this.remainingValue;
+        data["isDeleted"] = this.isDeleted;
         data["parentId"] = this.parentId;
-        data["displayOrder"] = this.displayOrder;
-        data["homeOrder"] = this.homeOrder;
-        data["image"] = this.image;
-        data["homeFlag"] = this.homeFlag;
-        data["metaKeyword"] = this.metaKeyword;
-        data["metaDescription"] = this.metaDescription;
         data["status"] = this.status;
         return data; 
     }
@@ -14300,15 +14300,15 @@ export class CreateDepreciationInput implements ICreateDepreciationInput {
 export interface ICreateDepreciationInput {
     id: number | undefined;
     name: string;
-    alias: string | undefined;
-    description: string | undefined;
+    depreciationCode: string | undefined;
+    assetCode: string | undefined;
+    dayBeginCalculateDepreciation: moment.Moment | undefined;
+    depreciationMonths: number | undefined;
+    depreciatedValue: number | undefined;
+    depreciationRateByYear: number | undefined;
+    remainingValue: number | undefined;
+    isDeleted: boolean | undefined;
     parentId: number | undefined;
-    displayOrder: number | undefined;
-    homeOrder: number | undefined;
-    image: string | undefined;
-    homeFlag: boolean | undefined;
-    metaKeyword: string | undefined;
-    metaDescription: string | undefined;
     status: boolean | undefined;
 }
 

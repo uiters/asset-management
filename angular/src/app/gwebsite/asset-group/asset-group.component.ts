@@ -10,6 +10,8 @@ import { CreateOrEditAssetGroupModalComponent } from './create-or-edit-asset-gro
 import { WebApiServiceProxy, IFilter } from '@shared/service-proxies/webapi.service';
 import { AssetTypeDto } from '../asset-type/dto/asset-type.dto';
 import { AssetGroupDto } from './dto/asset-group.dto';
+import { finalize } from 'rxjs/operators';
+import { GroupAssetServiceProxy } from '@shared/service-proxies/service-proxies';
 
 @Component({
   templateUrl: './asset-group.component.html',
@@ -28,7 +30,8 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
         injector: Injector,
         private _router: Router,
         private _activatedRoute: ActivatedRoute,
-        private _apiService: WebApiServiceProxy
+        private _apiService: WebApiServiceProxy,
+        private _apiAssetGroupService: GroupAssetServiceProxy
     ) {
         super(injector);
     }
@@ -60,6 +63,15 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
             this.primengTableHelper.records = result.items;
             this.primengTableHelper.hideLoadingIndicator();
         });
+    }
+
+    deleteAssetGroup(id: number): void {
+        this._apiService.delete("api/GroupAsset/DeleteGroupAsset?", id)
+            .subscribe(() => {
+                this.notify.info(this.l('DeletedSuccessfully'));
+                this.reloadPage();
+            });
+        // this._apiAssetGroupService.deleteGroupAsset(id).subscribe(() => this.reloadPage());
     }
 
     setAssetType(assetGroups: AssetGroupDto[]): void {

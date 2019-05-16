@@ -66,9 +66,11 @@ export class AssetComponent extends AppComponentBase implements AfterViewInit {
   }
 
   deleteAsset(id: number): void {
-    this._assetService.deleteAsset(id).subscribe(() => {
-      this.reLoadPage();
-    });
+    this._apiService.delete("api/Asset/DeleteAsset?", id)
+      .subscribe(() => {
+          this.notify.info(this.l('DeletedSuccessfully'));
+          this.reLoadPage();
+      });
   }
   reLoadPage() {
     this.paginator.changePage(this.paginator.getPage());
