@@ -7,10 +7,9 @@ import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
 import { CreateOrEditAssetGroupModalComponent } from './create-or-edit-asset-group-modal.component';
+import { ViewAssetGroupModalComponent } from './view-asset-group-modal.component'
 import { WebApiServiceProxy, IFilter } from '@shared/service-proxies/webapi.service';
-import { AssetTypeDto } from '../asset-type/dto/asset-type.dto';
 import { AssetGroupDto } from './dto/asset-group.dto';
-import { finalize } from 'rxjs/operators';
 import { GroupAssetServiceProxy } from '@shared/service-proxies/service-proxies';
 
 @Component({
@@ -21,6 +20,7 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
 
     @ViewChild('textsTable') textsTable: ElementRef;
     @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditAssetGroupModalComponent;
+    @ViewChild('viewModal') viewModal: ViewAssetGroupModalComponent;
     @ViewChild('dataTable') dataTable: Table;
     @ViewChild('paginator') paginator: Paginator;
 

@@ -101,11 +101,11 @@
                                             (click)="deleteAssetGroup(record.id)" title="{{l('Delete')}}">
                                             <i class="fa fa-times" [attr.aria-label]="l('Delete')"></i>
                                         </button>
-                                        <!-- <button
+                                        <button
                                             class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-                                            (click)="viewCustomerModal.show(record.id)" title="{{l('View')}}">
+                                            (click)="viewModal.show(record.id)" title="{{l('View')}}">
                                             <i class="fa fa-eye" [attr.aria-label]="l('View')"></i>
-                                        </button> -->
+                                        </button>
                                     </td>
                                 </tr>
                             </ng-template>
@@ -129,4 +129,5 @@
         </div>
     </div>
     <createOrEditAssetGroupModal #createOrEditModal (modalSave)="refreshValueFromModal()"></createOrEditAssetGroupModal>
+    <viewAssetGroupModal #viewModal></viewAssetGroupModal>
 </div>
