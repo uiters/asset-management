@@ -2,15 +2,15 @@ import { ComboboxItemDto } from '@shared/service-proxies/service-proxies';
 
 export class MenuClientDto {
     id: number;
-    DepreciationCode: string;
-    Name: string;
-    AssetCode: string;
-    DayBeginCalculateDepreciation: Date;
+    depreciationCode: string;
+    name: string;
+    assetCode: string;
+    dayBeginCalculateDepreciation: Date;
     parentId: number | null;
-    DepreciationMonths: Number;
-    DepreciatedValue: Float32Array;
-    DepreciationRateByYear: Float32Array;
-    RemainingValue: Float32Array;
+    depreciationMonths: number;
+    depreciatedValue: number;
+    depreciationRateByYear: number;
+    remainingValue: number;
     IsDeleted: boolean;
     Status: boolean;   
 }

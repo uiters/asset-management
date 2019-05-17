@@ -105,8 +105,9 @@ namespace QuartzWithCore.Tasks
                             }
 
                             //assets.MonthDepreciation = asset.Value;
-                            int depreciatedvalue = asset.Value + (int)CalculateDepreciation(assets.OriginalPrice, assets.DepreciationMonths);
-                            float remainingvalue = assets.OriginalPrice - depreciatedvalue;
+                            int depreciatedvalue = asset.Value+(int)CalculateDepreciation(assets.OriginalPrice, assets.DepreciationMonths);
+                            depreciatedvalue = depreciatedvalue > assets.OriginalPrice ? assets.OriginalPrice : depreciatedvalue;
+                            float remainingvalue = (assets.OriginalPrice - depreciatedvalue)>=0?(assets.OriginalPrice - depreciatedvalue):0;
                             command.CommandText = "UPDATE Depreciations SET DepreciatedValue = " + depreciatedvalue.ToString() + ", RemainingValue = " + remainingvalue.ToString() + " WHERE AssetCode = '" + asset.Key.ToString() + "'";
                             //command.CommandText = "Select * From Depreciations Where DAY(DayBeginCalculateDepreciation) = " + DateTime.Now.Day.ToString();
                             Console.WriteLine(command.CommandText);

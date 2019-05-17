@@ -36,9 +36,10 @@ export class CreateOrEditMenuClientModalComponent extends AppComponentBase {
 
     show(menuClientId?: number | null | undefined): void {
         this.active = true;
-
+        //console.log(menuClientId);
         this._apiService.getForEdit('api/Depreciation/GetDepreciationForEdit', menuClientId).subscribe(result => {
-            this.menuClient = result.menuClient;
+            this.menuClient = result.depreciation;
+            console.log(this.menuClient);
             this.menuClients = result.menuClients;
             this.modal.show();
             setTimeout(() => {
@@ -81,4 +82,17 @@ export class CreateOrEditMenuClientModalComponent extends AppComponentBase {
         this.active = false;
         this.modal.hide();
     }
+    onChangeDepreciationMonths(value: string | number): void {
+        console.log(value);
+        //let originalprice:number = this.menuClient.remainingValue+this.menuClient.depreciatedValue;
+        //console.log(originalprice);
+        if (value != null && !isNaN(Number(value.toString()))) {
+          if (Number(value) <= 0)
+            this.menuClient.depreciationRateByYear = undefined;
+          else
+            this.menuClient.depreciationRateByYear = ((1/Number(value))*100);
+        }else {
+          this.menuClient.depreciationRateByYear = undefined;
+        }
+      }
 }

@@ -16,50 +16,53 @@
                    
                     <div class="form-group">
                         <label>{{l("Ma Khau Hao")}} *</label>
-                        <input #nameInput="ngModel" class="form-control" type="text" name="depreciationCode" [(ngModel)]="menuClient.depreciationCode"
-                            required maxlength="64">
-                        <validation-messages [formCtrl]="depreciationCodeInput"></validation-messages>
+                        <input #depreciationCode="ngModel" class="form-control" type="text" name="depreciationCode" [(ngModel)]="menuClient.depreciationCode"
+                            required maxlength="64" disabled>
+                       
                     </div>
                     <div class="form-group">
                         <label>{{l("Ma Tai San")}} *</label>
-                        <input #aliasInput="ngModel" class="form-control" type="text" name="assetCode" [(ngModel)]="menuClient.assetCode"
-                            required maxlength="64">
-                        <validation-messages [formCtrl]="assetCodeInput"></validation-messages>
+                        <input #assetCode="ngModel" class="form-control" type="text" name="assetCode" [(ngModel)]="menuClient.assetCode"
+                            required maxlength="64" disabled>
+                       
                     </div>
                     <div class="form-group">
                         <label>{{l("Ngay Bat Dau Khau Hao")}} *</label>
-                        <input #aliasInput="ngModel" class="form-control" type="date" name="dayBeginCalculateDepreciation" [(ngModel)]="menuClient.dayBeginCalculateDepreciation"
-                            required maxlength="64">
-                        <validation-messages [formCtrl]="dayBeginCalculateDepreciationInput"></validation-messages>
+                        <input #dayBeginCalculateDepreciation="ngModel" class="form-control" type="text" name="dayBeginCalculateDepreciation" [(ngModel)]="menuClient.dayBeginCalculateDepreciation"
+                            required maxlength="64" disabled>
+                       
                     </div>
                     <div class="form-group">
                         <label>{{l("So Thang Khau Hao")}} *</label>
-                        <input #aliasInput="ngModel" class="form-control" type="text" name="depreciationMonths" [(ngModel)]="menuClient.depreciationMonths"
+                        <input #depreciationMonths="ngModel" *ngIf="!hasValue" class="form-control" type="text" name="depreciationMonths" [(ngModel)]="menuClient.depreciationMonths"
+                            (change)="onChangeDepreciationMonths(depreciationMonths.value)"
                             required maxlength="64">
-                        <validation-messages [formCtrl]="depreciationMonthsInput"></validation-messages>
+                        <input *ngIf="hasValue" class="form-control" type="text" name="depreciationMonths"
+                        [value]="menuClient.depreciationMonths" required maxlength="64" disabled>
+                        <validation-messages [formCtrl]="depreciationMonths"></validation-messages>
                     </div>
                     <div class="form-group">
                         <label>{{l("Gia Tri Da Khau Hao")}} *</label>
-                        <input #aliasInput="ngModel" class="form-control" type="text" name="depreciatedValue" [(ngModel)]="menuClient.depreciatedValue"
-                            required maxlength="64">
-                        <validation-messages [formCtrl]="depreciatedValueInput"></validation-messages>
+                        <input #depreciatedValue="ngModel" class="form-control" type="text" name="depreciatedValue" [(ngModel)]="menuClient.depreciatedValue"
+                             required maxlength="64" disabled>
+                        
                     </div>
                     <div class="form-group">
                         <label>{{l("Ti Le Khau Hao % Theo Nam")}} *</label>
-                        <input #aliasInput="ngModel" class="form-control" type="text" name="depreciationRateByYear" [(ngModel)]="menuClient.depreciationRateByYear"
-                            required maxlength="64">
-                        <validation-messages [formCtrl]="depreciationRateByYearInput"></validation-messages>
+                        <input class="form-control" type="text" name="depreciationRateByYear" 
+                          [value] = "menuClient.depreciationRateByYear"  required maxlength="64" disabled>
+                        
                     </div>
                     <div class="form-group">
                         <label>{{l("Gia Tri Con Lai")}} *</label>
-                        <input #aliasInput="ngModel" class="form-control" type="text" name="remainingValue" [(ngModel)]="menuClient.remainingValue"
-                            required maxlength="64">
-                        <validation-messages [formCtrl]="remainingValueInput"></validation-messages>
+                        <input #remainingValue="ngModel" class="form-control" type="text" name="remainingValue" [(ngModel)]="menuClient.remainingValue"
+                            required maxlength="64" disabled>
+                        
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
-                    <button type="submit" class="btn btn-primary" [disabled]="editForm.form.valid" [buttonBusy]="saving"
+                    <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid" [buttonBusy]="saving"
                         [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
                 </div>
             </form>
