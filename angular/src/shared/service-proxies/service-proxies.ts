@@ -921,13 +921,13 @@ export class AssetServiceProxy {
     }
 
     /**
+     * @id (optional) 
      * @return Success
      */
-    deleteAsset(id: number): Observable<void> {
-        let url_ = this.baseUrl + "/api/Asset/DeleteAsset/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+    deleteAsset(id: number | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Asset/DeleteAsset?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4754,13 +4754,13 @@ export class GroupAssetServiceProxy {
     }
 
     /**
+     * @id (optional) 
      * @return Success
      */
-    deleteGroupAsset(id: number): Observable<void> {
-        let url_ = this.baseUrl + "/api/GroupAsset/DeleteGroupAsset/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+    deleteGroupAsset(id: number | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/GroupAsset/DeleteGroupAsset?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {

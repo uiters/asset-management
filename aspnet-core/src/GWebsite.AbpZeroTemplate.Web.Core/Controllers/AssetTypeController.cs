@@ -46,7 +46,7 @@ namespace GWebsite.AbpZeroTemplate.Application.Controllers
 
         #region Delete
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public void DeleteAssetType(int id) => appService.DeleteAssetType(id);
 
         #endregion

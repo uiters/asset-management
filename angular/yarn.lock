@@ -6746,10 +6746,10 @@ tether@^1.4.0:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.4.tgz#9dc6eb2b3e601da2098fd264e7f7a8b264de1125"
 
-thinid@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/thinid/-/thinid-0.4.0.tgz#6f22b05141d8f097e162c9f6dfa7529c812e3a3e"
-  integrity sha512-Qhuc4LtmD1v9TgTJ5bkctZir6uZhfNmuq602K5vvXOGv2uAZkrNmoowGAQ2YMM0gRjV1ufEtn7M/K0gJGitBEw==
+thinid@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/thinid/-/thinid-0.4.1.tgz#d7eaea530ab26f1b9e1bbc4ebae1b1eea651e5c8"
+  integrity sha512-1hq2IUIh55HARqc5DjoPmUc3D2RxpNr1gkBCehPhuzGCtN08M9RL8M/c/eAQQmySSNQ4dJPOAcaZcTYtjWp3bQ==
 
 throttleit@^1.0.0:
   version "1.0.0"

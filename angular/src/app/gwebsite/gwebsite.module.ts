@@ -16,7 +16,10 @@ import {
     CreateOrEditMenuClientModalComponent,
     AssetGroupComponent,
     CreateOrEditAssetGroupModalComponent,
-    ViewAssetGroupModalComponent
+    ViewAssetGroupModalComponent,
+    AssetTypeComponent,
+    CreateOrEditAssetTypeModalComponent,
+    ViewAssetTypeModalComponent
 } from './index';
 import { DemoModelComponent } from './demo-model/demo-model.component';
 import { MenuClientComponent as DepreciationComponent } from './depreciation/depreciation.component';
@@ -56,6 +59,7 @@ import { AssetComponent } from './asset/asset/asset.component';
         CreateOrEditAssetModelComponent, AssetComponent,
         AssetGroupComponent, CreateOrEditAssetGroupModalComponent, ViewAssetGroupModalComponent,
         DepreciationComponent, CreateOrEditDepreciationModalComponent,
+        AssetTypeComponent, CreateOrEditAssetTypeModalComponent, ViewAssetTypeModalComponent
     ],
     providers: [
         DemoModelServiceProxy,
