@@ -56,7 +56,8 @@ export class AssetTypeComponent extends AppComponentBase implements AfterViewIni
             this.primengTableHelper.getSkipCount(this.paginator, event),
         ).subscribe(async result => {
             this.primengTableHelper.totalRecordsCount = result.totalCount;
-            this.primengTableHelper.records = result.items;
+            const assetTypes = result.items.map((item, index) => ({...item, index: index + 1}));
+            this.primengTableHelper.records = assetTypes;
             this.primengTableHelper.hideLoadingIndicator();
         });
     }
@@ -100,6 +101,7 @@ export class AssetTypeComponent extends AppComponentBase implements AfterViewIni
             for (let i = 0; i < this.primengTableHelper.records.length; i++) {
                 if (this.primengTableHelper.records[i].id === this.createOrEditModal.assetType.id) {
                     this.primengTableHelper.records[i] = this.createOrEditModal.assetType;
+                    this.primengTableHelper.records[i].index = i + 1;
                     return;
                 }
             }

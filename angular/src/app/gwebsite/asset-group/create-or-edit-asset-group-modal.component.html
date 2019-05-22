@@ -34,9 +34,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>{{l("Nhóm tài sản cha")}} *</label>
+                        <label>{{l("Nhóm tài sản cha")}}</label>
                         <select #assetGroupsCombobox name="parentGroupAssetCode" class="form-control" [(ngModel)]="assetGroup.parentGroupAssetCode"
-                            [attr.data-live-search]="true" jq-plugin="selectpicker" required>
+                            [attr.data-live-search]="true" jq-plugin="selectpicker">
                             <option value="">{{emptyText}}</option>
                             <option *ngFor="let item of assetGroups" [value]="item.value">{{item.displayText}}</option>
                         </select>
@@ -44,14 +44,13 @@
                     <div class="form-group">
                         <label>{{l("Số tháng khấu hao")}} *</label>
                         <input #depreciationMonthsInput="ngModel" class="form-control" type="number" name="DepreciationMonths" [(ngModel)]="assetGroup.depreciationMonths"
-                            required maxlength="64">
+                            required maxlength="64" min=1>
                         <validation-messages [formCtrl]="depreciationMonthsInput"></validation-messages>
                     </div>
                     <div class="form-group">
-                        <label>{{l("Tỉ lệ khấu hao")}} *</label>
-                        <input #depreciationRateByYearInput="ngModel" class="form-control" type="number" name="DepreciationRateByYear" [(ngModel)]="assetGroup.depreciationRateByYear"
-                            required maxlength="64">
-                        <validation-messages [formCtrl]="depreciationRateByYearInput"></validation-messages>
+                        <label>{{l("Tỉ lệ khấu hao (%)")}} *</label>
+                        <input disabled class="form-control" type="number" name="DepreciationRateByYear"
+                        [(ngModel)]="getDeprecitionRateByYear() !" required maxlength="64">
                     </div>
                     <div class="form-group">
                         <label>{{l("Tài khoản tài sản")}} *</label>

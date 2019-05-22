@@ -6,7 +6,7 @@ export class AssetGroupDto {
     index?: number;
     groupAssetCode: string;
     groupAssetName: string;
-    parentGroupAssetCode: string;
+    parentGroupAssetCode?: string;
     depreciationMonths: number;
     depreciationRateByYear: number;
     assetTypeCode: string;

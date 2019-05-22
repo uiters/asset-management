@@ -4,7 +4,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { finalize } from 'rxjs/operators';
 import { AssetGroupDto } from '@app/gwebsite/asset-group/dto/asset-group.dto';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
-import { ComboboxItemDto, GroupAssetServiceProxy, AssetServiceProxy, AssetTypeServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ComboboxItemDto } from '@shared/service-proxies/service-proxies';
 
 @Component({
   selector: 'createOrEditAssetGroupModal',
@@ -97,6 +97,10 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
                 $(this.assetTypesCombobox.nativeElement).selectpicker('refresh');
         }, 0);
         });
+    }
+
+    getDeprecitionRateByYear() {
+        return (100 / this.assetGroup.depreciationMonths).toFixed(2);
     }
 
     close(): void {

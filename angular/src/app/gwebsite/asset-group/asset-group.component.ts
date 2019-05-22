@@ -11,6 +11,7 @@ import { ViewAssetGroupModalComponent } from './view-asset-group-modal.component
 import { WebApiServiceProxy, IFilter } from '@shared/service-proxies/webapi.service';
 import { AssetGroupDto } from './dto/asset-group.dto';
 import { GroupAssetServiceProxy } from '@shared/service-proxies/service-proxies';
+import { AssetTypeDto } from '../asset-type/dto/asset-type.dto';
 
 @Component({
   templateUrl: './asset-group.component.html',
@@ -23,6 +24,8 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
     @ViewChild('viewModal') viewModal: ViewAssetGroupModalComponent;
     @ViewChild('dataTable') dataTable: Table;
     @ViewChild('paginator') paginator: Paginator;
+
+    assetTypes: AssetTypeDto[] = [];
 
     filterText: string;
 
@@ -57,9 +60,9 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event),
-        ).subscribe(async result => {
+        ).subscribe(result => {
             this.primengTableHelper.totalRecordsCount = result.totalCount;
-            await this.setAssetType(result.items);
+            this.setAssetType(result.items);
             this.primengTableHelper.records = result.items;
             this.primengTableHelper.hideLoadingIndicator();
         });
@@ -71,26 +74,26 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
                 this.notify.info(this.l('DeletedSuccessfully'));
                 this.reloadPage();
             });
-        // this._apiAssetGroupService.deleteGroupAsset(id).subscribe(() => this.reloadPage());
     }
 
-    setAssetType(assetGroups: AssetGroupDto[]): void {
-        this._apiService.get('api/AssetType/GetAssetTypes'
-        ).subscribe(result => {
-            assetGroups.map((assetGroup, index) => {
-                assetGroup.index = index + 1;
-                for (let assetType of result.items) {
-                    if (assetType.id.toString() === assetGroup.assetTypeCode) {
-                        return assetGroup.assetType = { ...assetType };
-                    }
+    setAssetType(assetGroups: AssetGroupDto[]) {
+        assetGroups.map((assetGroup, index) => {
+            assetGroup.index = index + 1;
+            for (let assetType of this.assetTypes) {
+                if (assetType.id.toString() === assetGroup.assetTypeCode) {
+                    return assetGroup.assetType = { ...assetType };
                 }
-            });
+            }
         });
     }
 
     init(): void {
         this._activatedRoute.params.subscribe((params: Params) => {
             this.filterText = params['filterText'] || '';
+            this._apiService.get('api/AssetType/GetAssetTypes'
+            ).subscribe(result => {
+                this.assetTypes = result.items;
+            });
             this.reloadPage();
         });
     }
@@ -114,8 +117,14 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
         return abp.utils.truncateStringWithPostfix(text, 32, '...');
     }
 
-    refreshValueFromModal(): void {
+    refreshValueFromModal() {
         if (this.createOrEditModal.assetGroup.id) {
+            for (let assetType of this.assetTypes) {
+                if (assetType.id.toString() === this.createOrEditModal.assetGroup.assetTypeCode) {
+                    return this.createOrEditModal.assetGroup.assetType = { ...assetType };
+                }
+            }
+
             for (let i = 0; i < this.primengTableHelper.records.length; i++) {
                 if (this.primengTableHelper.records[i].id === this.createOrEditModal.assetGroup.id) {
                     this.primengTableHelper.records[i] = this.createOrEditModal.assetGroup;
