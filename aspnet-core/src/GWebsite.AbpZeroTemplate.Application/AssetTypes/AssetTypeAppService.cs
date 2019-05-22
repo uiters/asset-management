@@ -1,25 +1,36 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.Authorization;
+using Abp.Dependency;
 using Abp.Domain.Repositories;
 using Abp.Linq.Extensions;
+using Abp.Notifications;
+using GSoft.AbpZeroTemplate.Authorization.Users;
+using GSoft.AbpZeroTemplate.Notifications;
 using GWebsite.AbpZeroTemplate.Application;
 using GWebsite.AbpZeroTemplate.Application.Share.AssetTypes;
 using GWebsite.AbpZeroTemplate.Application.Share.AssetTypes.Dto;
 using GWebsite.AbpZeroTemplate.Core.Authorization;
 using GWebsite.AbpZeroTemplate.Core.Models;
+using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
 
 namespace GWebsite.AbpZeroTemplate.Web.Core.AssetTypes
 {
     [AbpAuthorize(GWebsitePermissions.Pages_Administration_AssetType)]
     public class AssetTypeAppService : GWebsiteAppServiceBase, IAssetTypeAppService
     {
+       
         private readonly IRepository<AssetType> assetTypeRepository;
-
-        public AssetTypeAppService(IRepository<AssetType> assetType)
+        private readonly INotificationPublisher notificationPublisher;
+        private readonly IRepository<User, long> userRepository;
+        
+        public AssetTypeAppService(IRepository<AssetType> assetType, INotificationPublisher _notificationPublisher, IRepository<User, long> _userRepository)
         {
+            notificationPublisher = _notificationPublisher;
             assetTypeRepository = assetType;
+            userRepository = _userRepository;
         }
 
         [AbpAuthorize(GWebsitePermissions.Pages_Administration_AssetType_Create)]
@@ -92,9 +103,20 @@ namespace GWebsite.AbpZeroTemplate.Web.Core.AssetTypes
 
             return new ListResultDto<AssetTypeDto>(assetTypes);
         }
-
+       
         public PagedResultDto<AssetTypeDto> GetAssetTypesByFilter(AssetTypeFilter input)
         {
+            var admin = userRepository.GetAll().Where(x => x.Name == "admin").FirstOrDefault();
+
+            var user = admin.ToUserIdentifier();
+            //Console.WriteLine(user.UserId);
+            Console.WriteLine(user.TenantId);
+            notificationPublisher.PublishAsync(
+                AppNotificationNames.WelcomeToTheApplication,
+                new MessageNotificationData(L("WelcomeToTheApplicationNotificationMessage")),
+                severity: NotificationSeverity.Success,
+                userIds: new[] { user }
+                );
             IQueryable<AssetType> assetTypes = assetTypeRepository.GetAll()
                 .Where(item => !item.IsDelete);
 
