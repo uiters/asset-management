@@ -71,7 +71,7 @@
                                         {{l('Gia Tri Con Lai')}}
                                         <p-sortIcon field="remainingValue"></p-sortIcon>
                                     </th>
-                                    <th>{{l('Edit')}}</th>
+                                    
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-record="$implicit">
@@ -104,12 +104,7 @@
                                         <span class="ui-column-title">{{l('remainingValue')}}</span>
                                         <span title="{{record.remainingValue}}">{{truncateString(record.remainingValue)}}</span>
                                     </td>
-                                    <td>
-                                        <button class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-                                            (click)="createOrEditModal.show(record.id)" title="{{l('Edit')}}">
-                                            <i class="fa fa-edit" [attr.aria-label]="l('Edit')"></i>
-                                        </button>
-                                    </td>
+                                    
                                 </tr>
                             </ng-template>
                         </p-table>

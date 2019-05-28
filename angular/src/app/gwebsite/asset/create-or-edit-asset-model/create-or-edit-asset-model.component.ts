@@ -6,6 +6,7 @@ import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
 import { log } from 'util';
+import { templateJitUrl } from '@angular/compiler';
 
 @Component({
   selector: 'appCreateOrEditAssetModel',
@@ -28,6 +29,7 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
   public groupAssets: ComboboxItemDto[] = [];
   public assetTypes: ComboboxItemDto[] = [];
 
+  public temp: DepreciationDto = new DepreciationDto();
   public hasValue: boolean = true;
 
   constructor(
@@ -58,7 +60,20 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
 
   updateAsset(input: AssetInput): void {
 
-    this._appService.post('api/Asset/UpdateAsset', input)
+    this._appService.put('api/Asset/UpdateAsset', input)
+      .pipe(finalize(() => this.saving = false))
+      .subscribe(result => {
+        this.notify.info(this.l('SavedSuccessfully'));
+        this.close();
+      });
+      
+      
+      console.log(this.temp);
+      this.temp.remainingValue = input.originalPrice-this.temp.depreciatedValue;
+      this.temp.assetCode = input.assetCode;
+      this.temp.depreciationMonths = input.depreciationMonths;
+      this.temp.depreciationRateByYear = input.depreciationRateByYear;
+      this._appService.put('api/Depreciation/UpdateDepreciation', this.temp)
       .pipe(finalize(() => this.saving = false))
       .subscribe(result => {
         this.notify.info(this.l('SavedSuccessfully'));
@@ -125,6 +140,7 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
           // }, 0);
         }
       );
+      
   }
 
   show(id?: number | null | undefined): void {
@@ -157,6 +173,10 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
           this.asset = asset;
           this.modal.show();
         });
+        this._appService.getForEdit('api/Depreciation/GetDepreciationForEdit',id)
+      .subscribe(result=>{
+        this.temp = result.depreciation;
+      })
     }
   }
   onChangeDepreciationMonths(value: string | number): void {
