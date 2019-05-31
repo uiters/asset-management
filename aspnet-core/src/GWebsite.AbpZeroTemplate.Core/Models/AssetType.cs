@@ -6,5 +6,6 @@ namespace GWebsite.AbpZeroTemplate.Core.Models
     {
         public string AssetTypeCode { get; set; }
         public string AssetTypeName { get; set; }
+        public bool IsReadonly { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace GWebsite.AbpZeroTemplate.Core.Models
         public DateTime WarrantyPeriod { get; set; }
         public int DepreciationMonths { get; set; }
         public float DepreciationRateByYear { get; set; }
+        public bool IsReadonly { get; set; }
     }
 }
