@@ -7,123 +7,119 @@ namespace GSoft.AbpZeroTemplate.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "IsDeleted",
-                table: "GroupAssets",
-                newName: "IsReadonly");
-
-            migrationBuilder.RenameColumn(
-                name: "IsDeleted",
-                table: "Depreciations",
-                newName: "IsDelete");
-
-            migrationBuilder.RenameColumn(
-                name: "IsDeleted",
-                table: "AssetTypes",
-                newName: "IsReadonly");
-
-            migrationBuilder.RenameColumn(
-                name: "IsDeleted",
-                table: "Assets",
-                newName: "IsReadonly");
-
-            migrationBuilder.AddColumn<string>(
-                name: "CreatedBy",
+            migrationBuilder.AddColumn<bool>(
+                name: "IsReadonly",
                 table: "GroupAssets",
                 nullable: true);
 
-            migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedDate",
-                table: "GroupAssets",
-                nullable: true);
 
             migrationBuilder.AddColumn<bool>(
-                name: "IsDelete",
-                table: "GroupAssets",
-                nullable: false,
-                defaultValue: false);
-
-            migrationBuilder.AddColumn<string>(
-                name: "UpdatedBy",
-                table: "GroupAssets",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "UpdatedDate",
-                table: "GroupAssets",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "CreatedBy",
-                table: "Depreciations",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedDate",
-                table: "Depreciations",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "UpdatedBy",
-                table: "Depreciations",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "UpdatedDate",
-                table: "Depreciations",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "CreatedBy",
-                table: "AssetTypes",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedDate",
+                name: "IsReadonly",
                 table: "AssetTypes",
                 nullable: true);
 
             migrationBuilder.AddColumn<bool>(
-                name: "IsDelete",
-                table: "AssetTypes",
-                nullable: false,
-                defaultValue: false);
-
-            migrationBuilder.AddColumn<string>(
-                name: "UpdatedBy",
-                table: "AssetTypes",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "UpdatedDate",
-                table: "AssetTypes",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "CreatedBy",
+                name: "IsReadonly",
                 table: "Assets",
                 nullable: true);
 
-            migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedDate",
-                table: "Assets",
-                nullable: true);
+            //migrationBuilder.AddColumn<string>(
+            //    name: "CreatedBy",
+            //    table: "GroupAssets",
+            //    nullable: true);
 
-            migrationBuilder.AddColumn<bool>(
-                name: "IsDelete",
-                table: "Assets",
-                nullable: false,
-                defaultValue: false);
+            //migrationBuilder.AddColumn<DateTime>(
+            //    name: "CreatedDate",
+            //    table: "GroupAssets",
+            //    nullable: true);
 
-            migrationBuilder.AddColumn<string>(
-                name: "UpdatedBy",
-                table: "Assets",
-                nullable: true);
+            //migrationBuilder.AddColumn<bool>(
+            //    name: "IsDelete",
+            //    table: "GroupAssets",
+            //    nullable: false,
+            //    defaultValue: false);
 
-            migrationBuilder.AddColumn<DateTime>(
-                name: "UpdatedDate",
-                table: "Assets",
-                nullable: true);
+            //migrationBuilder.AddColumn<string>(
+            //    name: "UpdatedBy",
+            //    table: "GroupAssets",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<DateTime>(
+            //    name: "UpdatedDate",
+            //    table: "GroupAssets",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<string>(
+            //    name: "CreatedBy",
+            //    table: "Depreciations",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<DateTime>(
+            //    name: "CreatedDate",
+            //    table: "Depreciations",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<string>(
+            //    name: "UpdatedBy",
+            //    table: "Depreciations",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<DateTime>(
+            //    name: "UpdatedDate",
+            //    table: "Depreciations",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<string>(
+            //    name: "CreatedBy",
+            //    table: "AssetTypes",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<DateTime>(
+            //    name: "CreatedDate",
+            //    table: "AssetTypes",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<bool>(
+            //    name: "IsDelete",
+            //    table: "AssetTypes",
+            //    nullable: false,
+            //    defaultValue: false);
+
+            //migrationBuilder.AddColumn<string>(
+            //    name: "UpdatedBy",
+            //    table: "AssetTypes",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<DateTime>(
+            //    name: "UpdatedDate",
+            //    table: "AssetTypes",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<string>(
+            //    name: "CreatedBy",
+            //    table: "Assets",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<DateTime>(
+            //    name: "CreatedDate",
+            //    table: "Assets",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<bool>(
+            //    name: "IsDelete",
+            //    table: "Assets",
+            //    nullable: false,
+            //    defaultValue: false);
+
+            //migrationBuilder.AddColumn<string>(
+            //    name: "UpdatedBy",
+            //    table: "Assets",
+            //    nullable: true);
+
+            //migrationBuilder.AddColumn<DateTime>(
+            //    name: "UpdatedDate",
+            //    table: "Assets",
+            //    nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -204,25 +200,25 @@ namespace GSoft.AbpZeroTemplate.Migrations
                 name: "UpdatedDate",
                 table: "Assets");
 
-            migrationBuilder.RenameColumn(
-                name: "IsReadonly",
-                table: "GroupAssets",
-                newName: "IsDeleted");
+            //migrationBuilder.RenameColumn(
+            //    name: "IsReadonly",
+            //    table: "GroupAssets",
+            //    newName: "IsDeleted");
 
             migrationBuilder.RenameColumn(
                 name: "IsDelete",
                 table: "Depreciations",
                 newName: "IsDeleted");
 
-            migrationBuilder.RenameColumn(
-                name: "IsReadonly",
-                table: "AssetTypes",
-                newName: "IsDeleted");
+            //migrationBuilder.RenameColumn(
+            //    name: "IsReadonly",
+            //    table: "AssetTypes",
+            //    newName: "IsDeleted");
 
-            migrationBuilder.RenameColumn(
-                name: "IsReadonly",
-                table: "Assets",
-                newName: "IsDeleted");
+            //migrationBuilder.RenameColumn(
+            //    name: "IsReadonly",
+            //    table: "Assets",
+            //    newName: "IsDeleted");
         }
     }
 }

@@ -31,6 +31,8 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
 
   public temp: DepreciationDto = new DepreciationDto();
   public hasValue: boolean = true;
+  // This
+  isChange = this.asset.isReadonly;
 
   constructor(
     injector: Injector,
@@ -171,6 +173,8 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
       this._appService.getForEdit('api/Asset/GetAssetForEdit', id)
         .subscribe(asset => {
           this.asset = asset;
+          // This
+          this.isChange = this.asset.isReadonly;
           this.modal.show();
         });
         this._appService.getForEdit('api/Depreciation/GetDepreciationForEdit',id)

@@ -23,6 +23,8 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
     saving = false;
 
     assetGroup: AssetGroupDto = new AssetGroupDto();
+    // This
+    isChange = this.assetGroup.isReadonly;
     assetGroups: ComboboxItemDto[] = [];
     assetTypes: ComboboxItemDto[] = [];
 
@@ -41,6 +43,8 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
 
         this._apiService.getForEdit('api/GroupAsset/GetGroupAssetForEdit', assetGroupId).subscribe(result => {
             this.assetGroup = result;
+            // This
+            this.isChange = this.assetGroup.isReadonly;
             this.modal.show();
             setTimeout(() => {
                     $(this.assetGroupsCombobox.nativeElement).selectpicker('refresh');

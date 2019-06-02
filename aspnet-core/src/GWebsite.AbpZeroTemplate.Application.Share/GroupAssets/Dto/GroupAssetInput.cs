@@ -27,5 +27,7 @@ namespace GWebsite.AbpZeroTemplate.Application.Share.GroupAssets.Dto
         public string IncomeAccount { get; set; }
         [Required]
         public string LiquidationCostAccount { get; set; }
+        public bool IsReadonly { get; set; }
+
     }
 }

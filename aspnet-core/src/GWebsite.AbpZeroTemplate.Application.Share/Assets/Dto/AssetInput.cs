@@ -27,5 +27,7 @@ namespace GWebsite.AbpZeroTemplate.Application.Share.Assets.Dto
         [Range(0, int.MaxValue)]
         public int DepreciationMonths { get; set; }
         public float DepreciationRateByYear { get; set; }
+        public bool IsReadonly { get; set; }
+
     }
 }

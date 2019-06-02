@@ -16,6 +16,7 @@ export class AssetGroupDto {
     costsAccount: string;
     incomeAccount: string;
     liquidationCostAccount: string;
+    isReadonly: boolean;
 }
 
 export class GetAssetGroupOutput {

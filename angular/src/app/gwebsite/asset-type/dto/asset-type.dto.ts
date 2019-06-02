@@ -5,6 +5,7 @@ export class AssetTypeDto {
     id: number;
     assetTypeCode: string;
     assetTypeName: string;
+    isReadonly: boolean;
 }
 
 export class GetAssetTypeOutput {

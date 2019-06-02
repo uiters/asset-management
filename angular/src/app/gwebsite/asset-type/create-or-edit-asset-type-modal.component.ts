@@ -16,9 +16,11 @@ export class CreateOrEditAssetTypeModalComponent extends AppComponentBase {
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     active = false;
-    saving = false;
+    saving = false; 
 
     assetType: AssetTypeDto = new AssetTypeDto();
+    // This
+    isChange = this.assetType.isReadonly;
 
     constructor(
         injector: Injector,
@@ -32,6 +34,8 @@ export class CreateOrEditAssetTypeModalComponent extends AppComponentBase {
 
         this._apiService.getForEdit('api/AssetType/GetAssetTypeForEdit', assetTypeId).subscribe(result => {
             this.assetType = result;
+            // This
+            this.isChange = this.assetType.isReadonly;
             this.modal.show();
         });
     }

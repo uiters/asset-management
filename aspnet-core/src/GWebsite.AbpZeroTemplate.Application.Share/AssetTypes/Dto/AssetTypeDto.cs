@@ -6,5 +6,7 @@ namespace GWebsite.AbpZeroTemplate.Application.Share.AssetTypes.Dto
     {
         public string AssetTypeCode { get; set; }
         public string AssetTypeName { get; set; }
+        public bool IsReadonly { get; set; }
+
     }
 }

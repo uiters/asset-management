@@ -1377,13 +1377,13 @@ export class AssetTypeServiceProxy {
     }
 
     /**
+     * @id (optional) 
      * @return Success
      */
-    deleteAssetType(id: number): Observable<void> {
-        let url_ = this.baseUrl + "/api/AssetType/DeleteAssetType/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+    deleteAssetType(id: number | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/AssetType/DeleteAssetType?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -11979,6 +11979,7 @@ export class AssetDto implements IAssetDto {
     warrantyPeriod!: moment.Moment | undefined;
     depreciationMonths!: number | undefined;
     depreciationRateByYear!: number | undefined;
+    isReadonly!: boolean | undefined;
     id!: number | undefined;
 
     constructor(data?: IAssetDto) {
@@ -12002,6 +12003,7 @@ export class AssetDto implements IAssetDto {
             this.warrantyPeriod = data["warrantyPeriod"] ? moment(data["warrantyPeriod"].toString()) : <any>undefined;
             this.depreciationMonths = data["depreciationMonths"];
             this.depreciationRateByYear = data["depreciationRateByYear"];
+            this.isReadonly = data["isReadonly"];
             this.id = data["id"];
         }
     }
@@ -12025,6 +12027,7 @@ export class AssetDto implements IAssetDto {
         data["warrantyPeriod"] = this.warrantyPeriod ? this.warrantyPeriod.toISOString() : <any>undefined;
         data["depreciationMonths"] = this.depreciationMonths;
         data["depreciationRateByYear"] = this.depreciationRateByYear;
+        data["isReadonly"] = this.isReadonly;
         data["id"] = this.id;
         return data; 
     }
@@ -12041,6 +12044,7 @@ export interface IAssetDto {
     warrantyPeriod: moment.Moment | undefined;
     depreciationMonths: number | undefined;
     depreciationRateByYear: number | undefined;
+    isReadonly: boolean | undefined;
     id: number | undefined;
 }
 
@@ -12103,6 +12107,7 @@ export class AssetInput implements IAssetInput {
     warrantyPeriod!: moment.Moment | undefined;
     depreciationMonths!: number | undefined;
     depreciationRateByYear!: number | undefined;
+    isReadonly!: boolean | undefined;
     id!: number | undefined;
 
     constructor(data?: IAssetInput) {
@@ -12126,6 +12131,7 @@ export class AssetInput implements IAssetInput {
             this.warrantyPeriod = data["warrantyPeriod"] ? moment(data["warrantyPeriod"].toString()) : <any>undefined;
             this.depreciationMonths = data["depreciationMonths"];
             this.depreciationRateByYear = data["depreciationRateByYear"];
+            this.isReadonly = data["isReadonly"];
             this.id = data["id"];
         }
     }
@@ -12149,6 +12155,7 @@ export class AssetInput implements IAssetInput {
         data["warrantyPeriod"] = this.warrantyPeriod ? this.warrantyPeriod.toISOString() : <any>undefined;
         data["depreciationMonths"] = this.depreciationMonths;
         data["depreciationRateByYear"] = this.depreciationRateByYear;
+        data["isReadonly"] = this.isReadonly;
         data["id"] = this.id;
         return data; 
     }
@@ -12165,6 +12172,7 @@ export interface IAssetInput {
     warrantyPeriod: moment.Moment | undefined;
     depreciationMonths: number | undefined;
     depreciationRateByYear: number | undefined;
+    isReadonly: boolean | undefined;
     id: number | undefined;
 }
 
@@ -12215,6 +12223,7 @@ export interface IListResultDtoOfAssetTypeDto {
 export class AssetTypeDto implements IAssetTypeDto {
     assetTypeCode!: string | undefined;
     assetTypeName!: string | undefined;
+    isReadonly!: boolean | undefined;
     id!: number | undefined;
 
     constructor(data?: IAssetTypeDto) {
@@ -12230,6 +12239,7 @@ export class AssetTypeDto implements IAssetTypeDto {
         if (data) {
             this.assetTypeCode = data["assetTypeCode"];
             this.assetTypeName = data["assetTypeName"];
+            this.isReadonly = data["isReadonly"];
             this.id = data["id"];
         }
     }
@@ -12245,6 +12255,7 @@ export class AssetTypeDto implements IAssetTypeDto {
         data = typeof data === 'object' ? data : {};
         data["assetTypeCode"] = this.assetTypeCode;
         data["assetTypeName"] = this.assetTypeName;
+        data["isReadonly"] = this.isReadonly;
         data["id"] = this.id;
         return data; 
     }
@@ -12253,6 +12264,7 @@ export class AssetTypeDto implements IAssetTypeDto {
 export interface IAssetTypeDto {
     assetTypeCode: string | undefined;
     assetTypeName: string | undefined;
+    isReadonly: boolean | undefined;
     id: number | undefined;
 }
 
@@ -12395,6 +12407,7 @@ export interface IComboboxItemDto {
 export class AssetTypeInput implements IAssetTypeInput {
     assetTypeCode!: string;
     assetTypeName!: string;
+    isReadonly!: boolean | undefined;
     id!: number | undefined;
 
     constructor(data?: IAssetTypeInput) {
@@ -12410,6 +12423,7 @@ export class AssetTypeInput implements IAssetTypeInput {
         if (data) {
             this.assetTypeCode = data["assetTypeCode"];
             this.assetTypeName = data["assetTypeName"];
+            this.isReadonly = data["isReadonly"];
             this.id = data["id"];
         }
     }
@@ -12425,6 +12439,7 @@ export class AssetTypeInput implements IAssetTypeInput {
         data = typeof data === 'object' ? data : {};
         data["assetTypeCode"] = this.assetTypeCode;
         data["assetTypeName"] = this.assetTypeName;
+        data["isReadonly"] = this.isReadonly;
         data["id"] = this.id;
         return data; 
     }
@@ -12433,6 +12448,7 @@ export class AssetTypeInput implements IAssetTypeInput {
 export interface IAssetTypeInput {
     assetTypeCode: string;
     assetTypeName: string;
+    isReadonly: boolean | undefined;
     id: number | undefined;
 }
 
@@ -15164,6 +15180,7 @@ export class GroupAssetDto implements IGroupAssetDto {
     costsAccount!: string | undefined;
     incomeAccount!: string | undefined;
     liquidationCostAccount!: string | undefined;
+    isReadonly!: boolean | undefined;
     id!: number | undefined;
 
     constructor(data?: IGroupAssetDto) {
@@ -15188,6 +15205,7 @@ export class GroupAssetDto implements IGroupAssetDto {
             this.costsAccount = data["costsAccount"];
             this.incomeAccount = data["incomeAccount"];
             this.liquidationCostAccount = data["liquidationCostAccount"];
+            this.isReadonly = data["isReadonly"];
             this.id = data["id"];
         }
     }
@@ -15212,6 +15230,7 @@ export class GroupAssetDto implements IGroupAssetDto {
         data["costsAccount"] = this.costsAccount;
         data["incomeAccount"] = this.incomeAccount;
         data["liquidationCostAccount"] = this.liquidationCostAccount;
+        data["isReadonly"] = this.isReadonly;
         data["id"] = this.id;
         return data; 
     }
@@ -15229,6 +15248,7 @@ export interface IGroupAssetDto {
     costsAccount: string | undefined;
     incomeAccount: string | undefined;
     liquidationCostAccount: string | undefined;
+    isReadonly: boolean | undefined;
     id: number | undefined;
 }
 
@@ -15340,6 +15360,7 @@ export class GroupAssetInput implements IGroupAssetInput {
     costsAccount!: string;
     incomeAccount!: string;
     liquidationCostAccount!: string;
+    isReadonly!: boolean | undefined;
     id!: number | undefined;
 
     constructor(data?: IGroupAssetInput) {
@@ -15364,6 +15385,7 @@ export class GroupAssetInput implements IGroupAssetInput {
             this.costsAccount = data["costsAccount"];
             this.incomeAccount = data["incomeAccount"];
             this.liquidationCostAccount = data["liquidationCostAccount"];
+            this.isReadonly = data["isReadonly"];
             this.id = data["id"];
         }
     }
@@ -15388,6 +15410,7 @@ export class GroupAssetInput implements IGroupAssetInput {
         data["costsAccount"] = this.costsAccount;
         data["incomeAccount"] = this.incomeAccount;
         data["liquidationCostAccount"] = this.liquidationCostAccount;
+        data["isReadonly"] = this.isReadonly;
         data["id"] = this.id;
         return data; 
     }
@@ -15405,6 +15428,7 @@ export interface IGroupAssetInput {
     costsAccount: string;
     incomeAccount: string;
     liquidationCostAccount: string;
+    isReadonly: boolean | undefined;
     id: number | undefined;
 }
 
