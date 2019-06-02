@@ -1,0 +1,133 @@
+<div [@routerTransition]>
+
+    <div class="m-subheader ">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto col-xs-6">
+                <h3 class="m-subheader__title m-subheader__title--separator">
+                    <span>{{l("Nhóm Tài Sản")}}</span>
+                </h3>
+                <span class="m-section__sub">
+                    {{l("Thông Tin Nhóm Tài Sản")}}
+                </span>
+            </div>
+            <div class="col-xs-6 text-right">
+                <button (click)="createAssetGroup()" *ngIf="isGranted('Pages.Administration.GroupAsset.Create')" class="btn btn-primary"><i
+                        class="fa fa-plus"></i> {{l("Tạo Mới Nhóm Tài Sản")}}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-content">
+        <div class="m-portlet m-portlet--mobile">
+            <div class="m-portlet__body">
+                <form autocomplete="off">
+                    <div class="m-form m-form--label-align-right" id="TextsFilterForm">
+                        <div class="row align-items-center m--margin-bottom-10">
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <input [(ngModel)]="filterText" name="filterText" autoFocus class="form-control"
+                                        placeholder="{{l('SearchWithThreeDot')}}" type="text">
+                                    <span class="input-group-btn">
+                                        <button (click)="applyFilters()" class="btn btn-primary" type="submit"><i class="icon-refresh"></i>
+                                            {{l("Refresh")}}</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row align-items-center">
+                    <!--<Primeng-TurboTable-Start>-->
+                    <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                        <p-table #dataTable (onLazyLoad)="getAssetGroups($event)" [value]="primengTableHelper.records"
+                            rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
+                            [responsive]="primengTableHelper.isResponsive">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="index">
+                                        {{l('STT')}}
+                                        <p-sortIcon field="index"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="assetTypeName">
+                                        {{l('Loại tài sản')}}
+                                        <p-sortIcon field="assetTypeName"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="parentGroupAssetCode">
+                                        {{l('Nhóm tài sản cha')}}
+                                        <p-sortIcon field="parentGroupAssetCode"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="groupAssetCode">
+                                        {{l('Mã nhóm tài sản')}}
+                                        <p-sortIcon field="groupAssetCode"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="groupAssetName">
+                                        {{l('Tên nhóm tài sản')}}
+                                        <p-sortIcon field="groupAssetName"></p-sortIcon>
+                                    </th>
+                                    <th>{{l('Chỉnh Sửa')}}</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-record="$implicit">
+                                <tr>
+                                    <td>
+                                        <span class="ui-column-title">{{l('STT')}}</span>
+                                        <span title="{{record.index}}">{{truncateString(record.index)}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="ui-column-title">{{l('Loại tài sản')}}</span>
+                                        <span title="{{(record.assetType && record.assetType.assetTypeName) || ''}}">
+                                            {{truncateString((record.assetType && record.assetType.assetTypeName) || '')}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="ui-column-title">{{l('Nhóm tài sản cha')}}</span>
+                                        <span title="{{record.parentGroupAssetCode}}">{{ truncateString(record.parentGroupAssetCode) }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="ui-column-title">{{l('Mã nhóm tài sản')}}</span>
+                                        <span title="{{record.groupAssetCode}}">{{truncateString(record.groupAssetCode)}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="ui-column-title">{{l('Tên nhóm tài sản')}}</span>
+                                        <span title="{{record.groupAssetName}}">{{truncateString(record.groupAssetName)}}</span>
+                                    </td>
+                                    <td>
+                                        <button class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+                                            (click)="createOrEditModal.show(record.id)" title="{{l('Edit')}}">
+                                            <i class="fa fa-edit" [attr.aria-label]="l('Edit')"></i>
+                                        </button>
+                                        <button
+                                            class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+                                            (click)="deleteAssetGroup(record.id)" title="{{l('Delete')}}">
+                                            <i class="fa fa-times" [attr.aria-label]="l('Delete')"></i>
+                                        </button>
+                                        <button
+                                            class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+                                            (click)="viewModal.show(record.id)" title="{{l('View')}}">
+                                            <i class="fa fa-eye" [attr.aria-label]="l('View')"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                            {{l('NoData')}}
+                        </div>
+                        <div class="primeng-paging-container">
+                            <p-paginator rows="{{primengTableHelper.defaultRecordsCountPerPage}}" #paginator
+                                (onPageChange)="getAssetGroups($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                                [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                            </p-paginator>
+                            <span class="total-records-count">
+                                {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                            </span>
+                        </div>
+                    </div>
+                    <!--<Primeng-TurboTable-End>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <createOrEditAssetGroupModal #createOrEditModal (modalSave)="refreshValueFromModal()"></createOrEditAssetGroupModal>
+    <viewAssetGroupModal #viewModal></viewAssetGroupModal>
+</div>

@@ -8,7 +8,8 @@ Logs/
 # Generated files
 project.lock.json
 .vs/
-.vscode/
+*/.vs
+*/.vscode
 
 # mstest test results
 TestResults
@@ -139,3 +140,5 @@ aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/view-resources/Areas/AppAr
 aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/view-resources/Areas/AppAreaName/Views/_Bundles/app-layout-libs.min.css
 aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/view-resources/Areas/AppAreaName/Views/_Bundles/app-layout-libs.css
 aspnet-core/src/GSoft.AbpZeroTemplate.Web.Mvc/wwwroot/Common/Styles/jstree.min.css
+
+*/App_Data/Logs/*

@@ -449,6 +449,11 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular-select2@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/angular-select2/-/angular-select2-1.5.3.tgz#983cda3366648c4976ee8ed01cf1cb0030ab9044"
+  integrity sha512-4TJAKzZjEXeUvmWrUHVMOfUYsv61SWPd9IUY+9O9npGxAeNSGe8LQvpRCivjYObHNR8Nyf7XaHA/wC8hU66OEA==
+
 angular2-counto@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/angular2-counto/-/angular2-counto-1.2.5.tgz#fb43dc0300513cd9a7f996437e68265a84c0f036"
@@ -950,6 +955,11 @@ bootstrap4-datetimepicker@^5.2.3:
     jquery "^1.8.3 || ^2.0 || ^3.0"
     moment "^2.10"
     moment-timezone "^0.4.0"
+
+bootstrap4-toggle@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/bootstrap4-toggle/-/bootstrap4-toggle-3.4.0.tgz#58264d4c7fd24eb2e09cca5156a338b2b22a4792"
+  integrity sha512-vKfBgsjICW6mOqb264qwwbbGtpcOx+p9jOlQmLfRZ07iGE+b5YbQlY4ft9aAhPulh7V3oKOtEuuq0FcSKAI4bQ==
 
 bootstrap@4.0.0-alpha.6:
   version "4.0.0-alpha.6"
@@ -6740,6 +6750,11 @@ temporary@^0.0.8:
 tether@^1.4.0:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.4.tgz#9dc6eb2b3e601da2098fd264e7f7a8b264de1125"
+
+thinid@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/thinid/-/thinid-0.4.1.tgz#d7eaea530ab26f1b9e1bbc4ebae1b1eea651e5c8"
+  integrity sha512-1hq2IUIh55HARqc5DjoPmUc3D2RxpNr1gkBCehPhuzGCtN08M9RL8M/c/eAQQmySSNQ4dJPOAcaZcTYtjWp3bQ==
 
 throttleit@^1.0.0:
   version "1.0.0"

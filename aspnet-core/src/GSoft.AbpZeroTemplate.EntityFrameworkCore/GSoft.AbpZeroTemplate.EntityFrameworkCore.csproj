@@ -16,6 +16,20 @@
     <Compile Remove="Migrations\20180907072254_Added_Slide_Entity_For_Training.cs" />
     <Compile Remove="Migrations\20180911025043_AddEntity.cs" />
     <Compile Remove="Migrations\20190323114143_AddDemoModel.cs" />
+    <Compile Remove="Migrations\20190508170823_Depreciations.cs" />
+    <Compile Remove="Migrations\20190508175903_Depreciations.cs" />
+    <Compile Remove="Migrations\20190509024523_Depreciations.cs" />
+    <Compile Remove="Migrations\20190509083430_Add_SoftDelete.cs" />
+    <Compile Remove="Migrations\20190509083430_Add_SoftDelete.Designer.cs" />
+    <Compile Remove="Migrations\20190509084033_Add_SoftDelete.cs" />
+    <Compile Remove="Migrations\20190509084033_Add_SoftDelete.Designer.cs" />
+    <Compile Remove="Migrations\20190509130627_Depreciations.cs" />
+    <Compile Remove="Migrations\20190509164047_Update_Depreciations.cs" />
+    <Compile Remove="Migrations\20190509164047_Update_Depreciations.Designer.cs" />
+
+    <Compile Remove="Migrations\20190509130627_Depreciations.cs" />
+    <Compile Remove="Migrations\20190509144844_Depreciations.cs" />
+    <Compile Remove="Migrations\20190509145219_Depreciations.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,8 @@
 ﻿using Abp.Domain.Entities;
 using Abp.EntityFrameworkCore;
 using Abp.EntityFrameworkCore.Repositories;
+using GWebsite.AbpZeroTemplate.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GSoft.AbpZeroTemplate.EntityFrameworkCore.Repositories
 {
@@ -17,7 +19,7 @@ namespace GSoft.AbpZeroTemplate.EntityFrameworkCore.Repositories
         {
 
         }
-
+        //public virtual DbSet<Asset> Assets { get; set; }
         //add your common methods for all repositories
     }
 

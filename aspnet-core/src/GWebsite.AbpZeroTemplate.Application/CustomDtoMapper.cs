@@ -1,6 +1,11 @@
 using AutoMapper;
+using GWebsite.AbpZeroTemplate.Application.Share.Assets.Dto;
+using GWebsite.AbpZeroTemplate.Application.Share.AssetTypes.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.Customers.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.DemoModels.Dto;
+using GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto;
+using GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto;
+using GWebsite.AbpZeroTemplate.Application.Share.GroupAssets.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.MenuClients.Dto;
 using GWebsite.AbpZeroTemplate.Core.Models;
 
@@ -26,6 +31,27 @@ namespace GWebsite.AbpZeroTemplate.Applications
             configuration.CreateMap<CustomerInput, Customer>();
             configuration.CreateMap<Customer, CustomerInput>();
             configuration.CreateMap<Customer, CustomerForViewDto>();
+
+            //Asset
+            configuration.CreateMap<Asset, AssetDto>();
+            configuration.CreateMap<AssetInput, Asset>();
+            configuration.CreateMap<Asset, AssetInput>();
+
+            //AssetType
+            configuration.CreateMap<AssetType, AssetTypeDto>();
+            configuration.CreateMap<AssetTypeInput, AssetType>();
+            configuration.CreateMap<AssetType, AssetTypeInput>();
+
+            //GroupAsset
+            configuration.CreateMap<GroupAsset, GroupAssetDto>();
+            configuration.CreateMap<GroupAssetInput, GroupAsset>();
+            configuration.CreateMap<GroupAsset, GroupAssetInput>();
+
+            // Depreciation
+            configuration.CreateMap<Depreciation, DepreciationDto>();
+            configuration.CreateMap<Depreciation, DepreciationListDto>();
+            configuration.CreateMap<CreateDepreciationInput, Depreciation>();
+            configuration.CreateMap<UpdateDepreciationInput, Depreciation>();
         }
     }
 }
