@@ -7,6 +7,7 @@ using GWebsite.AbpZeroTemplate.Application.Share.Assets;
 using GWebsite.AbpZeroTemplate.Application.Share.Assets.Dto;
 using GWebsite.AbpZeroTemplate.Core.Authorization;
 using GWebsite.AbpZeroTemplate.Core.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 
@@ -16,10 +17,13 @@ namespace GWebsite.AbpZeroTemplate.Web.Core.Assets
     public class AssetAppService : GWebsiteAppServiceBase, IAssetAppService
     {
         private readonly IRepository<Asset> assetRepository;
+        private readonly IRepository<GroupAsset, int> groupAsset;
 
-        public AssetAppService(IRepository<Asset> asset)
+
+        public AssetAppService(IRepository<Asset> asset, IRepository<GroupAsset, int> group)
         {
             assetRepository = asset;
+            groupAsset = group;
         }
 
         #region Public Method
@@ -73,16 +77,35 @@ namespace GWebsite.AbpZeroTemplate.Web.Core.Assets
 
         public ListResultDto<AssetDto> GetAssets()
         {
+
+            Dictionary<string, string> groupAssets = groupAsset
+                    .GetAll()
+                    .ToDictionary(item => item.Id.ToString(),
+                                    item => item.GroupAssetName);
+
             System.Collections.Generic.List<AssetDto> assets = assetRepository.GetAll()
                 .Where(item => !item.IsDelete)
-                .Select(asset => ObjectMapper.Map<AssetDto>(asset))
+                .Select(MapAsset)
                 .ToList();
 
+            AssetDto MapAsset(Asset asset)
+            {
+
+                AssetDto assetDto = ObjectMapper.Map<AssetDto>(asset);
+                assetDto.GroupAssetName = groupAssets[asset.GroupAssetCode];
+                return assetDto;
+            }
             return new ListResultDto<AssetDto>(assets);
         }
 
+
         public PagedResultDto<AssetDto> GetAssetsByFilter(AssetFilter input)
         {
+            Dictionary<string, string> groupAssets = groupAsset
+                    .GetAll()
+                    .ToDictionary(item => item.Id.ToString(),
+                                    item => item.GroupAssetName);
+
             IQueryable<Asset> assets = assetRepository.GetAll()
                 .Where(item => !item.IsDelete);
 
@@ -99,8 +122,15 @@ namespace GWebsite.AbpZeroTemplate.Web.Core.Assets
             System.Collections.Generic.List<AssetDto> items = assets
                 .OrderBy(input.Sorting)
                 .PageBy(input)
-                .Select(item => ObjectMapper.Map<AssetDto>(item))
+                .Select(MapAsset)
                 .ToList();
+
+            AssetDto MapAsset(Asset asset)
+            {
+                AssetDto assetDto = ObjectMapper.Map<AssetDto>(asset);
+                assetDto.GroupAssetName = groupAssets[asset.GroupAssetCode];
+                return assetDto;
+            }
             return new PagedResultDto<AssetDto>(totalCount, items);
         }
 

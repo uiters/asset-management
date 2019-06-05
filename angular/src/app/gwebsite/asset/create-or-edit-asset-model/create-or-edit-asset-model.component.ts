@@ -1,12 +1,10 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter, Injector } from '@angular/core';
+import { Component, ViewChild, ElementRef, Output, EventEmitter, Injector } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
 import { AssetServiceProxy, AssetInput, ComboboxItemDto, GroupAssetServiceProxy, DepreciationDto } from '@shared/service-proxies/service-proxies';
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
-import { log } from 'util';
-import { templateJitUrl } from '@angular/compiler';
 
 @Component({
   selector: 'appCreateOrEditAssetModel',
@@ -16,7 +14,7 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
 
   @ViewChild('createOrEditModal') modal: ModalDirective;
   @ViewChild('groupAssetCombobox') groupAssetCombobox: ElementRef;
-  @ViewChild('assetTypeCombobox') assetTypeCombobox: ElementRef;
+  // @ViewChild('assetTypeCombobox') assetTypeCombobox: ElementRef;
   @ViewChild('warrantyPeriod') warrantyPeriod: ElementRef;
 
   /**
@@ -43,8 +41,13 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
     super(injector);
     if (!this.asset.id) {
       this.asset.dayImport = moment(Date.now());
+      this.asset.depreciationMonths = 0;
       this.asset.depreciationRateByYear = 0;
     }
+  }
+
+  formatDate(): any {
+    return moment().format('DD/MM/YYYY');
   }
 
   save(): void {
@@ -156,15 +159,15 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
           }, 0);
         }
       );
-    this._appService.getForEdit('api/AssetType/GetAssetTypeCombobox', 1)
-      .subscribe(
-        assetTypesCombobox => {
-          this.assetTypes = assetTypesCombobox.assetTypes;
-          setTimeout(() => {
-            $(this.assetTypeCombobox.nativeElement).selectpicker("refresh");
-          }, 0);
-        }
-      );
+    // this._appService.getForEdit('api/AssetType/GetAssetTypeCombobox', 1)
+    //   .subscribe(
+    //     assetTypesCombobox => {
+    //       this.assetTypes = assetTypesCombobox.assetTypes;
+    //       setTimeout(() => {
+    //         $(this.assetTypeCombobox.nativeElement).selectpicker("refresh");
+    //       }, 0);
+    //     }
+    //   );
     if (!id) {
       this.asset.dayImport = moment(Date.now());
       this.asset.depreciationRateByYear = 0;

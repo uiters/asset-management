@@ -11974,6 +11974,7 @@ export class AssetDto implements IAssetDto {
     seriCode!: string | undefined;
     originalPrice!: number | undefined;
     dayImport!: moment.Moment | undefined;
+    groupAssetName!: string | undefined;
     groupAssetCode!: string | undefined;
     provider!: string | undefined;
     warrantyPeriod!: moment.Moment | undefined;
@@ -11998,6 +11999,7 @@ export class AssetDto implements IAssetDto {
             this.seriCode = data["seriCode"];
             this.originalPrice = data["originalPrice"];
             this.dayImport = data["dayImport"] ? moment(data["dayImport"].toString()) : <any>undefined;
+            this.groupAssetName = data["groupAssetName"];
             this.groupAssetCode = data["groupAssetCode"];
             this.provider = data["provider"];
             this.warrantyPeriod = data["warrantyPeriod"] ? moment(data["warrantyPeriod"].toString()) : <any>undefined;
@@ -12022,6 +12024,7 @@ export class AssetDto implements IAssetDto {
         data["seriCode"] = this.seriCode;
         data["originalPrice"] = this.originalPrice;
         data["dayImport"] = this.dayImport ? this.dayImport.toISOString() : <any>undefined;
+        data["groupAssetName"] = this.groupAssetName;
         data["groupAssetCode"] = this.groupAssetCode;
         data["provider"] = this.provider;
         data["warrantyPeriod"] = this.warrantyPeriod ? this.warrantyPeriod.toISOString() : <any>undefined;
@@ -12039,6 +12042,7 @@ export interface IAssetDto {
     seriCode: string | undefined;
     originalPrice: number | undefined;
     dayImport: moment.Moment | undefined;
+    groupAssetName: string | undefined;
     groupAssetCode: string | undefined;
     provider: string | undefined;
     warrantyPeriod: moment.Moment | undefined;

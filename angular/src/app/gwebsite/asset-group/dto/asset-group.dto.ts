@@ -7,8 +7,8 @@ export class AssetGroupDto {
     groupAssetCode: string;
     groupAssetName: string;
     parentGroupAssetCode?: string;
-    depreciationMonths: number;
-    depreciationRateByYear: number;
+    depreciationMonths?: number;
+    depreciationRateByYear?: number;
     assetTypeCode: string;
     assetType: AssetTypeDto | undefined;
     assetAcount: string;

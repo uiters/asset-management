@@ -46,16 +46,16 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>{{l("Số tháng khấu hao")}} *</label>
+                        <label>{{l("Số tháng khấu hao")}}</label>
                         <input [disabled]="assetGroup.id && assetGroup.isReadonly && assetGroup.isReadonly === isChange"
                         #depreciationMonthsInput="ngModel" class="form-control" type="number" name="DepreciationMonths" [(ngModel)]="assetGroup.depreciationMonths"
-                            required maxlength="64" min=1>
+                        maxlength="64" min=1>
                         <validation-messages [formCtrl]="depreciationMonthsInput"></validation-messages>
                     </div>
                     <div class="form-group">
-                        <label>{{l("Tỉ lệ khấu hao (%)")}} *</label>
+                        <label>{{l("Tỉ lệ khấu hao (%)")}}</label>
                         <input disabled class="form-control" type="number" name="DepreciationRateByYear"
-                        [(ngModel)]="getDeprecitionRateByYear() !" required maxlength="64">
+                        [(ngModel)]="getDeprecitionRateByYear() !" maxlength="64">
                     </div>
                     <div class="form-group">
                         <label>{{l("Tài khoản tài sản")}} *</label>
