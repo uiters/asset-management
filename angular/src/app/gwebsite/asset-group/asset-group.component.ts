@@ -26,7 +26,7 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
     @ViewChild('paginator') paginator: Paginator;
 
     assetTypes: AssetTypeDto[] = [];
-
+    assetGroups: AssetGroupDto[] = [];
     filterText: string;
 
     constructor(
@@ -77,6 +77,7 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
     }
 
     setAssetType(assetGroups: AssetGroupDto[]) {
+        this.assetGroups = assetGroups;
         assetGroups.map((assetGroup, index) => {
             assetGroup.index = index + 1;
             for (let assetType of this.assetTypes) {
@@ -86,6 +87,8 @@ export class AssetGroupComponent extends AppComponentBase implements AfterViewIn
             }
         });
     }
+
+    getAssetGroupName = (id: string): string => id ? this.assetGroups.find(item => item.id.toString() === id).groupAssetName : '';
 
     init(): void {
         this._activatedRoute.params.subscribe((params: Params) => {

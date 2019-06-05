@@ -1,10 +1,13 @@
 import { Component, ViewChild, ElementRef, Output, EventEmitter, Injector } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { AssetServiceProxy, AssetInput, ComboboxItemDto, GroupAssetServiceProxy, DepreciationDto } from '@shared/service-proxies/service-proxies';
+import { AssetServiceProxy, AssetInput, ComboboxItemDto, GroupAssetServiceProxy, DepreciationDto, GroupAssetDto } from '@shared/service-proxies/service-proxies';
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
+import { AssetGroupDto } from '@app/gwebsite/asset-group/dto/asset-group.dto';
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
+const thinid = require('thinid');
 
 @Component({
   selector: 'appCreateOrEditAssetModel',
@@ -14,7 +17,7 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
 
   @ViewChild('createOrEditModal') modal: ModalDirective;
   @ViewChild('groupAssetCombobox') groupAssetCombobox: ElementRef;
-  // @ViewChild('assetTypeCombobox') assetTypeCombobox: ElementRef;
+  @ViewChild('assetTypeCombobox') assetTypeCombobox: ElementRef;
   @ViewChild('warrantyPeriod') warrantyPeriod: ElementRef;
 
   /**
@@ -31,6 +34,7 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
   public hasValue: boolean = true;
   // This
   isChange = this.asset.isReadonly;
+  backupAssetGroups: GroupAssetDto[] = [];
 
   constructor(
     injector: Injector,
@@ -40,6 +44,7 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
   ) {
     super(injector);
     if (!this.asset.id) {
+      this.asset.assetCode = 'TS-' + thinid(8);
       this.asset.dayImport = moment(Date.now());
       this.asset.depreciationMonths = 0;
       this.asset.depreciationRateByYear = 0;
@@ -71,14 +76,14 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
         this.notify.info(this.l('SavedSuccessfully'));
         this.close();
       });
-      
-      
-      console.log(this.temp);
-      this.temp.remainingValue = input.originalPrice-this.temp.depreciatedValue;
-      this.temp.assetCode = input.assetCode;
-      this.temp.depreciationMonths = input.depreciationMonths;
-      this.temp.depreciationRateByYear = input.depreciationRateByYear;
-      this._appService.put('api/Depreciation/UpdateDepreciation', this.temp)
+
+
+    console.log(this.temp);
+    this.temp.remainingValue = input.originalPrice - this.temp.depreciatedValue;
+    this.temp.assetCode = input.assetCode;
+    this.temp.depreciationMonths = input.depreciationMonths;
+    this.temp.depreciationRateByYear = input.depreciationRateByYear;
+    this._appService.put('api/Depreciation/UpdateDepreciation', this.temp)
       .pipe(finalize(() => this.saving = false))
       .subscribe(result => {
         this.notify.info(this.l('SavedSuccessfully'));
@@ -102,17 +107,17 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
               this.notify.info(this.l('SavedSuccessfully'));
               this.close();
             });
-            let inputde = new DepreciationDto();
-            inputde.assetCode = input.assetCode;
-            inputde.dayBeginCalculateDepreciation = input.dayImport;
-            inputde.depreciatedValue = 0;
-            inputde.depreciationCode ="KH"+inputde.assetCode;
-            inputde.depreciationMonths = input.depreciationMonths;
-            inputde.depreciationRateByYear = input.depreciationRateByYear;
-            inputde.remainingValue =parseFloat(input.originalPrice.toString());
-            inputde.isDeleted = false;
-            inputde.name = "string";
-            this._appService.post('api/Depreciation/CreateDepreciation', inputde)
+          let inputde = new DepreciationDto();
+          inputde.assetCode = input.assetCode;
+          inputde.dayBeginCalculateDepreciation = input.dayImport;
+          inputde.depreciatedValue = 0;
+          inputde.depreciationCode = "KH" + inputde.assetCode;
+          inputde.depreciationMonths = input.depreciationMonths;
+          inputde.depreciationRateByYear = input.depreciationRateByYear;
+          inputde.remainingValue = parseFloat(input.originalPrice.toString());
+          inputde.isDeleted = false;
+          inputde.name = "string";
+          this._appService.post('api/Depreciation/CreateDepreciation', inputde)
             .pipe(finalize(() => this.saving = false))
             .subscribe(result => {
               this.notify.info(this.l('SavedSuccessfully'));
@@ -126,6 +131,8 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
   close(): void {
     this.modal.hide();
     this.modalSave.emit(null);
+    this.asset = new AssetInput();
+    this.asset.depreciationMonths = 0;
   }
 
   onSelectGroupAsset(id?: number | null | undefined): void {
@@ -145,29 +152,33 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
           // }, 0);
         }
       );
-      
+
   }
 
   show(id?: number | null | undefined): void {
+    if (!this.asset.id) {
+      this.asset.assetCode = 'TS-' + thinid(8);
+    }
     //this._groupAsset.getGroupAssets().subscribe(assets => console.log(assets));
-    this._appService.getForEdit('api/GroupAsset/GetGroupAssetCombobox', id)
+    this._appService.getForEdit('api/GroupAsset/GetGroupAssets', id)
+      .subscribe(result =>
+        this.backupAssetGroups = result.items
+        // groupAssetscombobox => {
+        //   this.backupAssetGroups = this.groupAssets = groupAssetscombobox.groupAssets;
+        //   setTimeout(() => {
+        //     $(this.groupAssetCombobox.nativeElement).selectpicker("refresh");
+        //   }, 0);
+        // }
+      );
+    this._appService.getForEdit('api/AssetType/GetAssetTypeCombobox', 1)
       .subscribe(
-        groupAssetscombobox => {
-          this.groupAssets = groupAssetscombobox.groupAssets;
+        assetTypesCombobox => {
+          this.assetTypes = assetTypesCombobox.assetTypes;
           setTimeout(() => {
-            $(this.groupAssetCombobox.nativeElement).selectpicker("refresh");
+            $(this.assetTypeCombobox.nativeElement).selectpicker("refresh");
           }, 0);
         }
       );
-    // this._appService.getForEdit('api/AssetType/GetAssetTypeCombobox', 1)
-    //   .subscribe(
-    //     assetTypesCombobox => {
-    //       this.assetTypes = assetTypesCombobox.assetTypes;
-    //       setTimeout(() => {
-    //         $(this.assetTypeCombobox.nativeElement).selectpicker("refresh");
-    //       }, 0);
-    //     }
-    //   );
     if (!id) {
       this.asset.dayImport = moment(Date.now());
       this.asset.depreciationRateByYear = 0;
@@ -180,12 +191,17 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
           this.isChange = this.asset.isReadonly;
           this.modal.show();
         });
-        this._appService.getForEdit('api/Depreciation/GetDepreciationForEdit',id)
-      .subscribe(result=>{
-        this.temp = result.depreciation;
-      })
+      this._appService.getForEdit('api/Depreciation/GetDepreciationForEdit', id)
+        .subscribe(result => {
+          this.temp = result.depreciation;
+        })
     }
   }
+
+  filterAssetGroupsByAssetType = (code: string, list: GroupAssetDto[]):ComboboxItemDto[] => [...list].filter(item => item.assetTypeCode === code).map(item => new ComboboxItemDto({ value: item.id.toString(), displayText: item.groupAssetName, isSelected: false }));
+
+  handleChangeAssetType = (code: string) => [this.groupAssets = this.filterAssetGroupsByAssetType(code, this.backupAssetGroups), setTimeout(() => {$(this.groupAssetCombobox.nativeElement).selectpicker("refresh")}, 0), console.log(this.groupAssets)];
+
   onChangeDepreciationMonths(value: string | number): void {
     console.log(value);
     if (value != null && !isNaN(Number(value.toString()))) {
@@ -193,7 +209,7 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
         this.asset.depreciationRateByYear = undefined;
       else
         this.asset.depreciationRateByYear = 1 / Number(value);
-    }else {
+    } else {
       this.asset.depreciationRateByYear = undefined;
     }
   }

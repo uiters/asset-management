@@ -5,10 +5,11 @@ import { finalize } from 'rxjs/operators';
 import { AssetGroupDto } from '@app/gwebsite/asset-group/dto/asset-group.dto';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
 import { ComboboxItemDto } from '@shared/service-proxies/service-proxies';
+const thinid = require('thinid');
 
 @Component({
-  selector: 'createOrEditAssetGroupModal',
-  templateUrl: './create-or-edit-asset-group-modal.component.html'
+    selector: 'createOrEditAssetGroupModal',
+    templateUrl: './create-or-edit-asset-group-modal.component.html'
 })
 export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
 
@@ -33,9 +34,13 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
         private _apiService: WebApiServiceProxy,
     ) {
         super(injector);
+        // if (!this.assetGroup.id) {
+        //     this.assetGroup.groupAssetCode = thinid();
+        // }
     }
 
     show(assetGroupId?: number | null | undefined): void {
+
         this.active = true;
 
         this.getAssetGroups();
@@ -45,12 +50,17 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
             this.assetGroup = result;
             // This
             this.isChange = this.assetGroup.isReadonly;
+            if (!this.assetGroup.id) {
+                this.assetGroup.groupAssetCode = 'NTC-' + thinid(8);
+            }
             this.modal.show();
             setTimeout(() => {
-                    $(this.assetGroupsCombobox.nativeElement).selectpicker('refresh');
-                    $(this.assetTypesCombobox.nativeElement).selectpicker('refresh');
+                $(this.assetGroupsCombobox.nativeElement).selectpicker('refresh');
+                $(this.assetTypesCombobox.nativeElement).selectpicker('refresh');
             }, 0);
         });
+
+
     }
 
     save(): void {
@@ -89,7 +99,7 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
             this.assetGroups = result.groupAssets;
             setTimeout(() => {
                 $(this.assetGroupsCombobox.nativeElement).selectpicker('refresh');
-        }, 0);
+            }, 0);
         });
     }
 
@@ -99,7 +109,7 @@ export class CreateOrEditAssetGroupModalComponent extends AppComponentBase {
             this.assetTypes = result.assetTypes;
             setTimeout(() => {
                 $(this.assetTypesCombobox.nativeElement).selectpicker('refresh');
-        }, 0);
+            }, 0);
         });
     }
 

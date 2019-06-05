@@ -5,9 +5,11 @@ import { finalize } from 'rxjs/operators';
 import { AssetTypeDto } from '@app/gwebsite/asset-type/dto/asset-type.dto';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
 
+const thinid = require('thinid');
+
 @Component({
-  selector: 'createOrEditAssetTypeModal',
-  templateUrl: './create-or-edit-asset-type-modal.component.html'
+    selector: 'createOrEditAssetTypeModal',
+    templateUrl: './create-or-edit-asset-type-modal.component.html'
 })
 export class CreateOrEditAssetTypeModalComponent extends AppComponentBase {
 
@@ -16,7 +18,7 @@ export class CreateOrEditAssetTypeModalComponent extends AppComponentBase {
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     active = false;
-    saving = false; 
+    saving = false;
 
     assetType: AssetTypeDto = new AssetTypeDto();
     // This
@@ -36,6 +38,9 @@ export class CreateOrEditAssetTypeModalComponent extends AppComponentBase {
             this.assetType = result;
             // This
             this.isChange = this.assetType.isReadonly;
+            if (!this.assetType.id) {
+                this.assetType.assetTypeCode = 'LTS-' + thinid(8);
+            }
             this.modal.show();
         });
     }
