@@ -74,7 +74,21 @@ namespace GWebsite.AbpZeroTemplate.Web.Core.Assets
                 .SingleOrDefault(item => item.Id == id);
             return ObjectMapper.Map<AssetDto>(asset);
         }
+        public AssetCombobox GetAssetCombobox(int? id)
+        {
+            int idSelect = id ?? 1;
+            System.Collections.Generic.List<ComboboxItemDto> assets = assetRepository.GetAll()
+                .Where(item => !item.IsDelete)
+                .Select(asset => new ComboboxItemDto(asset.Id.ToString(), asset.AssetName) { IsSelected = asset.Id == idSelect })
+                .ToList();
 
+            AssetCombobox assetCombobox = new AssetCombobox
+            {
+                Assets = assets
+            };
+
+            return assetCombobox;
+        }
         public ListResultDto<AssetDto> GetAssets()
         {
 

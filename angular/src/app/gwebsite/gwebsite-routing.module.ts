@@ -7,6 +7,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { AssetGroupComponent } from './asset-group/asset-group.component';
 import { AssetComponent } from './asset/asset/asset.component';
 import { AssetTypeComponent } from './asset-type/asset-type.component';
+import { FixAssetComponent } from './fix-asset/fixasset.component';
 
 @NgModule({
     imports: [
@@ -45,6 +46,15 @@ import { AssetTypeComponent } from './asset-type/asset-type.component';
                     {
                         path: 'asset-type', component: AssetTypeComponent,
                         data: { permission: 'Pages.Administration.AssetType' }
+                    },
+                ]
+            },
+            {
+                path: '',
+                children: [
+                    {
+                        path: 'fix-asset', component: FixAssetComponent,
+                        //data: { permission: 'Pages.Administration.AssetType' }
                     },
                 ]
             }

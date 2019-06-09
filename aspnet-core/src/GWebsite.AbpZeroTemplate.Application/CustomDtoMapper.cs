@@ -4,7 +4,7 @@ using GWebsite.AbpZeroTemplate.Application.Share.AssetTypes.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.Customers.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.DemoModels.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto;
-using GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto;
+using GWebsite.AbpZeroTemplate.Application.Share.FixAssets.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.GroupAssets.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.MenuClients.Dto;
 using GWebsite.AbpZeroTemplate.Core.Models;
@@ -52,6 +52,12 @@ namespace GWebsite.AbpZeroTemplate.Applications
             configuration.CreateMap<Depreciation, DepreciationListDto>();
             configuration.CreateMap<CreateDepreciationInput, Depreciation>();
             configuration.CreateMap<UpdateDepreciationInput, Depreciation>();
+
+            //FixAsset
+            configuration.CreateMap<FixAsset, FixAssetDto>();
+            configuration.CreateMap<FixAsset, FixAssetListDto>();
+            configuration.CreateMap<CreateFixAssetInput, FixAsset>();
+            configuration.CreateMap<UpdateFixAssetInput, FixAsset>();
         }
     }
 }

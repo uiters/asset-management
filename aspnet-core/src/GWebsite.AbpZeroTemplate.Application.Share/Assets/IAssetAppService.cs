@@ -13,5 +13,6 @@ namespace GWebsite.AbpZeroTemplate.Application.Share.Assets
         ListResultDto<AssetDto> GetAssetByCode(string code);
         PagedResultDto<AssetDto> GetAssetsByFilter(AssetFilter input);
         ListResultDto<AssetDto> GetAssets();
+        AssetCombobox GetAssetCombobox(int? id);
     }
 }

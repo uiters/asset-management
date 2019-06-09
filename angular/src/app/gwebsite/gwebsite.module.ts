@@ -12,14 +12,14 @@ import { TableModule } from 'primeng/table';
 import { GWebsiteRoutingModule } from './gwebsite-routing.module';
 
 import { 
-    MenuClientComponent,
-    CreateOrEditMenuClientModalComponent,
+    FixAssetComponent,
+    CreateOrEditFixAssetModalComponent,
     AssetGroupComponent,
     CreateOrEditAssetGroupModalComponent,
     ViewAssetGroupModalComponent,
     AssetTypeComponent,
     CreateOrEditAssetTypeModalComponent,
-    ViewAssetTypeModalComponent
+    ViewAssetTypeModalComponent,
 } from './index';
 import { DemoModelComponent } from './demo-model/demo-model.component';
 import { MenuClientComponent as DepreciationComponent } from './depreciation/depreciation.component';
@@ -59,7 +59,8 @@ import { AssetComponent } from './asset/asset/asset.component';
         CreateOrEditAssetModelComponent, AssetComponent,
         AssetGroupComponent, CreateOrEditAssetGroupModalComponent, ViewAssetGroupModalComponent,
         DepreciationComponent, CreateOrEditDepreciationModalComponent,
-        AssetTypeComponent, CreateOrEditAssetTypeModalComponent, ViewAssetTypeModalComponent
+        AssetTypeComponent, CreateOrEditAssetTypeModalComponent, ViewAssetTypeModalComponent,
+        FixAssetComponent,CreateOrEditFixAssetModalComponent
     ],
     providers: [
         DemoModelServiceProxy,

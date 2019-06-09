@@ -27,6 +27,8 @@ namespace GWebsite.AbpZeroTemplate.Application.Controllers
 
         [HttpGet]
         public AssetDto GetAssetForEdit(int id) => appService.GetAssetForEdit(id);
+        [HttpGet]
+        public AssetCombobox GetAssetCombobox(int? id) => appService.GetAssetCombobox(id);
         #endregion
 
         #region POST

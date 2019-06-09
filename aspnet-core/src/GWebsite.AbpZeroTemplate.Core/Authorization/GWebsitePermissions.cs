@@ -9,7 +9,12 @@
         public const string Pages = "Pages";
         public const string Pages_Administration_GWebsite = "Pages.Administration.GWebsite";
 
-        public const string Pages_Administration_Depreciation = "Pages.Administration.Depreciaiton";
+        public const string Pages_Administration_FixAsset = "Pages.Administration.FixAsset";
+        public const string Pages_Administration_FixAsset_Create = "Pages.Administration.FixAsset.Create";
+        public const string Pages_Administration_FixAsset_Edit = "Pages.Administration.FixAsset.Edit";
+        public const string Pages_Administration_FixAsset_Delete = "Pages.Administration.FixAsset.Delete";
+
+        public const string Pages_Administration_Depreciation = "Pages.Administration.Depreciation";
         public const string Pages_Administration_Depreciation_Create = "Pages.Administration.Depreciation.Create";
         public const string Pages_Administration_Depreciation_Edit = "Pages.Administration.Depreciation.Edit";
         public const string Pages_Administration_Depreciation_Delete = "Pages.Administration.Depreciation.Delete";
