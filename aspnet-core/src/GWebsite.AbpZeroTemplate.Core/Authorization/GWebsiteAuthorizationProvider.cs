@@ -36,6 +36,11 @@ namespace GWebsite.AbpZeroTemplate.Core.Authorization
             menuClient.CreateChildPermission(GWebsitePermissions.Pages_Administration_MenuClient_Edit, L("EditingMenuClient"));
             menuClient.CreateChildPermission(GWebsitePermissions.Pages_Administration_MenuClient_Delete, L("DeletingMenuClient"));
 
+            Permission unit = gwebsite.CreateChildPermission(GWebsitePermissions.Pages_Administration_Unit, L("Unit"));
+            unit.CreateChildPermission(GWebsitePermissions.Pages_Administration_Unit_Create, L("CreatingNewUnit"));
+            unit.CreateChildPermission(GWebsitePermissions.Pages_Administration_Unit_Edit, L("EditingUnit"));
+            unit.CreateChildPermission(GWebsitePermissions.Pages_Administration_Unit_Delete, L("DeletingUnit"));
+
             Permission fixAsset = gwebsite.CreateChildPermission(GWebsitePermissions.Pages_Administration_FixAsset, L("FixAsset"));
             fixAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_FixAsset_Create, L("CreatingNewFixAsset"));
             fixAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_FixAsset_Edit, L("EditingFixAsset"));

@@ -9,6 +9,11 @@
         public const string Pages = "Pages";
         public const string Pages_Administration_GWebsite = "Pages.Administration.GWebsite";
 
+        public const string Pages_Administration_Unit = "Pages.Administration.Unit";
+        public const string Pages_Administration_Unit_Create = "Pages.Administration.Unit.Create";
+        public const string Pages_Administration_Unit_Edit = "Pages.Administration.Unit.Edit";
+        public const string Pages_Administration_Unit_Delete = "Pages.Administration.Unit.Delete";
+
         public const string Pages_Administration_FixAsset = "Pages.Administration.FixAsset";
         public const string Pages_Administration_FixAsset_Create = "Pages.Administration.FixAsset.Create";
         public const string Pages_Administration_FixAsset_Edit = "Pages.Administration.FixAsset.Edit";

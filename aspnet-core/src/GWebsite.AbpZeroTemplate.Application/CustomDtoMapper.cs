@@ -7,6 +7,7 @@ using GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.FixAssets.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.GroupAssets.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.MenuClients.Dto;
+using GWebsite.AbpZeroTemplate.Application.Share.Units.Dto;
 using GWebsite.AbpZeroTemplate.Core.Models;
 
 namespace GWebsite.AbpZeroTemplate.Applications
@@ -58,6 +59,12 @@ namespace GWebsite.AbpZeroTemplate.Applications
             configuration.CreateMap<FixAsset, FixAssetListDto>();
             configuration.CreateMap<CreateFixAssetInput, FixAsset>();
             configuration.CreateMap<UpdateFixAssetInput, FixAsset>();
+
+            //Unit
+            configuration.CreateMap<Unit, UnitDto>();
+            configuration.CreateMap<Unit, UnitListDto>();
+            configuration.CreateMap<CreateUnitInput, Unit>();
+            configuration.CreateMap<UpdateUnitInput, Unit>();
         }
     }
 }

@@ -8,3 +8,5 @@ export * from './asset-type/create-or-edit-asset-type-modal.component';
 export * from './asset-type/view-asset-type-modal.component';
 export * from './fix-asset/create-or-edit-fixasset-modal.component';
 export * from './fix-asset/fixasset.component';
+export * from './unit/unit.component';
+export * from './unit/create-or-edit-unit-modal.component';
