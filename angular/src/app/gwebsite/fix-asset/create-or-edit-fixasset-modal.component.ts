@@ -5,7 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { MenuClientDto } from '@app/gwebsite/fix-asset/dto/fixasset.dto';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
 import { ComboboxItemDto } from '@shared/service-proxies/service-proxies';
-
+import * as moment from 'moment';
 @Component({
     selector: 'createOrEditFixAssetModal',
     templateUrl: './create-or-edit-fixasset-modal.component.html'
@@ -32,14 +32,23 @@ export class CreateOrEditFixAssetModalComponent extends AppComponentBase {
         private _apiService: WebApiServiceProxy
     ) {
         super(injector);
+        if(!this.menuClient.id)
+        {
+           // console.log('asdasd');
+            this.menuClient.dayBeginFix = moment(Date.now());
+            //console.log(moment(Date.now()));
+        }
     }
-
+    formatDate(): any {
+        return moment().format('DD/MM/YYYY');
+      }
     show(menuClientId?: number | null | undefined): void {
         this.active = true;
+        //console.log(moment(Date.now()));
         //console.log(menuClientId);
         this._apiService.getForEdit('api/FixAsset/GetFixAssetForEdit', menuClientId).subscribe(result => {
             this.menuClient = result.fixAsset;
-            console.log(this.menuClient);
+            //console.log(this.menuClient);
             this.menuClients = result.fixAssets;
             this.modal.show();
             setTimeout(() => {
@@ -50,12 +59,18 @@ export class CreateOrEditFixAssetModalComponent extends AppComponentBase {
       .subscribe(
         assetTypesCombobox => {
           this.menuClients = assetTypesCombobox.assets;
-          console.log(this.menuClients);
+          //console.log(this.menuClients);
           setTimeout(() => {
             $(this.menuClientCombobox.nativeElement).selectpicker("refresh");
           }, 0);
         }
       );
+      if(!this.menuClient.id)
+      {
+          //console.log("A");
+          this.menuClient.dayBeginFix = moment(Date.now());
+          console.log(moment(Date.now()));
+      }
     }
 
     save(): void {
@@ -69,6 +84,7 @@ export class CreateOrEditFixAssetModalComponent extends AppComponentBase {
     }
 
     insertMenuClient() {
+        this.menuClient.dayBeginFix = moment(Date.now());
         this.menuClient.name="string";
         this._apiService.post('api/FixAsset/CreateFixAsset', this.menuClient)
             .pipe(finalize(() => this.saving = false))

@@ -30,6 +30,11 @@ namespace GWebsite.AbpZeroTemplate.EntityFrameworkCore
         public virtual DbSet<GroupAsset> GroupAssets { get; set; }
         public virtual DbSet<FixAsset> FixAssets { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
+        public virtual DbSet<EvicitonAsset> EvicitonAssets { get; set; }
+        public virtual DbSet<ExportAsset> ExportAssets { get; set; }
+        public virtual DbSet<TransferAsset> TransferAssets { get; set; }
+        public virtual DbSet<LiquidationAsset> LiquidationAssets { get; set; }
+
         /// <summary>
         /// GPermissions dùng cho bên Gwebsite
         /// </summary>
