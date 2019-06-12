@@ -1,0 +1,60 @@
+<div
+    bsModal
+    #viewModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="viewModal"
+    aria-hidden="true"
+    [config]="{ backdrop: 'static' }"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>{{ l('Chi Tiết Thu Hồi Tài Sản') }}</span>
+                </h4>
+                <button
+                    type="button"
+                    class="close"
+                    (click)="close()"
+                    [attr.aria-label]="l('Close')"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ngày thu hồi</label>
+                    <p class="bg-light p-2">{{ evictionAsset.evictionDate }}</p>
+                </div>
+                <div class="form-group">
+                    <label>Mã tài sản</label>
+                    <p class="bg-light p-2">{{ evictionAsset.assetCode }}</p>
+                </div>
+                <div class="form-group">
+                    <label>Tên tài sản</label>
+                    <p class="bg-light p-2">{{ evictionAsset.assetName }}</p>
+                </div>
+                <div class="form-group">
+                    <label>Lý do</label>
+                    <p class="bg-light p-2">{{ evictionAsset.reason }}</p>
+                </div>
+                <div class="form-group">
+                    <label>Trạng thái duyệt</label>
+                    <p class="bg-light p-2">{{ evictionAsset.isReadonly }}</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    [disabled]="saving"
+                    type="button"
+                    class="btn btn-default"
+                    (click)="close()"
+                >
+                    {{ l('Close') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
