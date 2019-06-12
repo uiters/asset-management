@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Abp.Domain.Entities;
+using System;
 
-namespace GWebsite.AbpZeroTemplate.Core.Models
+namespace GWebsite.AbpZeroTemplate.Application.Share.ExportAsset.Dto
 {
-    public class ExportAsset : FullAuditModel
+    public class ExportAssetDto : Entity<int>
     {
         public DateTime ExportDate { get; set; }
         public string AssetCode { get; set; }

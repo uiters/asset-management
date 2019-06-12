@@ -44,7 +44,6 @@
         public const string Pages_Administration_Asset_Edit = "Pages.Administration.Asset.Edit";
         public const string Pages_Administration_Asset_Delete = "Pages.Administration.Asset.Delete";
 
-
         public const string Pages_Administration_AssetType = "Pages.Administration.AssetType";
         public const string Pages_Administration_AssetType_Create = "Pages.Administration.AssetType.Create";
         public const string Pages_Administration_AssetType_Edit = "Pages.Administration.AssetType.Edit";
@@ -55,5 +54,24 @@
         public const string Pages_Administration_GroupAsset_Edit = "Pages.Administration.GroupAsset.Edit";
         public const string Pages_Administration_GroupAsset_Delete = "Pages.Administration.GroupAsset.Delete";
 
+        public const string Pages_Administration_EvictionAsset = "Pages.Administration.EvictionAsset";
+        public const string Pages_Administration_EvictionAsset_Create = "Pages.Administration.EvictionAsset.Create";
+        public const string Pages_Administration_EvictionAsset_Edit = "Pages.Administration.EvictionAsset.Edit";
+        public const string Pages_Administration_EvictionAsset_Delete = "Pages.Administration.EvictionAsset.Delete";
+
+        public const string Pages_Administration_LiquidationAsset = "Pages.Administration.LiquidationAsset";
+        public const string Pages_Administration_LiquidationAsset_Create = "Pages.Administration.LiquidationAsset.Create";
+        public const string Pages_Administration_LiquidationAsset_Edit = "Pages.Administration.LiquidationAsset.Edit";
+        public const string Pages_Administration_LiquidationAsset_Delete = "Pages.Administration.LiquidationAsset.Delete";
+
+        public const string Pages_Administration_ExportAsset = "Pages.Administration.ExportAsset";
+        public const string Pages_Administration_ExportAsset_Create = "Pages.Administration.ExportAsset.Create";
+        public const string Pages_Administration_ExportAsset_Edit = "Pages.Administration.ExportAsset.Edit";
+        public const string Pages_Administration_ExportAsset_Delete = "Pages.Administration.ExportAsset.Delete";
+
+        public const string Pages_Administration_TransferAsset = "Pages.Administration.TransferAsset";
+        public const string Pages_Administration_TransferAsset_Create = "Pages.Administration.TransferAsset.Create";
+        public const string Pages_Administration_TransferAsset_Edit = "Pages.Administration.TransferAsset.Edit";
+        public const string Pages_Administration_TransferAsset_Delete = "Pages.Administration.TransferAsset.Delete";
     }
 }

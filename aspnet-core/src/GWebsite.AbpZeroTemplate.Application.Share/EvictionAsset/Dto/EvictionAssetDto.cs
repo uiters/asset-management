@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Abp.Domain.Entities;
+using System;
 
-namespace GWebsite.AbpZeroTemplate.Core.Models
+namespace GWebsite.AbpZeroTemplate.Application.Share.EvictionAsset.Dto
 {
-    public class EvictionAsset : FullAuditModel
+    public class EvictionAssetDto : Entity<int>
     {
         public DateTime EvictionDate { get; set; }
         public string AssetCode { get; set; }

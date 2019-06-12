@@ -1,9 +1,9 @@
 ﻿using Abp.Runtime.Validation;
 using GSoft.AbpZeroTemplate.Dto;
 
-namespace GWebsite.AbpZeroTemplate.Application.Share.Assets.Dto
+namespace GWebsite.AbpZeroTemplate.Application.Share.LiquidationAsset.Dto
 {
-    public class AssetFilter : PagedAndSortedInputDto, IShouldNormalize
+    public class LiquidationAssetFilter : PagedAndSortedInputDto, IShouldNormalize
     {
         public string Name { get; set; }
 
