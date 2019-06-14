@@ -2,16 +2,14 @@ import { Component, EventEmitter, Injector, Output, ViewChild } from '@angular/c
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
 import { finalize } from 'rxjs/operators';
-import { AssetTypeDto } from '@app/gwebsite/asset-type/dto/asset-type.dto';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
-
-const thinid = require('thinid');
+import { LiquidationAssetDto } from './dto/liquidation-asset.dto';
 
 @Component({
-    selector: 'createOrEditAssetTypeModal',
-    templateUrl: './create-or-edit-asset-type-modal.component.html'
+    selector: 'createOrEditLiquidationAssetModal',
+    templateUrl: './create-or-edit-liquidation-asset-modal.component.html'
 })
-export class CreateOrEditAssetTypeModalComponent extends AppComponentBase {
+export class CreateOrEditLiquidationAssetModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal') modal: ModalDirective;
 
@@ -20,9 +18,9 @@ export class CreateOrEditAssetTypeModalComponent extends AppComponentBase {
     active = false;
     saving = false;
 
-    assetType: AssetTypeDto = new AssetTypeDto();
+    liquidationAsset: LiquidationAssetDto = new LiquidationAssetDto();
     // This
-    isChange = this.assetType.isReadonly;
+    isChange = this.liquidationAsset.isReadonly;
 
     constructor(
         injector: Injector,
@@ -31,32 +29,29 @@ export class CreateOrEditAssetTypeModalComponent extends AppComponentBase {
         super(injector);
     }
 
-    show(assetTypeId?: number | null | undefined): void {
+    show(id?: number | null | undefined): void {
         this.active = true;
 
-        this._apiService.getForEdit('api/AssetType/GetAssetTypeForEdit', assetTypeId).subscribe(result => {
-            this.assetType = result;
+        this._apiService.getForEdit('api/LiquidationAsset/GetLiquidationAssetForEdit', id).subscribe(result => {
+            this.liquidationAsset = result;
             // This
-            this.isChange = this.assetType.isReadonly;
-            if (!this.assetType.id) {
-                this.assetType.assetTypeCode = 'LTS-' + thinid(8);
-            }
+            this.isChange = this.liquidationAsset.isReadonly;
             this.modal.show();
         });
     }
 
     save(): void {
-        let input = this.assetType;
+        let input = this.liquidationAsset;
         this.saving = true;
         if (input.id) {
-            this.updateAssetType();
+            this.update();
         } else {
-            this.insertAssetType();
+            this.insert();
         }
     }
 
-    insertAssetType() {
-        this._apiService.post('api/AssetType/CreateAssetType', this.assetType)
+    insert() {
+        this._apiService.post('api/LiquidationAsset/CreateLiquidationAsset', this.liquidationAsset)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));
@@ -65,8 +60,8 @@ export class CreateOrEditAssetTypeModalComponent extends AppComponentBase {
             });
     }
 
-    updateAssetType() {
-        this._apiService.put('api/AssetType/UpdateAssetType', this.assetType)
+    update() {
+        this._apiService.put('api/LiquidationAsset/UpdateLiquidationAsset', this.liquidationAsset)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));

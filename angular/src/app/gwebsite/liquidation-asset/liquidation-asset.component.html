@@ -3,15 +3,15 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto col-xs-6">
                 <h3 class="m-subheader__title m-subheader__title--separator">
-                    <span>{{l("Loại Tài Sản")}}</span>
+                    <span>{{l("Thanh Lý Tài Sản")}}</span>
                 </h3>
                 <span class="m-section__sub">
-                    {{l("Thông Tin Loại Tài Sản")}}
+                    {{l("Thông Tin Thanh Lý Tài Sản")}}
                 </span>
             </div>
             <div class="col-xs-6 text-right">
-                <button (click)="createAssetType()" *ngIf="isGranted('Pages.Administration.AssetType.Create')" class="btn btn-primary"><i
-                        class="fa fa-plus"></i> {{l("Tạo Mới Loại Tài Sản")}}</button>
+                <button (click)="createLiquidationAsset()" *ngIf="isGranted('Pages.Administration.LiquidationAsset.Create')" class="btn btn-primary"><i
+                        class="fa fa-plus"></i> {{l("Tạo Mới Thanh Lý Tài Sản")}}</button>
             </div>
         </div>
     </div>
@@ -47,13 +47,17 @@
                                         {{l('STT')}}
                                         <p-sortIcon field="index"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="assetTypeCode">
-                                        {{l('Mã loại tài sản')}}
-                                        <p-sortIcon field="assetTypeCode"></p-sortIcon>
+                                    <th pSortableColumn="liquidationDate">
+                                        {{l('Ngày thanh lý')}}
+                                        <p-sortIcon field="liquidationDate"></p-sortIcon>
                                     </th>
-                                    <th pSortableColumn="assetTypeName">
-                                        {{l('Tên loại tài sản')}}
-                                        <p-sortIcon field="assetTypeName"></p-sortIcon>
+                                    <th pSortableColumn="assetCode">
+                                        {{l('Mã tài sản')}}
+                                        <p-sortIcon field="assetCode"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="assetName">
+                                        {{l('Tên tài sản')}}
+                                        <p-sortIcon field="assetName"></p-sortIcon>
                                     </th>
                                     <th>{{l('Chỉnh Sửa')}}</th>
                                 </tr>
@@ -65,12 +69,16 @@
                                         <span title="{{record.index}}">{{truncateString(record.index)}}</span>
                                     </td>
                                     <td>
-                                        <span class="ui-column-title">{{l('Mã loại tài sản')}}</span>
-                                        <span title="{{record.assetTypeCode}}">{{truncateString(record.assetTypeCode)}}</span>
+                                        <span class="ui-column-title">{{l('Ngày thanh lý')}}</span>
+                                        <span title="{{record.liquidationDate}}">{{truncateString(record.liquidationDate)}}</span>
                                     </td>
                                     <td>
-                                        <span class="ui-column-title">{{l('Tên loại tài sản')}}</span>
-                                        <span title="{{record.assetTypeName}}">{{truncateString(record.assetTypeName)}}</span>
+                                        <span class="ui-column-title">{{l('Mã tài sản')}}</span>
+                                        <span title="{{record.assetCode}}">{{truncateString(record.assetCode)}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="ui-column-title">{{l('Tên tài sản')}}</span>
+                                        <span title="{{record.assetName}}">{{truncateString(record.assetName)}}</span>
                                     </td>
                                     <td>
                                         <button class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
@@ -79,7 +87,7 @@
                                         </button>
                                         <button
                                             class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-                                            (click)="deleteAssetType(record.id)" title="{{l('Delete')}}">
+                                            (click)="deleteLiquidationAsset(record.id)" title="{{l('Delete')}}">
                                             <i class="fa fa-times" [attr.aria-label]="l('Delete')"></i>
                                         </button>
                                         <button
@@ -96,7 +104,7 @@
                         </div>
                         <div class="primeng-paging-container">
                             <p-paginator rows="{{primengTableHelper.defaultRecordsCountPerPage}}" #paginator
-                                (onPageChange)="getAssetTypes($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                                (onPageChange)="getLiquidationAssets($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
                                 [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
                             </p-paginator>
                             <span class="total-records-count">
@@ -109,6 +117,6 @@
             </div>
         </div>
     </div>
-    <createOrEditAssetTypeModal #createOrEditModal (modalSave)="refreshValueFromModal()"></createOrEditAssetTypeModal>
-    <viewAssetTypeModal #viewModal></viewAssetTypeModal>
+    <createOrEditLiquidationAssetModal #createOrEditModal (modalSave)="refreshValueFromModal()"></createOrEditLiquidationAssetModal>
+    <viewLiquidationAssetModal #viewModal></viewLiquidationAssetModal>
 </div>
