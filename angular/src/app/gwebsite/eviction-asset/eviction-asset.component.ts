@@ -138,7 +138,7 @@ export class EvictionAssetComponent extends AppComponentBase
         }
     }
 
-    createAssetType() {
+    createEvictionAsset() {
         this.createOrEditModal.show();
     }
 }
