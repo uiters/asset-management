@@ -1,8 +1,8 @@
 import { AppComponentBase } from "@shared/common/app-component-base";
 import { Injector, Component, ViewChild, ElementRef } from "@angular/core";
 import { ModalDirective } from "ngx-bootstrap";
-import { AssetTypeDto } from "./dto/asset-type.dto";
 import { WebApiServiceProxy } from "@shared/service-proxies/webapi.service";
+import { AssetTypeDto } from "@shared/service-proxies/service-proxies";
 
 @Component({
     selector: "viewAssetTypeModal",
@@ -28,7 +28,7 @@ export class ViewAssetTypeModalComponent extends AppComponentBase {
         });
     }
 
-    close() : void{
+    close(): void {
         this.modal.hide();
     }
 }

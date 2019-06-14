@@ -1,39 +1,34 @@
-import { Component, OnInit, AfterViewInit, ViewChild, Injector } from '@angular/core';
-import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { AppComponentBase } from '@shared/common/app-component-base';
+import { Component, OnInit, ViewChild, AfterViewInit, Injector } from '@angular/core';
 import { Table } from 'primeng/table';
 import { Paginator, LazyLoadEvent } from 'primeng/primeng';
-import { AssetServiceProxy, GroupAssetServiceProxy } from '@shared/service-proxies/service-proxies';
+import { appModuleAnimation } from '@shared/animations/routerTransition';
+import { AppComponentBase } from '@shared/common/app-component-base';
 import { ActivatedRoute, Params } from '@angular/router';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
-import { CreateOrEditAssetModelComponent } from '../create-or-edit-asset-model/create-or-edit-asset-model.component';
+import { CreateOrEditExportAssetModelComponent } from '../create-or-edit-export-asset-model/create-or-edit-export-asset-model.component';
 
 @Component({
-  selector: 'appAsset',
-  templateUrl: './asset.component.html',
+  selector: 'app-export-asset',
+  templateUrl: './export-asset.component.html',
+  styleUrls: ['./export-asset.component.css'],
   animations: [appModuleAnimation()]
 })
-export class AssetComponent extends AppComponentBase implements AfterViewInit {
-
+export class ExportAssetComponent extends AppComponentBase implements AfterViewInit {
   @ViewChild('dataTable') dataTable: Table;
   @ViewChild('paginator') paginator: Paginator;
-  @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditAssetModelComponent;
-  // @ViewChild('viewCustomerModal') viewCustomerModal: ViewCustomerModalComponent;
-
-  //Properties
+  @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditExportAssetModelComponent;
   public assetName: string
 
-  constructor(
-    injector: Injector,
-    private _apiService: WebApiServiceProxy,
-    private _activatedRoute: ActivatedRoute
-  ) { super(injector) }
+  constructor(injector: Injector, private _activatedRoute: ActivatedRoute, private _apiService: WebApiServiceProxy, ) {
+    super(injector);
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.init();
     })
   }
+  
   init() {
     this._activatedRoute.params.subscribe((params: Params) => {
       this.assetName = params['assetname'] || '';
@@ -41,13 +36,12 @@ export class AssetComponent extends AppComponentBase implements AfterViewInit {
     });
   }
   reloadList(name: string, event?: LazyLoadEvent): void {
-    this._apiService.get('api/Asset/GetAssetsByFilter',
+    this._apiService.get('api/ExportAsset/GetExportAssetsByFilter',
       [{ fieldName: 'AssetName', value: this.assetName }],
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
       this.primengTableHelper.getSkipCount(this.paginator, event),
     ).subscribe(result => {
-      console.log(this.assetName, result);
 
       this.primengTableHelper.totalRecordsCount = result.totalCount;
       this.primengTableHelper.records = result.items;
@@ -55,18 +49,18 @@ export class AssetComponent extends AppComponentBase implements AfterViewInit {
     });
   }
 
-  deleteAsset(id: number): void {
-    this._apiService.delete("api/Asset/DeleteAsset?", id)
+  deleteExportAsset(id: number): void {
+    this._apiService.delete("api/ExportAsset/DeleteExportAsset?", id)
       .subscribe(() => {
-          this.notify.info(this.l('DeletedSuccessfully'));
-          this.reLoadPage();
+        this.notify.info(this.l('DeletedSuccessfully'));
+        this.reLoadPage();
       });
   }
   reLoadPage() {
     this.paginator.changePage(this.paginator.getPage());
   }
 
-  createAsset(): void {
+  createExportAsset(): void {
     this.createOrEditModal.show();
   }
 
@@ -78,7 +72,7 @@ export class AssetComponent extends AppComponentBase implements AfterViewInit {
     }
   }
 
-  getAssets(event?: LazyLoadEvent) {
+  getExportAssets(event?: LazyLoadEvent) {
     if (!this.paginator || !this.dataTable) {
       return;
     } else {
@@ -90,5 +84,4 @@ export class AssetComponent extends AppComponentBase implements AfterViewInit {
   truncateString(text: string): string {
     return abp.utils.truncateStringWithPostfix(text, 32, '...');
   }
-
 }

@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, Output, EventEmitter, Injector } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { ModalDirective } from 'ngx-bootstrap';
-import { AssetServiceProxy, AssetInput, ComboboxItemDto, GroupAssetServiceProxy, DepreciationDto, GroupAssetDto } from '@shared/service-proxies/service-proxies';
+import { AssetServiceProxy, AssetInput, ComboboxItemDto, DepreciationDto, GroupAssetDto } from '@shared/service-proxies/service-proxies';
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
@@ -39,8 +39,6 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
   constructor(
     injector: Injector,
     private _appService: WebApiServiceProxy,
-    private _assetService: AssetServiceProxy,
-    private _groupAsset: GroupAssetServiceProxy
   ) {
     super(injector);
     if (!this.asset.id) {
@@ -52,7 +50,8 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
   }
 
   formatDate(): any {
-    return moment().format('DD/MM/YYYY');
+    // return this.asset.dayImport.format('DD/MM/YYYY');
+    return this.asset.id ? this.asset.dayImport.format('DD/MM/YYYY') : moment().format('DD/MM/YYYY');
   }
 
   save(): void {
@@ -198,9 +197,9 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
     }
   }
 
-  filterAssetGroupsByAssetType = (code: string, list: GroupAssetDto[]):ComboboxItemDto[] => [...list].filter(item => item.assetTypeCode === code).map(item => new ComboboxItemDto({ value: item.id.toString(), displayText: item.groupAssetName, isSelected: false }));
+  filterAssetGroupsByAssetType = (code: string, list: GroupAssetDto[]): ComboboxItemDto[] => [...list].filter(item => item.assetTypeCode === code).map(item => new ComboboxItemDto({ value: item.id.toString(), displayText: item.groupAssetName, isSelected: false }));
 
-  handleChangeAssetType = (code: string) => [this.groupAssets = this.filterAssetGroupsByAssetType(code, this.backupAssetGroups), setTimeout(() => {$(this.groupAssetCombobox.nativeElement).selectpicker("refresh")}, 0), console.log(this.groupAssets)];
+  handleChangeAssetType = (code: string) => [this.groupAssets = this.filterAssetGroupsByAssetType(code, this.backupAssetGroups), setTimeout(() => { $(this.groupAssetCombobox.nativeElement).selectpicker("refresh") }, 0), console.log(this.groupAssets)];
 
   onChangeDepreciationMonths(value: string | number): void {
     console.log(value);

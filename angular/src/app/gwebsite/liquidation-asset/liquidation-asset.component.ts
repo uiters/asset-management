@@ -6,9 +6,9 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { CreateOrEditAssetTypeModalComponent } from './create-or-edit-asset-type-modal.component';
-import { ViewAssetTypeModalComponent } from './view-asset-type-modal.component'
 import { WebApiServiceProxy, IFilter } from '@shared/service-proxies/webapi.service';
+import { ViewAssetTypeModalComponent } from './view-liquidation-asset-modal.component';
+import { CreateOrEditAssetTypeModalComponent } from './create-or-edit-liquidation-asset-modal.component';
 
 @Component({
   templateUrl: './asset-type.component.html',

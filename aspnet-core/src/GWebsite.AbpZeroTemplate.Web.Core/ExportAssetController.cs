@@ -25,7 +25,7 @@ namespace GWebsite.AbpZeroTemplate.Application
         }
 
         [HttpGet]
-        public PagedResultDto<ExportAssetDto> GetAssetsByFilter(ExportAssetFilter filter)
+        public PagedResultDto<ExportAssetDto> GetExportAssetsByFilter(ExportAssetFilter filter)
         {
             return appService.GetExportAssetsByFilter(filter);
         }

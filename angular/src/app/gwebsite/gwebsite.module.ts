@@ -34,6 +34,8 @@ import { CreateOrEditCustomerModalComponent } from './customer/create-or-edit-cu
 import { from } from 'rxjs';
 import { CreateOrEditAssetModelComponent } from './asset/create-or-edit-asset-model/create-or-edit-asset-model.component';
 import { AssetComponent } from './asset/asset/asset.component';
+import { ExportAssetComponent } from './export-asset/export-asset/export-asset.component';
+import { CreateOrEditExportAssetModelComponent } from './export-asset/create-or-edit-export-asset-model/create-or-edit-export-asset-model.component';
 
 @NgModule({
     imports: [
@@ -63,7 +65,7 @@ import { AssetComponent } from './asset/asset/asset.component';
         DepreciationComponent, CreateOrEditDepreciationModalComponent,
         AssetTypeComponent, CreateOrEditAssetTypeModalComponent, ViewAssetTypeModalComponent,
         FixAssetComponent,CreateOrEditFixAssetModalComponent,
-        UnitComponent,CreateOrEditUnitModalComponent,
+        UnitComponent,CreateOrEditUnitModalComponent, ExportAssetComponent, CreateOrEditExportAssetModelComponent,
     ],
     providers: [
         DemoModelServiceProxy,

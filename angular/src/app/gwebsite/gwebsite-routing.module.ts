@@ -9,6 +9,7 @@ import { AssetComponent } from './asset/asset/asset.component';
 import { AssetTypeComponent } from './asset-type/asset-type.component';
 import { FixAssetComponent } from './fix-asset/fixasset.component';
 import { UnitComponent } from './unit/unit.component';
+import { ExportAssetComponent } from './export-asset/export-asset/export-asset.component';
 
 @NgModule({
     imports: [
@@ -65,6 +66,15 @@ import { UnitComponent } from './unit/unit.component';
                     {
                         path: 'unit', component: UnitComponent,
                         //data: { permission: 'Pages.Administration.AssetType' }
+                    },
+                ]
+            }, 
+            {
+                path: '',
+                children: [
+                    {
+                        path: 'export-asset', component: ExportAssetComponent,
+                        data: { permission: 'Pages.Administration.ExportAsset' }
                     },
                 ]
             }
