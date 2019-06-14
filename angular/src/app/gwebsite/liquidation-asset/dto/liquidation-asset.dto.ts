@@ -3,7 +3,7 @@ import { ComboboxItemDto } from '@shared/service-proxies/service-proxies';
 export class LiquidationAssetDto {
     index?: number;
     id: number;
-    liquidationDate: Date;
+    liquidationDate: Date | string;
     assetCode: string;
     assetName: string;
     unit: string;

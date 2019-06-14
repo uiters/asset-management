@@ -61,6 +61,11 @@ export class CreateOrEditEvictionAssetModalComponent extends AppComponentBase {
             if (!this.evictionAsset.id) {
                 this.evictionAsset.evictionDate = moment().format('DD/MM/YYYY');
             }
+
+            setTimeout(() => {
+                $(this.assetsCombobox.nativeElement).selectpicker('refresh');
+            }, 0);
+            
             this.modal.show();
         });
 
@@ -82,7 +87,6 @@ export class CreateOrEditEvictionAssetModalComponent extends AppComponentBase {
                 this.evictionAsset.assetName = item.displayText;
             }
         });
-        console.log('aaaaaaaa', this.evictionAsset);
         this._apiService.post('api/EvictionAsset/CreateEvictionAsset', this.evictionAsset)
             .pipe(finalize(() => this.saving = false))
             .subscribe(() => {

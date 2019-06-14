@@ -51,11 +51,7 @@
                     <div class="form-group">
                         <label>{{ l('Mã tài sản') }} *</label>
                         <input
-                            [disabled]="
-                                liquidationAsset.id &&
-                                liquidationAsset.isReadonly &&
-                                liquidationAsset.isReadonly === isChange
-                            "
+                            disabled
                             #assetCodeInput="ngModel"
                             class="form-control"
                             type="text"
@@ -69,44 +65,22 @@
                         ></validation-messages>
                     </div>
                     <div class="form-group">
-                        <label>{{ l('Tên tài sản') }} *</label>
-                        <input
-                            [disabled]="
-                                liquidationAsset.id &&
-                                liquidationAsset.isReadonly &&
-                                liquidationAsset.isReadonly === isChange
-                            "
-                            #assetNameInput="ngModel"
-                            class="form-control"
-                            type="text"
-                            name="AssetName"
-                            [(ngModel)]="liquidationAsset.assetName"
-                            required
-                            maxlength="64"
-                        />
-                        <validation-messages
-                            [formCtrl]="assetNameInput"
-                        ></validation-messages>
+                        <label>{{l('Tên tài sản')}} *</label>
+                        <select [disabled]="liquidationAsset.id && liquidationAsset.isReadonly && liquidationAsset.isReadonly === isChange"
+                        #assetsCombobox name="assetName" class="form-control" [(ngModel)]="liquidationAsset.assetCode"
+                            [attr.data-live-search]="true" jq-plugin="selectpicker" required>
+                            <option selected disabled value="">---Chọn tài sản---</option>
+                            <option *ngFor="let item of assets" [value]="item.value">{{item.displayText}}</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label>{{ l('Đơn vị mua tài sản thanh lý') }} *</label>
-                        <input
-                            [disabled]="
-                                liquidationAsset.id &&
-                                liquidationAsset.isReadonly &&
-                                liquidationAsset.isReadonly === isChange
-                            "
-                            #unitInput="ngModel"
-                            class="form-control"
-                            type="text"
-                            name="Unit"
-                            [(ngModel)]="liquidationAsset.unit"
-                            required
-                            maxlength="64"
-                        />
-                        <validation-messages
-                            [formCtrl]="unitInput"
-                        ></validation-messages>
+                        <label>{{l('Đơn vị mua tài sản thanh lý')}} *</label>
+                        <select [disabled]="liquidationAsset.id && liquidationAsset.isReadonly && liquidationAsset.isReadonly === isChange"
+                        #unitsCombobox name="unit" class="form-control" [(ngModel)]="liquidationAsset.unit"
+                            [attr.data-live-search]="true" jq-plugin="selectpicker" required>
+                            <option selected disabled value="">---Chọn đơn vị mua tài sản thanh lý---</option>
+                            <option *ngFor="let item of units" [value]="item.value">{{item.displayText}}</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>{{ l('Hình thức thanh lý') }} *</label>
@@ -118,12 +92,29 @@
                             "
                             #liquidationFormInput="ngModel"
                             class="form-control"
-                            type="text"
+                            type="radio"
                             name="LiquidationForm"
                             [(ngModel)]="liquidationAsset.liquidationForm"
                             required
                             maxlength="64"
-                        />
+                            value="Một phần"
+                        /><span>Một phần</span>
+                        
+                        <input
+                            [disabled]="
+                                liquidationAsset.id &&
+                                liquidationAsset.isReadonly &&
+                                liquidationAsset.isReadonly === isChange
+                            "
+                            #liquidationFormInput="ngModel"
+                            class="form-control"
+                            type="radio"
+                            name="LiquidationForm"
+                            [(ngModel)]="liquidationAsset.liquidationForm"
+                            required
+                            maxlength="64"
+                            value="Toàn phần"
+                        /><span>Toàn phần</span>
                         <validation-messages
                             [formCtrl]="liquidationFormInput"
                         ></validation-messages>
