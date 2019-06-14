@@ -124,11 +124,11 @@ namespace GWebsite.AbpZeroTemplate.Web.Core.Assets
                 .Where(item => !item.IsDelete);
 
             // Filter
-            if (!string.IsNullOrWhiteSpace(input.AssetName))
+            if (!string.IsNullOrWhiteSpace(input.Name))
             {
-                input.AssetName = input.AssetName.ToLower();
+                input.Name = input.Name.ToLower();
                 assets = assets
-                    .Where(asset => asset.AssetName.ToLower().Contains(input.AssetName));
+                    .Where(asset => asset.AssetName.ToLower().Contains(input.Name));
             }
             int totalCount = assets.Count();
 

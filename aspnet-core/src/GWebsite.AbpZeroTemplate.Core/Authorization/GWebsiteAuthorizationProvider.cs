@@ -61,6 +61,26 @@ namespace GWebsite.AbpZeroTemplate.Core.Authorization
             asset.CreateChildPermission(GWebsitePermissions.Pages_Administration_Asset_Edit, L("EditingAsset"));
             asset.CreateChildPermission(GWebsitePermissions.Pages_Administration_Asset_Delete, L("DeletingAsset"));
 
+            Permission evictionAsset = gwebsite.CreateChildPermission(GWebsitePermissions.Pages_Administration_EvictionAsset, L("EvictionAsset"));
+            evictionAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_EvictionAsset_Create, L("CreatingNewEvictionAsset"));
+            evictionAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_EvictionAsset_Edit, L("EditingEvictionAsset"));
+            evictionAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_EvictionAsset_Delete, L("DeletingEvictionAsset"));
+
+            Permission liquidationAsset = gwebsite.CreateChildPermission(GWebsitePermissions.Pages_Administration_LiquidationAsset, L("LiquidationAsset"));
+            liquidationAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_LiquidationAsset_Create, L("CreatingNewLiquidationAsset"));
+            liquidationAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_LiquidationAsset_Edit, L("EditinLiquidationAsset"));
+            liquidationAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_LiquidationAsset_Delete, L("DeletingLiquidationAsset"));
+
+            Permission exportAsset = gwebsite.CreateChildPermission(GWebsitePermissions.Pages_Administration_ExportAsset , L("ExportAsset"));
+            exportAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_ExportAsset_Create, L("CreatingNewExportAsset"));
+            exportAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_ExportAsset_Edit, L("EditingExportAsset"));
+            exportAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_ExportAsset_Delete, L("DeletingExportAsset"));
+
+            Permission transferAsset = gwebsite.CreateChildPermission(GWebsitePermissions.Pages_Administration_TransferAsset, L("TransferAsset"));
+            transferAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_TransferAsset_Create, L("CreatingNewTransferAsset"));
+            transferAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_TransferAsset_Edit, L("EditingTransferAsset"));
+            transferAsset.CreateChildPermission(GWebsitePermissions.Pages_Administration_TransferAsset_Delete, L("DeletingTransferAsset"));
+
             Permission assetType = gwebsite.CreateChildPermission(GWebsitePermissions.Pages_Administration_AssetType, L("AssetType"));
             assetType.CreateChildPermission(GWebsitePermissions.Pages_Administration_AssetType_Create, L("CreatingNewAssetType"));
             assetType.CreateChildPermission(GWebsitePermissions.Pages_Administration_AssetType_Edit, L("EditingAssetType"));

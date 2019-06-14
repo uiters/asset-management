@@ -4,9 +4,13 @@ using GWebsite.AbpZeroTemplate.Application.Share.AssetTypes.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.Customers.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.DemoModels.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.Depreciations.Dto;
+using GWebsite.AbpZeroTemplate.Application.Share.EvictionAsset.Dto;
+using GWebsite.AbpZeroTemplate.Application.Share.ExportAsset.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.FixAssets.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.GroupAssets.Dto;
+using GWebsite.AbpZeroTemplate.Application.Share.LiquidationAsset.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.MenuClients.Dto;
+using GWebsite.AbpZeroTemplate.Application.Share.TransferAsset.Dto;
 using GWebsite.AbpZeroTemplate.Application.Share.Units.Dto;
 using GWebsite.AbpZeroTemplate.Core.Models;
 
@@ -65,6 +69,25 @@ namespace GWebsite.AbpZeroTemplate.Applications
             configuration.CreateMap<Unit, UnitListDto>();
             configuration.CreateMap<CreateUnitInput, Unit>();
             configuration.CreateMap<UpdateUnitInput, Unit>();
+
+            //EvictionAsset
+            configuration.CreateMap<EvictionAsset, EvictionAssetDto>();
+            configuration.CreateMap<EvictionAssetDto, EvictionAsset>();
+
+
+            //LiquidationAsset
+            configuration.CreateMap<LiquidationAsset, LiquidationAssetDto>();
+            configuration.CreateMap<LiquidationAssetDto, LiquidationAsset>();
+
+
+            //ExportAsset
+            configuration.CreateMap<ExportAsset, ExportAssetDto>();
+            configuration.CreateMap<ExportAssetDto, ExportAsset>();
+
+            //TransferAsset
+            configuration.CreateMap<TransferAsset, TransferAssetDto>();
+            configuration.CreateMap<TransferAssetDto, TransferAsset>();
+
         }
     }
 }

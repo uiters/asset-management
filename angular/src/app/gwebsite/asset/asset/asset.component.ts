@@ -44,25 +44,17 @@ export class AssetComponent extends AppComponentBase implements AfterViewInit {
   }
   reloadList(name: string, event?: LazyLoadEvent): void {
     this._apiService.get('api/Asset/GetAssetsByFilter',
-      [{ fieldName: 'Name', value: this.assetName }],
+      [{ fieldName: 'AssetName', value: this.assetName }],
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
       this.primengTableHelper.getSkipCount(this.paginator, event),
     ).subscribe(result => {
+      console.log(this.assetName, result);
+
       this.primengTableHelper.totalRecordsCount = result.totalCount;
       this.primengTableHelper.records = result.items;
       this.primengTableHelper.hideLoadingIndicator();
     });
-    // this._assetService.getAssetsByFilter(
-    //   name,
-    //   this.primengTableHelper.getSorting(this.dataTable),
-    //   this.primengTableHelper.getMaxResultCount(this.paginator, event),
-    //   this.primengTableHelper.getSkipCount(this.paginator, event)
-    // ).subscribe(result => {
-    //   this.primengTableHelper.totalRecordsCount = result.totalCount;
-    //   this.primengTableHelper.records = result.items;
-    //   this.primengTableHelper.hideLoadingIndicator();
-    // });
   }
 
   deleteAsset(id: number): void {

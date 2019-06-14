@@ -30,6 +30,10 @@
     <Compile Remove="Migrations\20190509130627_Depreciations.cs" />
     <Compile Remove="Migrations\20190509144844_Depreciations.cs" />
     <Compile Remove="Migrations\20190509145219_Depreciations.cs" />
+    <Compile Remove="Migrations\20190612163744_update_name_database.cs" />
+    <Compile Remove="Migrations\20190612163744_update_name_database.Designer.cs" />
+    <Compile Remove="Migrations\20190612164123_update_name_database.cs" />
+    <Compile Remove="Migrations\20190612164123_update_name_database.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

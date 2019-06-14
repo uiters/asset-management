@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Abp.Domain.Entities;
+using System;
 
-namespace GWebsite.AbpZeroTemplate.Core.Models
+namespace GWebsite.AbpZeroTemplate.Application.Share.TransferAsset.Dto
 {
-    public class TransferAsset : FullAuditModel
+    public class TransferAssetDto : Entity<int>
     {
         public DateTime TransferDate { get; set; }
         public string AssetCode { get; set; }
@@ -10,6 +11,5 @@ namespace GWebsite.AbpZeroTemplate.Core.Models
         public string UnitName { get; set; }
         public string Receiver { get; set; }
         public bool IsReadonly { get; set; }
-
     }
 }
