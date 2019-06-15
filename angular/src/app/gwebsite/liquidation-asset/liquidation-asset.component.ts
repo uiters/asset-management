@@ -6,19 +6,19 @@ import * as _ from 'lodash';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { Table } from 'primeng/components/table/table';
-import { WebApiServiceProxy, IFilter } from '@shared/service-proxies/webapi.service';
-import { ViewAssetTypeModalComponent } from './view-liquidation-asset-modal.component';
-import { CreateOrEditAssetTypeModalComponent } from './create-or-edit-liquidation-asset-modal.component';
-
+import { CreateOrEditLiquidationAssetModalComponent } from './create-or-edit-liquidation-asset-modal.component';
+import { ViewLiquidationAssetModalComponent } from './view-liquidation-asset-modal.component'
+import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
+import * as moment from 'moment';
 @Component({
-  templateUrl: './asset-type.component.html',
-  animations: [appModuleAnimation()]
+    templateUrl: './liquidation-asset.component.html',
+    animations: [appModuleAnimation()]
 })
-export class AssetTypeComponent extends AppComponentBase implements AfterViewInit, OnInit {
+export class LiquidationAssetComponent extends AppComponentBase implements AfterViewInit, OnInit {
 
     @ViewChild('textsTable') textsTable: ElementRef;
-    @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditAssetTypeModalComponent;
-    @ViewChild('viewModal') viewModal: ViewAssetTypeModalComponent;
+    @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditLiquidationAssetModalComponent;
+    @ViewChild('viewModal') viewModal: ViewLiquidationAssetModalComponent;
     @ViewChild('dataTable') dataTable: Table;
     @ViewChild('paginator') paginator: Paginator;
 
@@ -36,34 +36,38 @@ export class AssetTypeComponent extends AppComponentBase implements AfterViewIni
     ngOnInit(): void {
     }
 
+    formatDate(str: any): any {
+        return moment(str).format('DD/MM/YYYY');
+    }
+
     ngAfterViewInit(): void {
         setTimeout(() => {
             this.init();
         });
     }
 
-    getAssetTypes(event?: LazyLoadEvent) {
+    getLiquidationAssets(event?: LazyLoadEvent) {
         if (!this.paginator || !this.dataTable) {
             return;
         }
 
         this.primengTableHelper.showLoadingIndicator();
 
-        this._apiService.get('api/AssetType/GetAssetTypesByFilter',
+        this._apiService.get('api/LiquidationAsset/GetLiquidationAssetsByFilter',
             [{ fieldName: 'Name', value: this.filterText }],
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getMaxResultCount(this.paginator, event),
             this.primengTableHelper.getSkipCount(this.paginator, event),
         ).subscribe(async result => {
             this.primengTableHelper.totalRecordsCount = result.totalCount;
-            const assetTypes = result.items.map((item, index) => ({...item, index: index + 1}));
-            this.primengTableHelper.records = assetTypes;
+            const liquidationAssets = result.items.map((item, index) => ({ ...item, index: index + 1 }));
+            this.primengTableHelper.records = liquidationAssets;
             this.primengTableHelper.hideLoadingIndicator();
         });
     }
 
-    deleteAssetType(id: number): void {
-        this._apiService.delete("api/AssetType/DeleteAssetType?", id)
+    deleteLiquidationAsset(id: number): void {
+        this._apiService.delete("api/LiquidationAsset/DeleteLiquidationAsset?", id)
             .subscribe(() => {
                 this.notify.info(this.l('DeletedSuccessfully'));
                 this.reloadPage();
@@ -82,7 +86,7 @@ export class AssetTypeComponent extends AppComponentBase implements AfterViewIni
     }
 
     applyFilters(): void {
-        this._router.navigate(['app/gwebsite/asset-type', {
+        this._router.navigate(['app/gwebsite/liquidation-asset', {
             filterText: this.filterText
         }]);
 
@@ -97,10 +101,10 @@ export class AssetTypeComponent extends AppComponentBase implements AfterViewIni
     }
 
     refreshValueFromModal(): void {
-        if (this.createOrEditModal.assetType.id) {
+        if (this.createOrEditModal.liquidationAsset.id) {
             for (let i = 0; i < this.primengTableHelper.records.length; i++) {
-                if (this.primengTableHelper.records[i].id === this.createOrEditModal.assetType.id) {
-                    this.primengTableHelper.records[i] = this.createOrEditModal.assetType;
+                if (this.primengTableHelper.records[i].id === this.createOrEditModal.liquidationAsset.id) {
+                    this.primengTableHelper.records[i] = this.createOrEditModal.liquidationAsset;
                     this.primengTableHelper.records[i].index = i + 1;
                     return;
                 }
@@ -108,7 +112,7 @@ export class AssetTypeComponent extends AppComponentBase implements AfterViewIni
         } else { this.reloadPage(); }
     }
 
-    createAssetType() {
+    createLiquidationAsset() {
         this.createOrEditModal.show();
     }
 }

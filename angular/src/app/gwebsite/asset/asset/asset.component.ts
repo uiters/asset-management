@@ -38,6 +38,7 @@ export class AssetComponent extends AppComponentBase implements AfterViewInit {
     this._activatedRoute.params.subscribe((params: Params) => {
       this.assetName = params['assetname'] || '';
       this.reloadList(null);
+      this.reLoadPage();
     });
   }
   reloadList(event?: LazyLoadEvent): void {
@@ -90,6 +91,13 @@ export class AssetComponent extends AppComponentBase implements AfterViewInit {
       this.reloadList(event);
     }
   }
+
+  refreshValueFromModal() {
+    if (!this.createOrEditModal.asset.id) {
+      this.reLoadPage();
+    }
+}
+
 
   truncateString(text: string): string {
     return abp.utils.truncateStringWithPostfix(text, 32, '...');

@@ -82,6 +82,10 @@ export class TransferAssetComponent extends AppComponentBase implements AfterVie
     }
   }
 
+  refreshValueFromModal() {
+    this.reLoadPage();
+  }
+
   formatDate(str: any): any {
     return moment(str).format('DD/MM/YYYY');
   }

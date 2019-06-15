@@ -79,7 +79,7 @@ namespace GWebsite.AbpZeroTemplate.Web.Core.Assets
             int idSelect = id ?? 1;
             System.Collections.Generic.List<ComboboxItemDto> assets = assetRepository.GetAll()
                 .Where(item => !item.IsDelete)
-                .Select(asset => new ComboboxItemDto(asset.Id.ToString(), asset.AssetName) { IsSelected = asset.Id == idSelect })
+                .Select(asset => new ComboboxItemDto(asset.AssetCode, asset.AssetName) { IsSelected = asset.Id == idSelect })
                 .ToList();
 
             AssetCombobox assetCombobox = new AssetCombobox

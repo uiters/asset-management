@@ -121,6 +121,7 @@ export class CreateOrEditExportAssetModelComponent extends AppComponentBase {
       .subscribe(
         unitsCombobox => {
           this.unitsCombobox = unitsCombobox.units;
+          
           setTimeout(() => {
             $(this.unitCombobox.nativeElement).selectpicker("refresh");
           }, 0);

@@ -19,7 +19,7 @@ import {
     WebApiServiceProxy,
     IFilter
 } from '@shared/service-proxies/webapi.service';
-
+import * as moment from 'moment';
 @Component({
     templateUrl: './eviction-asset.component.html',
     animations: [appModuleAnimation()]
@@ -50,6 +50,10 @@ export class EvictionAssetComponent extends AppComponentBase
         setTimeout(() => {
             this.init();
         });
+    }
+
+    formatDate(str: any): any {
+        return moment(str).format('DD/MM/YYYY');
     }
 
     getEvictionAssets(event?: LazyLoadEvent) {
@@ -138,7 +142,7 @@ export class EvictionAssetComponent extends AppComponentBase
         }
     }
 
-    createAssetType() {
+    createEvictionAsset() {
         this.createOrEditModal.show();
     }
 }

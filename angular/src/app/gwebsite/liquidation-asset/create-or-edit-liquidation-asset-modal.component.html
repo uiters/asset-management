@@ -1,40 +1,197 @@
-<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal"
-    aria-hidden="true" [config]="{backdrop: 'static'}">
+<div
+    bsModal
+    #createOrEditModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createOrEditModal"
+    aria-hidden="true"
+    [config]="{ backdrop: 'static' }"
+>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form *ngIf="active" #editForm="ngForm" novalidate (ngSubmit)="save()">
+            <form
+                *ngIf="active"
+                #editForm="ngForm"
+                novalidate
+                (ngSubmit)="save()"
+            >
                 <div class="modal-header">
                     <h4 class="modal-title">
-                        <span *ngIf="assetType.id">{{l("Chỉnh Sửa Loại Tài Sản")}}: {{assetType.assetTypeName}}</span>
-                        <span *ngIf="!assetType.id">{{l("Tạo Mới Loại Tài Sản")}}</span>
+                        <span *ngIf="liquidationAsset.id"
+                            >{{ l('Chỉnh Sửa Thanh Lý Tài Sản') }}:
+                            {{ liquidationAsset.assetName }}</span
+                        >
+                        <span *ngIf="!liquidationAsset.id">{{
+                            l('Tạo Mới Thanh Lý Tài Sản')
+                        }}</span>
                     </h4>
-                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')">
+                    <button
+                        type="button"
+                        class="close"
+                        (click)="close()"
+                        [attr.aria-label]="l('Close')"
+                    >
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>{{l("Mã loại tài sản")}} *</label>
-                        <input [disabled]="assetType.id && assetType.isReadonly && assetType.isReadonly === isChange" #typeAssetCodeInput="ngModel" class="form-control" type="text" name="TypeAssetCode" [(ngModel)]="assetType.assetTypeCode"
-                            required maxlength="64">
-                        <validation-messages [formCtrl]="typeAssetCodeInput"></validation-messages>
+                        <label>{{ l('Ngày thanh lý') }} *</label>
+                        <input
+                            disabled
+                            class="form-control"
+                            type="text"
+                            name="LiquidationDate"
+                            [(ngModel)]="liquidationAsset.liquidationDate"
+                            required
+                            maxlength="64"
+                        />
                     </div>
                     <div class="form-group">
-                        <label>{{l("Tên loại tài sản")}} *</label>
-                        <input [disabled]="assetType.id && assetType.isReadonly && assetType.isReadonly === isChange" #typeAssetNameInput="ngModel" class="form-control" type="text" name="TypeAssetName"
-                        [(ngModel)]="assetType.assetTypeName" required maxlength="64">
-                        <validation-messages [formCtrl]="typeAssetNameInput"></validation-messages>
+                        <label>{{ l('Mã tài sản') }} *</label>
+                        <input
+                            disabled
+                            #assetCodeInput="ngModel"
+                            class="form-control"
+                            type="text"
+                            name="AssetCode"
+                            [(ngModel)]="liquidationAsset.assetCode"
+                            required
+                            maxlength="64"
+                        />
+                        <validation-messages
+                            [formCtrl]="assetCodeInput"
+                        ></validation-messages>
                     </div>
                     <div class="form-group">
-                        <label>{{l("Duyệt")}} *</label>
-                        <input [disabled]="assetType.id && assetType.isReadonly && assetType.isReadonly === isChange" class="ml-3 form-check-input" type="checkbox" name="IsReadonly"
-                        [(ngModel)]="assetType.isReadonly" >
+                        <label>{{l('Tên tài sản')}} *</label>
+                        <select [disabled]="liquidationAsset.id && liquidationAsset.isReadonly && liquidationAsset.isReadonly === isChange"
+                        #assetsCombobox name="assetName" class="form-control" [(ngModel)]="liquidationAsset.assetCode"
+                            [attr.data-live-search]="true" jq-plugin="selectpicker" required>
+                            <option selected disabled value="">---Chọn tài sản---</option>
+                            <option *ngFor="let item of assets" [value]="item.value">{{item.displayText}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>{{l('Đơn vị mua tài sản thanh lý')}} *</label>
+                        <select [disabled]="liquidationAsset.id && liquidationAsset.isReadonly && liquidationAsset.isReadonly === isChange"
+                        #unitsCombobox name="unit" class="form-control" [(ngModel)]="liquidationAsset.unit"
+                            [attr.data-live-search]="true" jq-plugin="selectpicker" required>
+                            <option selected disabled value="">---Chọn đơn vị mua tài sản thanh lý---</option>
+                            <option *ngFor="let item of units" [value]="item.value">{{item.displayText}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ l('Hình thức thanh lý') }} *</label>
+                        <input
+                            [disabled]="
+                                liquidationAsset.id &&
+                                liquidationAsset.isReadonly &&
+                                liquidationAsset.isReadonly === isChange
+                            "
+                            #liquidationFormInput="ngModel"
+                            class="form-control"
+                            type="radio"
+                            name="LiquidationForm"
+                            [(ngModel)]="liquidationAsset.liquidationForm"
+                            required
+                            maxlength="64"
+                            value="Một phần"
+                        /><span>Một phần</span>
+                        
+                        <input
+                            [disabled]="
+                                liquidationAsset.id &&
+                                liquidationAsset.isReadonly &&
+                                liquidationAsset.isReadonly === isChange
+                            "
+                            #liquidationFormInput="ngModel"
+                            class="form-control"
+                            type="radio"
+                            name="LiquidationForm"
+                            [(ngModel)]="liquidationAsset.liquidationForm"
+                            required
+                            maxlength="64"
+                            value="Toàn phần"
+                        /><span>Toàn phần</span>
+                        <validation-messages
+                            [formCtrl]="liquidationFormInput"
+                        ></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ l('Số tiền thanh lý') }} *</label>
+                        <input
+                            [disabled]="
+                                liquidationAsset.id &&
+                                liquidationAsset.isReadonly &&
+                                liquidationAsset.isReadonly === isChange
+                            "
+                            #liquidationCostInput="ngModel"
+                            class="form-control"
+                            type="text"
+                            name="LiquidationCost"
+                            [(ngModel)]="liquidationAsset.liquidationCost"
+                            required
+                            maxlength="64"
+                        />
+                        <validation-messages
+                            [formCtrl]="liquidationCostInput"
+                        ></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ l('Ghi chú') }} *</label>
+                        <input
+                            [disabled]="
+                                liquidationAsset.id &&
+                                liquidationAsset.isReadonly &&
+                                liquidationAsset.isReadonly === isChange
+                            "
+                            #noteInput="ngModel"
+                            class="form-control"
+                            type="text"
+                            name="Note"
+                            [(ngModel)]="liquidationAsset.note"
+                            required
+                            maxlength="64"
+                        />
+                        <validation-messages
+                            [formCtrl]="noteInput"
+                        ></validation-messages>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ l('Duyệt') }} *</label>
+                        <input
+                            [disabled]="
+                                liquidationAsset.id &&
+                                liquidationAsset.isReadonly &&
+                                liquidationAsset.isReadonly === isChange
+                            "
+                            class="ml-3 form-check-input"
+                            type="checkbox"
+                            name="IsReadonly"
+                            [(ngModel)]="liquidationAsset.isReadonly"
+                        />
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
-                    <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid" [buttonBusy]="saving"
-                    [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                    <button
+                        [disabled]="saving"
+                        type="button"
+                        class="btn btn-default"
+                        (click)="close()"
+                    >
+                        {{ l('Cancel') }}
+                    </button>
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        [disabled]="!editForm.form.valid"
+                        [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"
+                    >
+                        <i class="fa fa-save"></i> <span>{{ l('Save') }}</span>
+                    </button>
                 </div>
             </form>
         </div>

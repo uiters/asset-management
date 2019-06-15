@@ -69,10 +69,10 @@ export class CreateOrEditTransferAssetComponent extends AppComponentBase {
   }
 
   close(): void {
-    this.modal.hide();
-    this.modalSave.emit(null);
     this.active = false;
     this.saving = false;
+    this.modal.hide();
+    this.modalSave.emit(null);
   }
 
   show(id?: number | null | undefined): void {
@@ -80,7 +80,7 @@ export class CreateOrEditTransferAssetComponent extends AppComponentBase {
     if (!id || id == undefined) {
       this.str = moment().format('DD/MM/YYYY');
       this.transferAsset = new TransferAssetDto();
-      
+
 
       this.transferAsset.isReadonly = false;
       this.getAssetComboBox();

@@ -36,6 +36,11 @@ export class ExportAssetComponent extends AppComponentBase implements AfterViewI
       this.reloadList(this.assetName, null);
     });
   }
+
+  refreshValueFromModal() {
+    this.reLoadPage();
+  }
+
   reloadList(name: string, event?: LazyLoadEvent): void {
     this._apiService.get('api/ExportAsset/GetExportAssetsByFilter',
       [{ fieldName: 'Name', value: this.assetName }],
