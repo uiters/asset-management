@@ -51,7 +51,7 @@ export class CreateOrEditAssetModelComponent extends AppComponentBase {
 
   formatDate(): any {
     // return this.asset.dayImport.format('DD/MM/YYYY');
-    return this.asset.id ? this.asset.dayImport.format('DD/MM/YYYY') : moment().format('DD/MM/YYYY');
+    return this.asset.id ? moment(this.asset.dayImport).format('DD/MM/YYYY') : moment().format('DD/MM/YYYY');
   }
 
   save(): void {

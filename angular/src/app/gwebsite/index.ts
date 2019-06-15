@@ -13,3 +13,6 @@ export * from './fix-asset/fixasset.component';
 export * from './unit/unit.component';
 export * from './unit/create-or-edit-unit-modal.component';
 export * from './export-asset/export-asset/export-asset.component';
+export * from './export-asset/create-or-edit-export-asset-model/create-or-edit-export-asset-model.component';
+export * from './transfer-asset/transfer-asset/transfer-asset.component';
+export * from './transfer-asset/create-or-edit-transfer-asset/create-or-edit-transfer-asset.component';

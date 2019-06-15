@@ -7,12 +7,12 @@
           <span>{{l("Tài sản")}}</span>
         </h3>
         <span class="m-section__sub">
-          {{l("Thông tin xuất tài sản")}}
+          {{l("Thông tin điều chuyển tài sản")}}
         </span>
       </div>
       <div class="col-xs-6 text-right">
-        <button (click)="createExportAsset()" *ngIf="isGranted('Pages.Administration.ExportAsset.Create')"
-          class="btn btn-primary"><i class="fa fa-plus"></i> {{l("Tạo mới thông tin xuất tài sản")}}</button>
+        <button (click)="createTransferAsset()" *ngIf="isGranted('Pages.Administration.ExportAsset.Create')"
+          class="btn btn-primary"><i class="fa fa-plus"></i> {{l("Tạo mới thông tin điều chuyển tài sản")}}</button>
       </div>
     </div>
   </div>
@@ -47,9 +47,9 @@
                     STT
                     <p-sortIcon field="id"></p-sortIcon>
                   </th>
-                  <th pSortableColumn="ExportDate">
-                    Ngày xuất
-                    <p-sortIcon field="ExportDate"></p-sortIcon>
+                  <th pSortableColumn="TransferDate">
+                    Ngày điều chuyển
+                    <p-sortIcon field="TransferDate"></p-sortIcon>
                   </th>
                   <th pSortableColumn="AssetCode">
                     Mã tài sản
@@ -60,12 +60,12 @@
                     <p-sortIcon field="AssetName"></p-sortIcon>
                   </th>
                   <th pSortableColumn="UnitName">
-                    Đơn vị sử dụng
+                    Đơn vị nhận
                     <p-sortIcon field="UnitName"></p-sortIcon>
                   </th>
-                  <th pSortableColumn="User">
-                    Người sử dụng
-                    <p-sortIcon field="User"></p-sortIcon>
+                  <th pSortableColumn="Receiver">
+                    Người nhận
+                    <p-sortIcon field="Receiver"></p-sortIcon>
                   </th>
                   <th>{{l('Edit')}}</th>
                 </tr>
@@ -77,8 +77,8 @@
                     <span title="{{record.id}}">{{truncateString(record.id)}}</span>
                   </td>
                   <td>
-                    <span class="ui-column-title">Ngày xuất</span>
-                    <span title="{{record.exportDate}}">{{formatDate(record.exportDate)}}</span>
+                    <span class="ui-column-title">Ngày điều xuất</span>
+                    <span title="{{record.transferDate}}">{{formatDate(record.transferDate)}}</span>
                   </td>
                   <td>
                     <span class="ui-column-title">Mã tài sản</span>
@@ -89,12 +89,12 @@
                     <span title="{{record.assetName}}">{{truncateString(record.assetName)}}</span>
                   </td>
                   <td>
-                    <span class="ui-column-title">Đơn vị sử dụng</span>
+                    <span class="ui-column-title">Đơn vị nhận</span>
                     <span title="{{record.unitName}}">{{truncateString(record.unitName)}}</span>
                   </td>
                   <td>
-                    <span class="ui-column-title">Người sử dụng</span>
-                    <span title="{{record.user}}">{{truncateString(record.user)}}</span>
+                    <span class="ui-column-title">Người nhận</span>
+                    <span title="{{record.receiver}}">{{truncateString(record.receiver)}}</span>
                   </td>
                   <td>
                     <button class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
@@ -103,7 +103,7 @@
                     </button>
 
                     <button class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-                      (click)="deleteExportAsset(record.id)" title="{{l('Delete')}}">
+                      (click)="deleteTransferAsset(record.id)" title="{{l('Delete')}}">
                       <i class="fa fa-times" [attr.aria-label]="l('Delete')"></i>
                     </button>
 
@@ -120,7 +120,7 @@
             </div>
             <div class="primeng-paging-container">
               <p-paginator rows="{{primengTableHelper.defaultRecordsCountPerPage}}" #paginator
-                (onPageChange)="getExportAssets($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                (onPageChange)="getTransferAssets($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
                 [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
               </p-paginator>
               <span class="total-records-count">
@@ -133,5 +133,5 @@
     </div>
   </div>
 
-  <app-create-or-edit-export-asset-model #createOrEditModal (modalSave)="reLoadPage()"></app-create-or-edit-export-asset-model>
+  <app-create-or-edit-transfer-asset #createOrEditModal (modalSave)="reLoadPage()"></app-create-or-edit-transfer-asset>
 </div>

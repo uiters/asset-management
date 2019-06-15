@@ -1,30 +1,31 @@
-import { Component, ViewChild, ElementRef, Output, EventEmitter, Injector } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
-import { ExportAssetDto, ComboboxItemDto } from '@shared/service-proxies/service-proxies';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Injector } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
+import { ModalDirective } from 'ngx-bootstrap';
+import { ExportAssetDto, ComboboxItemDto, TransferAssetDto } from '@shared/service-proxies/service-proxies';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
+
 @Component({
-  selector: 'app-create-or-edit-export-asset-model',
-  templateUrl: './create-or-edit-export-asset-model.component.html',
-  styleUrls: ['./create-or-edit-export-asset-model.component.css']
+  selector: 'app-create-or-edit-transfer-asset',
+  templateUrl: './create-or-edit-transfer-asset.component.html',
 })
-export class CreateOrEditExportAssetModelComponent extends AppComponentBase {
+export class CreateOrEditTransferAssetComponent extends AppComponentBase {
+
   @ViewChild('createOrEditModal') modal: ModalDirective;
   @ViewChild('unitCombobox') unitCombobox: ElementRef;
   @ViewChild('assetCombobox') assetCombobox: ElementRef;
-  @ViewChild('userCombobox') userCombobox: ElementRef;
+  // @ViewChild('userCombobox') userCombobox: ElementRef;
 
   @ViewChild('warrantyPeriod') warrantyPeriod: ElementRef;
   @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
   public active: boolean = false;
   public saving: boolean = false;
-  public exportAsset: ExportAssetDto = new ExportAssetDto();
+  public transferAsset: TransferAssetDto = new TransferAssetDto();
 
   public assetsCombobox: ComboboxItemDto[] = [];
   public unitsCombobox: ComboboxItemDto[] = [];
-  public users: ComboboxItemDto[] = [];
+
   public str: string;
 
   constructor(injector: Injector,
@@ -34,11 +35,11 @@ export class CreateOrEditExportAssetModelComponent extends AppComponentBase {
 
 
   formatDate(): string {
-    return this.str; 
+    return this.str;
   }
 
   save(): void {
-    let input = this.exportAsset;
+    let input = this.transferAsset;
     input.isReadonly = false;
 
     this.saving = true;
@@ -48,8 +49,8 @@ export class CreateOrEditExportAssetModelComponent extends AppComponentBase {
       this.create(input);
   }
 
-  update(input: ExportAssetDto): void {
-    this._appService.put('api/ExportAsset/UpdateExportAsset', input)
+  update(input: TransferAssetDto): void {
+    this._appService.put('api/TransferAsset/UpdateTransferAsset', input)
       .pipe(finalize(() => this.saving = false))
       .subscribe(result => {
         this.notify.info(this.l('SavedSuccessfully'));
@@ -57,9 +58,9 @@ export class CreateOrEditExportAssetModelComponent extends AppComponentBase {
       });
   }
 
-  create(input: ExportAssetDto): void {
-    input.exportDate = moment(Date.now());
-    this._appService.post('api/ExportAsset/CreateExportAsset', input)
+  create(input: TransferAssetDto): void {
+    input.transferDate = moment(Date.now());
+    this._appService.post('api/TransferAsset/CreateTransferAsset', input)
       .pipe(finalize(() => this.saving = false))
       .subscribe(result => {
         this.notify.info(this.l('SavedSuccessfully'));
@@ -71,27 +72,27 @@ export class CreateOrEditExportAssetModelComponent extends AppComponentBase {
     this.modal.hide();
     this.modalSave.emit(null);
     this.active = false;
-
+    this.saving = false;
   }
 
   show(id?: number | null | undefined): void {
     this.active = true;
     if (!id || id == undefined) {
       this.str = moment().format('DD/MM/YYYY');
-      this.exportAsset = new ExportAssetDto();
+      this.transferAsset = new TransferAssetDto();
+      
 
-
-      this.exportAsset.isReadonly = false;
+      this.transferAsset.isReadonly = false;
       this.getAssetComboBox();
       this.getUnitsComboBox();
       // this.getUserComboBox();
       this.modal.show();
     } else {
-      
-      this._appService.getForEdit('api/ExportAsset/GetExportAssetForEdit', id)
+
+      this._appService.getForEdit('api/TransferAsset/GetTransferAssetForEdit', id)
         .subscribe(exportAssetAsset => {
-          this.exportAsset = exportAssetAsset;
-          this.str = moment(this.exportAsset.exportDate).format('DD/MM/YYYY');
+          this.transferAsset = exportAssetAsset;
+          this.str = moment(this.transferAsset.transferDate).format('DD/MM/YYYY');
 
           this.getAssetComboBox();
           this.getUnitsComboBox();
@@ -107,8 +108,8 @@ export class CreateOrEditExportAssetModelComponent extends AppComponentBase {
     this._appService.get('api/Asset/GetAssets')
       .subscribe(
         assets => {
-          this.assetsCombobox = assets.items.map<ComboboxItemDto>(item => 
-            new ComboboxItemDto({value: item.assetCode, displayText: item.assetName, isSelected: false}));
+          this.assetsCombobox = assets.items.map<ComboboxItemDto>(item =>
+            new ComboboxItemDto({ value: item.assetCode, displayText: item.assetName, isSelected: false }));
           setTimeout(() => {
             $(this.assetCombobox.nativeElement).selectpicker("refresh");
           }, 0);
@@ -128,11 +129,11 @@ export class CreateOrEditExportAssetModelComponent extends AppComponentBase {
       );
   }
 
-  onSelectAsset(name: string): void { 
+  onSelectAsset(name: string): void {
     this._appService.get('api/Asset/GetAssetByCode?code=' + name)
       .subscribe(
         asset => {
-          this.exportAsset.assetName = asset.items && asset.items[0].assetName;
+          this.transferAsset.assetName = asset.items && asset.items[0].assetName;
         }
       );
   }

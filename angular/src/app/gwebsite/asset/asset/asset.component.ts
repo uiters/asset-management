@@ -1,12 +1,12 @@
-import { Component, OnInit, AfterViewInit, ViewChild, Injector } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, Injector } from '@angular/core';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Table } from 'primeng/table';
 import { Paginator, LazyLoadEvent } from 'primeng/primeng';
-import { AssetServiceProxy, GroupAssetServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ActivatedRoute, Params } from '@angular/router';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
 import { CreateOrEditAssetModelComponent } from '../create-or-edit-asset-model/create-or-edit-asset-model.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'appAsset',
@@ -37,10 +37,10 @@ export class AssetComponent extends AppComponentBase implements AfterViewInit {
   init() {
     this._activatedRoute.params.subscribe((params: Params) => {
       this.assetName = params['assetname'] || '';
-      this.reloadList(this.assetName, null);
+      this.reloadList(null);
     });
   }
-  reloadList(name: string, event?: LazyLoadEvent): void {
+  reloadList(event?: LazyLoadEvent): void {
     this._apiService.get('api/Asset/GetAssetsByFilter',
       [{ fieldName: 'AssetName', value: this.assetName }],
       this.primengTableHelper.getSorting(this.dataTable),
@@ -58,12 +58,16 @@ export class AssetComponent extends AppComponentBase implements AfterViewInit {
   deleteAsset(id: number): void {
     this._apiService.delete("api/Asset/DeleteAsset?", id)
       .subscribe(() => {
-          this.notify.info(this.l('DeletedSuccessfully'));
-          this.reLoadPage();
+        this.notify.info(this.l('DeletedSuccessfully'));
+        this.reLoadPage();
       });
   }
   reLoadPage() {
     this.paginator.changePage(this.paginator.getPage());
+  }
+
+  formatDate(str: any): any {
+    return moment(str).format('DD/MM/YYYY');
   }
 
   createAsset(): void {
@@ -71,7 +75,7 @@ export class AssetComponent extends AppComponentBase implements AfterViewInit {
   }
 
   applyFilters(): void {
-    this.reloadList(this.assetName, null);
+    this.reloadList(null);
 
     if (this.paginator.getPage() != 0) {
       this.paginator.changePage(0);
@@ -83,7 +87,7 @@ export class AssetComponent extends AppComponentBase implements AfterViewInit {
       return;
     } else {
       this.primengTableHelper.showLoadingIndicator();
-      this.reloadList(null, event);
+      this.reloadList(event);
     }
   }
 

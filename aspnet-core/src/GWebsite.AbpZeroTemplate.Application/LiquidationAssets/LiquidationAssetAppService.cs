@@ -94,7 +94,7 @@ namespace GWebsite.AbpZeroTemplate.Web.Core.LiquidationAssets
             System.Collections.Generic.List<LiquidationAssetDto> items = liquidationAssets
                 .OrderBy(input.Sorting)
                 .PageBy(input)
-                .Select(liquidationAsset => ObjectMapper.Map<LiquidationAssetDto>(liquidationAssets))
+                .Select(liquidationAsset => ObjectMapper.Map<LiquidationAssetDto>(liquidationAsset))
                 .ToList();
 
             return new PagedResultDto<LiquidationAssetDto>(totalCount, items);

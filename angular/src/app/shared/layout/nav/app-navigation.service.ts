@@ -22,10 +22,10 @@ export class AppNavigationService {
                 new AppMenuItem('Quản lý tài sản', 'Pages.Administration.Asset', 'flaticon-tabs', '/app/gwebsite/asset'),
                 new AppMenuItem('Quản lý nhóm tài sản', 'Pages.Administration.GroupAsset', 'flaticon-menu-1', '/app/gwebsite/asset-group'),
                 new AppMenuItem('Quản lý loại tài sản', 'Pages.Administration.AssetType', 'flaticon-menu-1', '/app/gwebsite/asset-type'),
-                new AppMenuItem('Quản Lý Sữa Chữa Tài Sản','' ,'flaticon-menu-1', '/app/gwebsite/fix-asset'),
-                new AppMenuItem('Quản Lý Đơn Vị Sử Dụng Tài Sản','' ,'flaticon-menu-1', '/app/gwebsite/unit'),
-                new AppMenuItem('Quản lý xuất tài sản','' ,'flaticon-menu-1', '/app/gwebsite/export-asset'),
-
+                new AppMenuItem('Quản Lý Sữa Chữa Tài Sản', '', 'flaticon-menu-1', '/app/gwebsite/fix-asset'),
+                new AppMenuItem('Quản Lý Đơn Vị Sử Dụng Tài Sản', '', 'flaticon-menu-1', '/app/gwebsite/unit'),
+                new AppMenuItem('Quản lý xuất tài sản', 'Pages.Administration.ExportAsset', 'flaticon-menu-1', '/app/gwebsite/export-asset'),
+                new AppMenuItem('Quản lý điều chuyển tài sản', 'Pages.Administration.TransferAsset', 'flaticon-menu-1', '/app/gwebsite/transfer-asset'),
             ]),
             new AppMenuItem('Systems', '', 'flaticon-layers', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),

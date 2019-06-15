@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuClientComponent } from '@app/gwebsite/menu-client/menu-client.component';
-import { MenuClientComponent as DepreciationComponent} from '@app/gwebsite/depreciation/depreciation.component';
+import { MenuClientComponent as DepreciationComponent } from '@app/gwebsite/depreciation/depreciation.component';
 import { DemoModelComponent } from './demo-model/demo-model.component';
 import { CustomerComponent } from './customer/customer.component';
 import { AssetGroupComponent } from './asset-group/asset-group.component';
@@ -10,11 +10,11 @@ import { AssetTypeComponent } from './asset-type/asset-type.component';
 import { FixAssetComponent } from './fix-asset/fixasset.component';
 import { UnitComponent } from './unit/unit.component';
 import { ExportAssetComponent } from './export-asset/export-asset/export-asset.component';
+import { TransferAssetComponent } from './transfer-asset/transfer-asset/transfer-asset.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
-        
             {
                 path: '',
                 children: [
@@ -68,13 +68,22 @@ import { ExportAssetComponent } from './export-asset/export-asset/export-asset.c
                         //data: { permission: 'Pages.Administration.AssetType' }
                     },
                 ]
-            }, 
+            },
             {
                 path: '',
                 children: [
                     {
                         path: 'export-asset', component: ExportAssetComponent,
                         data: { permission: 'Pages.Administration.ExportAsset' }
+                    },
+                ]
+            },
+            {
+                path: '',
+                children: [
+                    {
+                        path: 'transfer-asset', component: TransferAssetComponent,
+                        data: { permission: 'Pages.Administration.TransferAsset' }
                     },
                 ]
             }

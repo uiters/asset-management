@@ -36,6 +36,8 @@ import { CreateOrEditAssetModelComponent } from './asset/create-or-edit-asset-mo
 import { AssetComponent } from './asset/asset/asset.component';
 import { ExportAssetComponent } from './export-asset/export-asset/export-asset.component';
 import { CreateOrEditExportAssetModelComponent } from './export-asset/create-or-edit-export-asset-model/create-or-edit-export-asset-model.component';
+import { TransferAssetComponent } from './transfer-asset/transfer-asset/transfer-asset.component';
+import { CreateOrEditTransferAssetComponent } from './transfer-asset/create-or-edit-transfer-asset/create-or-edit-transfer-asset.component';
 
 @NgModule({
     imports: [
@@ -66,6 +68,7 @@ import { CreateOrEditExportAssetModelComponent } from './export-asset/create-or-
         AssetTypeComponent, CreateOrEditAssetTypeModalComponent, ViewAssetTypeModalComponent,
         FixAssetComponent,CreateOrEditFixAssetModalComponent,
         UnitComponent,CreateOrEditUnitModalComponent, ExportAssetComponent, CreateOrEditExportAssetModelComponent,
+        TransferAssetComponent, CreateOrEditTransferAssetComponent,
     ],
     providers: [
         DemoModelServiceProxy,

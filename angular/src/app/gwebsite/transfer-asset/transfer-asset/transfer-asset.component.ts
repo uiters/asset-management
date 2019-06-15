@@ -1,23 +1,24 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Injector } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, Injector } from '@angular/core';
+import { AppComponentBase } from '@shared/common/app-component-base';
 import { Table } from 'primeng/table';
 import { Paginator, LazyLoadEvent } from 'primeng/primeng';
-import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { AppComponentBase } from '@shared/common/app-component-base';
 import { ActivatedRoute, Params } from '@angular/router';
 import { WebApiServiceProxy } from '@shared/service-proxies/webapi.service';
-import { CreateOrEditExportAssetModelComponent } from '../create-or-edit-export-asset-model/create-or-edit-export-asset-model.component';
+import { CreateOrEditTransferAssetComponent } from '../create-or-edit-transfer-asset/create-or-edit-transfer-asset.component';
+import { appModuleAnimation } from '@shared/animations/routerTransition';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-export-asset',
-  templateUrl: './export-asset.component.html',
-  styleUrls: ['./export-asset.component.css'],
+  selector: 'app-transfer-asset',
+  templateUrl: './transfer-asset.component.html',
   animations: [appModuleAnimation()]
+
 })
-export class ExportAssetComponent extends AppComponentBase implements AfterViewInit {
+export class TransferAssetComponent extends AppComponentBase implements AfterViewInit {
+
   @ViewChild('dataTable') dataTable: Table;
   @ViewChild('paginator') paginator: Paginator;
-  @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditExportAssetModelComponent;
+  @ViewChild('createOrEditModal') createOrEditModal: CreateOrEditTransferAssetComponent;
   public assetName: string
 
   constructor(injector: Injector, private _activatedRoute: ActivatedRoute, private _apiService: WebApiServiceProxy, ) {
@@ -29,7 +30,7 @@ export class ExportAssetComponent extends AppComponentBase implements AfterViewI
       this.init();
     })
   }
-  
+
   init() {
     this._activatedRoute.params.subscribe((params: Params) => {
       this.assetName = params['assetname'] || '';
@@ -37,25 +38,20 @@ export class ExportAssetComponent extends AppComponentBase implements AfterViewI
     });
   }
   reloadList(name: string, event?: LazyLoadEvent): void {
-    this._apiService.get('api/ExportAsset/GetExportAssetsByFilter',
+    this._apiService.get('api/TransferAsset/GetTransferAssetsByFilter',
       [{ fieldName: 'Name', value: this.assetName }],
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getMaxResultCount(this.paginator, event),
       this.primengTableHelper.getSkipCount(this.paginator, event),
     ).subscribe(result => {
-
       this.primengTableHelper.totalRecordsCount = result.totalCount;
       this.primengTableHelper.records = result.items;
       this.primengTableHelper.hideLoadingIndicator();
     });
   }
 
-  formatDate(str: any): any {
-    return moment(str).format('DD/MM/YYYY');
-  }
-
-  deleteExportAsset(id: number): void {
-    this._apiService.delete("api/ExportAsset/DeleteExportAsset?", id)
+  deleteTransferAsset(id: number): void {
+    this._apiService.delete("api/TransferAsset/DeleteTransferAsset?", id)
       .subscribe(() => {
         this.notify.info(this.l('DeletedSuccessfully'));
         this.reLoadPage();
@@ -65,7 +61,7 @@ export class ExportAssetComponent extends AppComponentBase implements AfterViewI
     this.paginator.changePage(this.paginator.getPage());
   }
 
-  createExportAsset(): void {
+  createTransferAsset(): void {
     this.createOrEditModal.show();
   }
 
@@ -77,13 +73,17 @@ export class ExportAssetComponent extends AppComponentBase implements AfterViewI
     }
   }
 
-  getExportAssets(event?: LazyLoadEvent) {
+  getTransferAssets(event?: LazyLoadEvent) {
     if (!this.paginator || !this.dataTable) {
       return;
     } else {
       this.primengTableHelper.showLoadingIndicator();
       this.reloadList(null, event);
     }
+  }
+
+  formatDate(str: any): any {
+    return moment(str).format('DD/MM/YYYY');
   }
 
   truncateString(text: string): string {
